@@ -61,5 +61,6 @@ typings/
 .DS_Store
 
 # Unity
+Assembly-CSharp-Editor.csproj
 FasettUnity/Fasett/Library
 FasettUnity/Builds
