@@ -63,4 +63,7 @@ typings/
 # Unity
 Assembly-CSharp-Editor.csproj
 FasettUnity/Fasett/Library
+FasettUnity/FasettComms/Library
 FasettUnity/Builds
+FasettUnity/Fasett/Temp
+FasettUnity/FasettComms/Temp
