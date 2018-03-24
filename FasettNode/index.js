@@ -1,3 +1,4 @@
+// https://github.com/alexanderwallin/harpaio-music-engine/blob/master/src/resolume-osc.js
 var five = require('johnny-five');
 var app = require('express')();
 var http = require('http').Server(app);
@@ -24,16 +25,12 @@ board.on('ready', function() {
 
 		sensor.on('change', (value) => {
 
-			// scale 0-1023 to 0-127
-			// let value = sensor.scaleTo(0,127);
-
 			const data = '/d'+input+' '+value;
 
-			console.log(data);
+			// console.log(data);
 
 			io.emit('chat', { msg: data });
 
 		});
 	}
-
 });
