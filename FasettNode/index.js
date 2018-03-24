@@ -1,13 +1,24 @@
 // https://github.com/alexanderwallin/harpaio-music-engine/blob/master/src/resolume-osc.js
 var five = require('johnny-five');
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var osc = require('osc');
+// var app = require('express')();
+// var http = require('http').Server(app);
+// var io = require('socket.io')(http);
 
 // https://socket.io/
-http.listen(3000, function(){
-	console.log('listening on *:3000');
+// http.listen(3000, function(){
+// 	console.log('listening on *:3000');
+// });
+
+const udpPort = new osc.UDPPort({
+    broadcast: true,
+    localAddress: "0.0.0.0",
+    localPort: 57122,
+    remoteAddress: "255.255.255.255",
+    remotePort: 57121
 });
+
+udpPort.open();
 
 // http://johnny-five.io/api/board/
 const board = new five.Board({
@@ -25,12 +36,31 @@ board.on('ready', function() {
 
 		sensor.on('change', (value) => {
 
-			const data = '/d'+input+' '+value;
+			// const msg = '/d'+input;
+			// const msg = '/d'+input+' '+value;
 
-			// console.log(data);
+			// io.emit('chat', { msg: msg }
+			
+			const msg = '/CubeX';
 
-			io.emit('chat', { msg: data });
+			console.log(msg,value);
 
+			udpPort.send({
+				address: msg,
+				args: [
+					{
+						type: 'f',
+						value: value
+					}
+				]
+			});
+
+			// client.send(msg, value, function (){
+				// client.kill();
+			// });
 		});
 	}
 });
+
+
+
