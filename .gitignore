@@ -57,5 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
+# Mac
+.DS_Store
+
+# Unity
 FasettUnity/Fasett/Library
 FasettUnity/Builds
