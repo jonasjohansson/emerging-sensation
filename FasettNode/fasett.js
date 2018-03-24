@@ -2,6 +2,14 @@
 // https://github.com/alexanderwallin/harpaio-music-engine/blob/master/src/resolume-osc.js
 var osc = require('node-osc');
 var five = require("johnny-five");
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+// https://socket.io/
+http.listen(3000, function(){
+	console.log('listening on *:3000');
+});
 
 // http://johnny-five.io/api/board/
 const board = new five.Board({
@@ -28,9 +36,14 @@ board.on('ready', function() {
 
 			console.log(msg, value);
 
-			client.send(msg, value, function (){
-				// client.kill();
+			// client.send(msg, value, function (){
+			// 	client.kill();
+			// });
+
+			io.on('connection', (socket) => {
+				io.emit('chat', { msg: msg });
 			});
+
 		});
 	}
 
