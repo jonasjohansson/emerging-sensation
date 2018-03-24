@@ -7,6 +7,8 @@
 
 ## Node
 
+Run npm install in FasettNode folder.
+
 - https://github.com/russellmcc/node-osc-min
 - http://shanes.net/another-nrf24l01-sketch-string-sendreceive/
 
