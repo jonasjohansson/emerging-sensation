@@ -1,7 +1,5 @@
-// https://github.com/russellmcc/node-osc-min
 // https://github.com/alexanderwallin/harpaio-music-engine/blob/master/src/resolume-osc.js
-var osc = require('node-osc');
-var five = require("johnny-five");
+var five = require('johnny-five');
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -20,8 +18,6 @@ const board = new five.Board({
 
 board.on('ready', function() {
 
-	const client = new osc.Client('127.0.0.1', 6969);
-
 	for (const input of [2]){
 
 		// http://johnny-five.io/api/sensor/
@@ -35,10 +31,6 @@ board.on('ready', function() {
 			const msg = '/d'+input;
 
 			console.log(msg, value);
-
-			// client.send(msg, value, function (){
-			// 	client.kill();
-			// });
 
 			io.on('connection', (socket) => {
 				io.emit('chat', { msg: msg });
