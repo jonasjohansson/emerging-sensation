@@ -20,12 +20,10 @@ public class SocketIOScript : MonoBehaviour {
 		DoClose ();
 	}
 
-	// Use this for initialization
 	void Start () {
 		DoOpen ();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 	}
 
