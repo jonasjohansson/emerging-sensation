@@ -690,7 +690,7 @@ PlayerSettings:
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
   cloudProjectId: c872e651-2196-4041-9cd2-b4ae15b89b1b
-  projectName: Vuforia HoloLens Sample
+  projectName: Fasett
   organizationId: bjornalbihn
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
