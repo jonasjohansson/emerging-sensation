@@ -4,4 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/0-Splash.unity
+    guid: c821e2eca6ff325469f8a758a0d7e93e
+  - enabled: 1
+    path: Assets/Scenes/1-Loading.unity
+    guid: 03078236e6712c24a9dd679dfe864861
+  - enabled: 1
+    path: Assets/Scenes/2-HoloLens.unity
+    guid: ad86b301810ca461482b726d458f1353
