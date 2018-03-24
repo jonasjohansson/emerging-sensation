@@ -1,8 +1,8 @@
 {
   "dependencies": {
+    "express": "^4.16.3",
     "johnny-five": "^0.14.1",
-    "node-osc": "^2.1.0",
     "osc": "^2.2.0",
-    "osc-js": "^1.2.2"
+    "socket.io": "^2.0.4"
   }
 }
