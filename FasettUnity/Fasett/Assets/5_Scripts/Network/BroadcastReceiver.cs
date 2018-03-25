@@ -1,14 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
 //using System.Text;
-#if UNITY_EDITOR
 // using System;
 using System;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-#else
+#if !UNITY_EDITOR
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 using System.Threading.Tasks;
@@ -18,15 +17,15 @@ using Windows.Networking;
 
 #if UNITY_EDITOR
 
-public class BroadcastReceiver : IDisposable
+public class BroadcastReceiver
 {
 	//OnMessageReceived
-	public delegate void AddOnMessageReceivedDelegate(string message, IPEndPoint remoteEndpoint);
+	public delegate void AddOnMessageReceivedDelegate(string message);
 	public event AddOnMessageReceivedDelegate MessageReceived;
-	private void OnMessageReceivedEvent(string message, IPEndPoint remoteEndpoint)
+	private void OnMessageReceivedEvent(string message)
 	{
 		if (MessageReceived != null)
-			MessageReceived(message, remoteEndpoint);
+			MessageReceived(message);
 	}
 
 	private Thread _ReadThread;
@@ -57,7 +56,7 @@ public class BroadcastReceiver : IDisposable
 
 						// encode UTF8-coded bytes to text format
 						string message = Encoding.UTF8.GetString(data);
-						OnMessageReceivedEvent(message, anyIP);
+						OnMessageReceivedEvent(message);
 					}
 					catch (Exception err)
 					{
@@ -85,15 +84,15 @@ public class BroadcastReceiver : IDisposable
 	
 #else
 
-public class BroadcastReceiver : IDisposable
+public class BroadcastReceiver 
 {
 	//OnMessageReceived
-	public delegate void AddOnMessageReceivedDelegate(string message, IPEndPoint remoteEndpoint);
+	public delegate void AddOnMessageReceivedDelegate(string message);
 	public event AddOnMessageReceivedDelegate MessageReceived;
-	private void OnMessageReceivedEvent(string message, IPEndPoint remoteEndpoint)
+	private void OnMessageReceivedEvent(string message)
 	{
 		if (MessageReceived != null)
-			MessageReceived(message, remoteEndpoint);
+			MessageReceived(message);
 	}
 
 
@@ -145,8 +144,8 @@ public class BroadcastReceiver : IDisposable
 			StreamReader reader = new StreamReader(streamIn, Encoding.UTF8);
 
 			string message = await reader.ReadLineAsync();
-			IPEndPoint remoteEndpoint = new IPEndPoint(IPAddress.Parse(args.RemoteAddress.RawName), Convert.ToInt32(args.RemotePort));
-			OnMessageReceivedEvent(message, remoteEndpoint);
+			//IPEndPoint remoteEndpoint = new IPEndPoint(IPAddress.Parse(args.RemoteAddress.RawName), Convert.ToInt32(args.RemotePort));
+			OnMessageReceivedEvent(message);
 		}
 		catch (Exception ex)
 		{

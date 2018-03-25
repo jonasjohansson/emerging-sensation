@@ -784,6 +784,7 @@ GameObject:
   - component: {fileID: 1228938846}
   - component: {fileID: 1228938844}
   - component: {fileID: 1228938845}
+  - component: {fileID: 1228938848}
   m_Layer: 0
   m_Name: Input
   m_TagString: Untagged
@@ -815,7 +816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94d95b590f54d6c41a9be0487d80a211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputManager: {fileID: 0}
+  inputManager: {fileID: 1228938846}
 --- !u!114 &1228938846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,6 +829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _testFloatInput: {fileID: 1952930948}
+  _objectCreator: {fileID: 0}
 --- !u!4 &1228938847
 Transform:
   m_ObjectHideFlags: 0
@@ -843,6 +845,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1228938848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1228938843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 614ac15adf22dd4499c9bc4678a6ec00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 1531662691491896, guid: ace94cb1b95a50d4ead4efb55ae04451, type: 2}
+  _radius: 0.2
 --- !u!1 &1374523121
 GameObject:
   m_ObjectHideFlags: 0

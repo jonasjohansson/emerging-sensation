@@ -23,8 +23,9 @@ public class Main : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Log (string message, IPEndPoint remoteEndpoint) {
+    void Log (string message) {
 		Debug.Log (message);
-      //  inputManager.TestSetFloat(Mathf.InverseLerp(0,127,);  
+        float value = float.Parse(message);
+        inputManager.CreateObject();  
     }
 }
