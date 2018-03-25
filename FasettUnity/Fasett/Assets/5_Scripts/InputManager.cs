@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour {
         _testFloatInput.SetNewValue(value);
     }
 
+    [ContextMenu("Test")]
     public void CreateObject() {
         _objectCreator.Create();
     }
