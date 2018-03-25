@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Vuforia;
@@ -25,3 +26,4 @@ public class VuforiaCameraIssueFix : MonoBehaviour
 		}
 	}
 }
+#endif
