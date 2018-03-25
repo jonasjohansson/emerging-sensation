@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class TestSlider : MonoBehaviour {
 	[SerializeField] private Slider _slider;
-	[SerializeField] private FloatInput _floatInput;
+    [SerializeField] private InputManager _inputManager;
 
 	private void Start () {
-		_slider.onValueChanged.AddListener((value) => _floatInput.SetNewValue(value));	
+        _slider.onValueChanged.AddListener(_inputManager.TestSetFloat);	
 	}
 }
