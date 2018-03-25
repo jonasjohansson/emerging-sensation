@@ -1,5 +1,4 @@
 
-
 // This is version 1.01(2015.05.27)
 // Tested in Unity 4
 // Most of the code is based on a library for the Make Controller Kit1
@@ -123,6 +122,7 @@ using UnityEngine;
 /// </summary>
 public class UDPPacketIO 
 {
+    #if UNITY_EDITOR
 	private UdpClient Sender;
 	private UdpClient Receiver;
 	private bool socketsOpen;
@@ -295,15 +295,16 @@ public class UDPPacketIO
 			localPort = value; 
 		}
 	}
+    #endif
 }
 
-//namespace MakingThings
-//{
-  /// <summary>
-  /// The OscMessage class is a data structure that represents
-  /// an OSC address and an arbitrary number of values to be sent to that address.
-  /// </summary>
-  public class OscMessage
+    //namespace MakingThings
+    //{
+    /// <summary>
+    /// The OscMessage class is a data structure that represents
+    /// an OSC address and an arbitrary number of values to be sent to that address.
+    /// </summary>
+    public class OscMessage
   {
    /// <summary>
    /// The OSC address of the message as a string.
@@ -384,8 +385,8 @@ public class UDPPacketIO
   /// </summary>
   public class OSC : MonoBehaviour
   {
-
-    public int inPort  = 6969;
+    #if UNITY_EDITOR
+    public int inPort  = 57121;
     public string outIP = "127.0.0.1";
     public int outPort  = 6161;
 
@@ -410,11 +411,9 @@ public class UDPPacketIO
 	{
 		// This method is run whenever the playmode state is changed.
 		
-		#if UNITY_EDITOR
 			paused = UnityEditor.EditorApplication.isPaused;
 			//print ("editor paused "+paused);
 			// do stuff when the editor is paused.
-		#endif
 	}
 
 
@@ -436,10 +435,7 @@ public class UDPPacketIO
 		ReadThread.IsBackground = true;      
 		ReadThread.Start();
 
-		#if UNITY_EDITOR
 		UnityEditor.EditorApplication.playmodeStateChanged = HandleOnPlayModeChanged;
-		#endif
-
 	}
 
 	void OnDestroy() {
@@ -470,16 +466,6 @@ public class UDPPacketIO
 		else print ("there");
 		*/
 	}
-
-
-
-	void OnApplicationPause(bool pauseStatus) {
-		#if !UNITY_EDITOR
-		paused = pauseStatus;
-		print ("Application paused : " + pauseStatus);
-#endif
-	}
-
 
 	void Update() {
 
@@ -626,9 +612,9 @@ public class UDPPacketIO
       AllMessageHandler = amh;
     }
 
- 
+    #endif
 
-    
+
 
     /// <summary>
     /// Creates an OscMessage from a string - extracts the address and determines each of the values. 
