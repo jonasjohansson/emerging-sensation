@@ -14,6 +14,7 @@ public class RecieveTest : MonoBehaviour {
 
     void OnReceive0(OscMessage message) {
 		float val = message.GetInt(0);
+        Debug.Log(val);
         inputManager.TestSetFloat(val);
     }
     #endif

@@ -67,3 +67,6 @@ FasettUnity/FasettComms/Library
 FasettUnity/Builds
 FasettUnity/Fasett/Temp
 FasettUnity/FasettComms/Temp
+FasettUnity/Fasett/HololensBuild/
+*.csproj
+FasettUnity/Fasett/.vs/

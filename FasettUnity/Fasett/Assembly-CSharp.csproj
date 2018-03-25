@@ -115,7 +115,6 @@
      <Compile Include="Assets\5_Scripts\Input\BinaryInput.cs" />
      <Compile Include="Assets\5_Scripts\Input\FloatInput.cs" />
      <Compile Include="Assets\5_Scripts\InputManager.cs" />
-     <Compile Include="Assets\5_Scripts\OSC\OSC.cs" />
      <Compile Include="Assets\5_Scripts\UI\TestSlider.cs" />
      <Compile Include="Assets\5_Scripts\VuforiaCameraIssueFix.cs" />
      <None Include="Assets\4_ThirdParty\PostProcessing\Resources\Shaders\DepthOfField.shader" />
