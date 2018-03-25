@@ -3,7 +3,9 @@
     "express": "^4.16.3",
     "johnny-five": "^0.14.1",
     "osc": "^2.2.0",
+    "osc-min": "^1.1.1",
     "serialport": "^6.1.1",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "xo": "^0.20.3"
   }
 }

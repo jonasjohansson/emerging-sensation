@@ -1,7 +1,7 @@
 // https://github.com/alexanderwallin/harpaio-music-engine/blob/master/src/resolume-osc.js
-var five = require('johnny-five');
-var osc = require('osc');
-// var app = require('express')();
+const five = require('johnny-five');
+const osc = require('osc');
+// Var app = require('express')();
 // var http = require('http').Server(app);
 // var io = require('socket.io')(http);
 
@@ -11,11 +11,11 @@ var osc = require('osc');
 // });
 
 const udpPort = new osc.UDPPort({
-    broadcast: true,
-    localAddress: "0.0.0.0",
-    localPort: 57122,
-    remoteAddress: "255.255.255.255",
-    remotePort: 57121
+	broadcast: true,
+	localAddress: '0.0.0.0',
+	localPort: 57122,
+	remoteAddress: '255.255.255.255',
+	remotePort: 57121
 });
 
 udpPort.open();
@@ -27,40 +27,35 @@ const board = new five.Board({
 	debug: false
 });
 
-board.on('ready', function() {
-
-	for (const input of [2]){
-
+board.on('ready', () => {
+	for (const input of [2]) {
 		// http://johnny-five.io/api/sensor/
 		const sensor = new five.Sensor.Digital(input);
 
-		sensor.on('change', (value) => {
-
-			// const msg = '/d'+input;
+		sensor.on('change', value => {
+			// Const msg = '/d'+input;
 			// const msg = '/d'+input+' '+value;
 
 			// io.emit('chat', { msg: msg }
-			
+
 			const msg = '/CubeX';
 
-			console.log(msg,value);
+			console.log(msg, value);
 
 			udpPort.send({
 				address: msg,
 				args: [
 					{
 						type: 'f',
-						value: value
+						value
 					}
 				]
 			});
 
-			// client.send(msg, value, function (){
-				// client.kill();
+			// Client.send(msg, value, function (){
+			// client.kill();
 			// });
 		});
 	}
 });
-
-
 
