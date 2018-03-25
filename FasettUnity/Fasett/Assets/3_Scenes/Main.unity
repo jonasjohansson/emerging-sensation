@@ -271,7 +271,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 282001198}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4ffc0557833f0745ae6b5ea11dd1e9a, type: 3}
   m_Name: 
@@ -783,6 +783,7 @@ GameObject:
   - component: {fileID: 1228938847}
   - component: {fileID: 1228938846}
   - component: {fileID: 1228938844}
+  - component: {fileID: 1228938845}
   m_Layer: 0
   m_Name: Input
   m_TagString: Untagged
@@ -803,6 +804,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 1952943138}
   _inputManager: {fileID: 1228938846}
+--- !u!114 &1228938845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1228938843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb33a3d2263a462e86bae9f3410ba36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portNumberReceive: 7003
+  inputManager: {fileID: 1228938846}
 --- !u!114 &1228938846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1086,7 +1100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd3f18a39f1548e6a498271fc1407d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _changeTime: 1
+  _changeTime: 0.1
   _changeCurve:
     serializedVersion: 2
     m_Curve:
