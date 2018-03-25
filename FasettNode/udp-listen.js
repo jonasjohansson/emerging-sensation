@@ -5,7 +5,7 @@ var socket = dgram.createSocket('udp4');
 socket.on('listening', function () {
     var address = socket.address();
     console.log('UDP Client listening on ' + address.address + ":" + address.port);
-    socket.setBroadcast(true);
+    // socket.setBroadcast(true);
 });
 
 socket.on('message', function (message, rinfo) {
