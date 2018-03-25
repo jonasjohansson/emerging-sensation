@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio for Mac
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fasett", "Fasett.csproj", "{1FA640C0-CBAB-A1AF-A0EA-CFAFA5890D73}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fasett.Editor", "Fasett.Editor.csproj", "{C42823C0-1E48-CDFF-4F91-6F13A3F09C4D}"

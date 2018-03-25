@@ -3,14 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LookAtInput : MonoBehaviour {
+    [SerializeField] InputManager _inputManager;
+    [SerializeField] float _treshold = .9f;
 
-	// Use this for initialization
-	void Start () {
-		
+    private Camera _mainCamera;
+    private bool _isLookingAt;
+
+	private void Awake(){
+        _mainCamera = Camera.main;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	private void Update(){
+        Vector3 dirFromAtoB = (transform.position - _mainCamera.transform.position).normalized;
+        float dotProd = Vector3.Dot(dirFromAtoB, _mainCamera.transform.forward);
+
+        SetLookingAt(dotProd > _treshold);
 	}
+
+    private void SetLookingAt(bool isLookingAt){
+        if (isLookingAt != _isLookingAt){
+            _isLookingAt = isLookingAt;
+            _inputManager.TestSetFloat(isLookingAt ? 1 : 0);
+        }
+    }
 }
