@@ -23,8 +23,8 @@
 const uint16_t server_node = 00;       // Address of our server node in Octal format 
 const uint16_t this_node = 01;       // Address of our node in Octal format
 
-uint16_t sensorPin = 4;
-uint16_t lastTouch=0;
+byte sensorPin = 4;
+byte lastTouch=0;
 
 
 RF24 radio(7,8);                    // nRF24L01(+) radio attached using Getting Started board 
@@ -39,13 +39,12 @@ unsigned long packets_sent;          // How many have we sent already
 
 
 struct payload_t {                  // Structure of our payload
-  uint16_t value;
+  byte value;
 };
 
 void setup(void)
 {
-  Serial.begin(57600);
-  Serial.println("RF24Network/examples/helloworld_tx/");
+  Serial.begin(115200);
 
   pinMode(sensorPin, INPUT);
  
@@ -58,12 +57,14 @@ void loop() {
   
   network.update();                          // Check the network regularly
 
-  uint16_t newTouch = digitalRead(sensorPin);
+  byte newTouch = digitalRead(sensorPin) * 127;
+
   if(newTouch != lastTouch) {
     lastTouch = newTouch;
     payload_t payload = { newTouch };
     RF24NetworkHeader header(/*to node*/ server_node);
     network.write(header,&payload,sizeof(payload));
+    Serial.println(newTouch);
   }
   delay(20);
  

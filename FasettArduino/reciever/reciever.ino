@@ -23,15 +23,15 @@
 RF24 radio(7,8);                // nRF24L01(+) radio attached using Getting Started board 
 
 RF24Network network(radio);      // Network uses that radio
-const uint16_t this_node = 00;    // Address of our node in Octal format ( 04,031, etc)
+const uint8_t this_node = 00;    // Address of our node in Octal format ( 04,031, etc)
 
 struct payload_t {                  // Structure of our payload
-  uint16_t value;
+  byte value;
 };
 
 void setup(void)
 {
-  Serial.begin(57600);
+  Serial.begin(115200);
   Serial.println("RF24Network/examples/helloworld_rx/");
  
   SPI.begin();
@@ -49,37 +49,8 @@ void loop(void){
     RF24NetworkHeader header;        // If so, grab it and print it out
     payload_t payload;
     network.read(header,&payload,sizeof(payload));
-    Serial.print("Received packet from ");
-    Serial.print(header.from_node);
-    Serial.print(": ");
-    Serial.println(payload.value);
-
+    Serial.write(header.from_node);
+    Serial.write((char)payload.value);
   }
 }
 
-
-/*
-#include <SPI.h>
-#include <nRF24L01.h>
-#include <RF24.h>
-RF24 radio(7, 8); // CE, CSN
-const byte address[6] = "00001";
-void setup() {
-  Serial.begin(9600);
-  radio.begin();
-  radio.openReadingPipe(0, address);
-  radio.setPALevel(RF24_PA_MAX);
-  radio.startListening();
-}
-void loop() {
-  if (radio.available()) {
-    char message[32] = "";
-    radio.read(&message, sizeof(message));
-    Serial.print(message);
-    Serial.print("Sensor ");
-    Serial.print((int)message[0]);
-    Serial.print(": ");
-    Serial.println((int)  message[1]);
-  }
-}
-*/
