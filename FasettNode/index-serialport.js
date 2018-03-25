@@ -11,18 +11,18 @@ const udpPort = new osc.UDPPort({
 
 udpPort.open();
 
-// const port = new SerialPort('/dev/cu.usbmodem1411', {
-// 	baudRate: 9600
-// });
-
-const port = new SerialPort('/dev/cu.usbmodem2214591', {
-	baudRate: 152000
+const port = new SerialPort('/dev/cu.usbmodem1411', {
+	baudRate: 9600
 });
+
+// const port = new SerialPort('/dev/cu.usbmodem2214591', {
+// 	baudRate: 152000
+// });
 
 port.on('readable', function () {
 	let val = port.read();
 
-	const msg = '/d'+val[0];
+	const msg = '/d0';
 
 	console.log(msg,val[1]);
 
