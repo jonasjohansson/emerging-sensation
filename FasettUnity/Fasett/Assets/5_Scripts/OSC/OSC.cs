@@ -123,9 +123,8 @@ using UnityEngine;
 /// </summary>
 public class UDPPacketIO 
 {
-	private UdpClient Sender;
-	private UdpClient Receiver;
-	private bool socketsOpen;
+    private OSCWrapper _wrapper;
+
 	private string remoteHostName;
 	private int remotePort;
 	private int localPort;
@@ -136,7 +135,7 @@ public class UDPPacketIO
 		RemoteHostName = hostIP;
 		RemotePort = remotePort;
 		LocalPort = localPort;
-		socketsOpen = false;
+        _wrapper = new OSCWrapper();
 	}
 	
 	
@@ -150,55 +149,7 @@ public class UDPPacketIO
 		
 	}
 	
-	/// <summary>
-	/// Open a UDP socket and create a UDP sender.
-	/// 
-	/// </summary>
-	/// <returns>True on success, false on failure.</returns>
-	public bool Open()
-	{
-		try
-		{
-			Sender = new UdpClient();
-			Debug.Log("Opening OSC listener on port " + localPort);
-			
-			IPEndPoint listenerIp = new IPEndPoint(IPAddress.Any, localPort);
-			Receiver = new UdpClient(listenerIp);
-			
-			
-			socketsOpen = true;
-			
-			return true;
-		}
-		catch (Exception e)
-		{
-			Debug.LogWarning("cannot open udp client interface at port "+localPort);
-			Debug.LogWarning(e);
-		}
-		
-		return false;
-	}
-	
-	/// <summary>
-	/// Close the socket currently listening, and destroy the UDP sender device.
-	/// </summary>
-	public void Close()
-	{    
-		if(Sender != null)
-			Sender.Close();
-		
-		if (Receiver != null)
-		{
-			Receiver.Close();
-			// Debug.Log("UDP receiver closed");
-		}
-		Receiver = null;
-		socketsOpen = false;
-		
-	}
-	
-	public void OnDisable()
-	{
+	public void OnDisable(){
 		Close();
 	}
 	
@@ -206,24 +157,31 @@ public class UDPPacketIO
 	/// Query the open state of the UDP socket.
 	/// </summary>
 	/// <returns>True if open, false if closed.</returns>
-	public bool IsOpen()
-	{
-		return socketsOpen;
+	public bool IsOpen(){
+		return _wrapper.SocketsOpen;
 	}
-	
-	/// <summary>
-	/// Send a packet of bytes out via UDP.
-	/// </summary>
-	/// <param name="packet">The packet of bytes to be sent.</param>
-	/// <param name="length">The length of the packet of bytes to be sent.</param>
-	public void SendPacket(byte[] packet, int length)
+
+    public bool Open(){
+        return _wrapper.Open(localPort);
+    }
+
+    public void Close(){
+        _wrapper.Close();
+    }
+
+    /// <summary>
+    /// Send a packet of bytes out via UDP.
+    /// </summary>
+    /// <param name="packet">The packet of bytes to be sent.</param>
+    /// <param name="length">The length of the packet of bytes to be sent.</param>
+    public void SendPacket(byte[] packet, int length)
 	{   
 		if (!IsOpen())
 			Open();
 		if (!IsOpen())
 			return;
-		
-		Sender.Send(packet, length, remoteHostName, remotePort);
+
+        _wrapper.SendPacket(packet, length, remoteHostName, RemotePort);
 		//Debug.Log("osc message sent to "+remoteHostName+" port "+remotePort+" len="+length);
 	}
 	
@@ -240,13 +198,10 @@ public class UDPPacketIO
 			return 0;
 		
 		
-		IPEndPoint iep = new IPEndPoint(IPAddress.Any, localPort);
-		byte[] incoming = Receiver.Receive( ref iep );
+		byte[] incoming = _wrapper.Receive(localPort);
 		int count = Math.Min(buffer.Length, incoming.Length);
 		System.Array.Copy(incoming, buffer, count);
 		return count;
-		
-		
 	}
 	
 	

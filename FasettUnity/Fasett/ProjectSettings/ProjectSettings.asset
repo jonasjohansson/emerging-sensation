@@ -7,7 +7,7 @@ PlayerSettings:
   productGUID: ecce09b91a6a54454a94af546be0ecbb
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
-  defaultScreenOrientation: 0
+  defaultScreenOrientation: 3
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
@@ -580,21 +580,22 @@ PlayerSettings:
   scriptingDefineSymbols:
     7: VUFORIA_SAMPLE_ORIENTATION_SETTINGS
   platformArchitecture: {}
-  scriptingBackend: {}
+  scriptingBackend:
+    Metro: 2
   incrementalIl2cppBuild: {}
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 0
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: VuforiaHoloLensSample
+  metroPackageName: FasettHoloLens
   metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: Vuforia HoloLens Sample
+  metroApplicationDescription: Fasett HoloLens
   wsaImages: {}
   metroTileShortName: 
   metroCommandLineArgsFile: 
