@@ -1,87 +1,167 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Text;
+﻿using System.Collections;
+using UnityEngine;
+//using System.Text;
+#if UNITY_EDITOR
+// using System;
 using System;
+using System.Text;
 using System.Net;
-using System.IO;
 using System.Net.Sockets;
 using System.Threading;
+#else
+using Windows.Networking.Sockets;
+using Windows.Storage.Streams;
+using System.Threading.Tasks;
+using System.IO;
+using Windows.Networking;
+#endif
 
-public class BroadcastReceiver : MonoBehaviour {
-	Thread udpListeningThread;
-	Thread udpSendingThread;
-	public int portNumberReceive;
-	UdpClient receivingUdpClient;
-	public GameObject myObject;
-	int myPosition = 0;
+#if UNITY_EDITOR
 
-	private void initListenerThread()
+public class BroadcastReceiver : IDisposable
+{
+	//OnMessageReceived
+	public delegate void AddOnMessageReceivedDelegate(string message, IPEndPoint remoteEndpoint);
+	public event AddOnMessageReceivedDelegate MessageReceived;
+	private void OnMessageReceivedEvent(string message, IPEndPoint remoteEndpoint)
 	{
-		portNumberReceive = 7003;
-
-		Debug.Log("Started on : " + portNumberReceive.ToString());
-		udpListeningThread = new Thread(new ThreadStart(UdpListener));
-
-		// Run in background
-		udpListeningThread.IsBackground = true;
-		udpListeningThread.Start();
+		if (MessageReceived != null)
+			MessageReceived(message, remoteEndpoint);
 	}
 
-	public void UdpListener()
+	private Thread _ReadThread;
+	private UdpClient _Socket;
+
+	public void Receive(int port)
 	{
-		receivingUdpClient = new UdpClient(portNumberReceive);
-
-		while (true)
-		{
-			//Listening 
-			try
+		// create thread for reading UDP messages
+		_ReadThread = new Thread(new ThreadStart(delegate
 			{
-				IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
-				//IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Broadcast, 5000);
-
-				// Blocks until a message returns on this socket from a remote host.
-				byte[] receiveBytes = receivingUdpClient.Receive(ref RemoteIpEndPoint);
-
-				if (receiveBytes != null)
+				try
 				{
-					string returnData = Encoding.ASCII.GetString(receiveBytes);
-					string dataString = returnData.ToString();
-
-					//MoveObject(returnData.ToString());
-
-					myPosition = int.Parse(dataString);
-
-					//Debug.Log("Message Received" + returnData.ToString());
-					//Debug.Log("Address IP Sender" + RemoteIpEndPoint.Address.ToString());
-					//Debug.Log("Port Number Sender" + RemoteIpEndPoint.Port.ToString());
-
-					if (returnData.ToString() == "TextTest")
+					_Socket = new UdpClient(port);
+					Debug.LogFormat("Receiving on port {0}", port);
+				}
+				catch (Exception err)
+				{
+					Debug.LogError(err.ToString());
+					return;
+				}
+				while (true)
+				{
+					try
 					{
-						//Do something if TextTest is received
+						// receive bytes
+						IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
+						byte[] data = _Socket.Receive(ref anyIP);
+
+						// encode UTF8-coded bytes to text format
+						string message = Encoding.UTF8.GetString(data);
+						OnMessageReceivedEvent(message, anyIP);
+					}
+					catch (Exception err)
+					{
+						Debug.LogError(err.ToString());
 					}
 				}
-			}
-			catch (Exception e)
-			{
-				Debug.Log(e.ToString());
-			}
+			}));
+		_ReadThread.IsBackground = true;
+		_ReadThread.Start();
+	}
+
+	public void Dispose()
+	{
+		if (_ReadThread.IsAlive)
+		{
+			_ReadThread.Abort();
+		}
+		if (_Socket != null)
+		{
+			_Socket.Close();
+			_Socket = null;
+		}
+	}
+}
+	
+#else
+
+public class BroadcastReceiver : IDisposable
+{
+	//OnMessageReceived
+	public delegate void AddOnMessageReceivedDelegate(string message, IPEndPoint remoteEndpoint);
+	public event AddOnMessageReceivedDelegate MessageReceived;
+	private void OnMessageReceivedEvent(string message, IPEndPoint remoteEndpoint)
+	{
+		if (MessageReceived != null)
+			MessageReceived(message, remoteEndpoint);
+	}
+
+
+	DatagramSocket _Socket = null;
+
+	public async void Receive(int port)
+	{
+		string portStr = port.ToString();
+		// start the client
+		try
+		{
+			_Socket = new DatagramSocket();
+			_Socket.MessageReceived += _Socket_MessageReceived;
+
+			await _Socket.BindServiceNameAsync(portStr);
+
+			//await _Socket.BindEndpointAsync(null, portStr);
+
+			//await _Socket.ConnectAsync(new HostName("255.255.255.255"), portStr.ToString());
+
+
+			//HostName hostname = Windows.Networking.Connectivity.NetworkInformation.GetHostNames().FirstOrDefault();
+			//var ep = new EndpointPair(hostname, portStr, new HostName("255.255.255.255"), portStr);
+			//await _Client.ConnectAsync(ep);
+
+			Debug.Log(string.Format("Receiving on {0}", portStr));
+
+			await Task.Delay(3000);
+			// send out a message, otherwise receiving does not work ?!
+			var outputStream = await _Socket.GetOutputStreamAsync(new HostName("255.255.255.255"), portStr);
+			DataWriter writer = new DataWriter(outputStream);
+			writer.WriteString("Hello World!");
+			await writer.StoreAsync();
+		}
+		catch (Exception ex)
+		{
+			_Socket.Dispose();
+			_Socket = null;
+			Debug.LogError(ex.ToString());
+			Debug.LogError(Windows.Networking.Sockets.SocketError.GetStatus(ex.HResult).ToString());
 		}
 	}
 
-	void Start()
+	private async void _Socket_MessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
 	{
-		initListenerThread();
+		try
+		{
+			Stream streamIn = args.GetDataStream().AsStreamForRead();
+			StreamReader reader = new StreamReader(streamIn, Encoding.UTF8);
+
+			string message = await reader.ReadLineAsync();
+			IPEndPoint remoteEndpoint = new IPEndPoint(IPAddress.Parse(args.RemoteAddress.RawName), Convert.ToInt32(args.RemotePort));
+			OnMessageReceivedEvent(message, remoteEndpoint);
+		}
+		catch (Exception ex)
+		{
+			Debug.LogError(ex.ToString());
+		}
 	}
 
-	void Update(){
-
-		Vector3 position = transform.position;
-		position.x = myPosition;
-		myObject.transform.position = position;
-	}
-
-	private void MoveObject(string message){
-		//Debug.Log (message);
-		//Debug.Log (myObject);
+	public void Dispose()
+	{
+		if (_Socket != null)
+		{
+			_Socket.Dispose();
+			_Socket = null;
+		}
 	}
 }
+
+#endif
