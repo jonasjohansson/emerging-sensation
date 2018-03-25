@@ -20,7 +20,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Text;
 using UnityEngine;
-
+using FasettNet;
 
 /// \mainpage
 /// \section Overview
@@ -135,11 +135,15 @@ public class UDPPacketIO
 		RemoteHostName = hostIP;
 		RemotePort = remotePort;
 		LocalPort = localPort;
-        _wrapper = new OSCWrapper();
-	}
-	
-	
-	~UDPPacketIO()
+#if !UNITY_EDITOR
+        _wrapper = new UWPOsc();
+#else
+        _wrapper = new UnityOsc();
+#endif
+    }
+
+
+    ~UDPPacketIO()
 	{
 		// latest time for this socket to be closed
 		if (IsOpen()) {
@@ -158,7 +162,7 @@ public class UDPPacketIO
 	/// </summary>
 	/// <returns>True if open, false if closed.</returns>
 	public bool IsOpen(){
-		return _wrapper.SocketsOpen;
+		return _wrapper.SocketsOpen();
 	}
 
     public bool Open(){
@@ -365,11 +369,11 @@ public class UDPPacketIO
 	{
 		// This method is run whenever the playmode state is changed.
 		
-		#if UNITY_EDITOR
+#if UNITY_EDITOR
 			paused = UnityEditor.EditorApplication.isPaused;
 			//print ("editor paused "+paused);
 			// do stuff when the editor is paused.
-		#endif
+#endif
 	}
 
 
@@ -391,9 +395,9 @@ public class UDPPacketIO
 		ReadThread.IsBackground = true;      
 		ReadThread.Start();
 
-		#if UNITY_EDITOR
+#if UNITY_EDITOR
 		UnityEditor.EditorApplication.playmodeStateChanged = HandleOnPlayModeChanged;
-		#endif
+#endif
 
 	}
 
@@ -429,7 +433,7 @@ public class UDPPacketIO
 
 
 	void OnApplicationPause(bool pauseStatus) {
-		#if !UNITY_EDITOR
+#if !UNITY_EDITOR
 		paused = pauseStatus;
 		print ("Application paused : " + pauseStatus);
 #endif
