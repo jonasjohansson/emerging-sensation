@@ -7,7 +7,7 @@ public class ReceivePosition : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-       osc.SetAddressHandler("/d0", OnReceive0);
+       osc.SetAddressHandler("/d1", OnReceive0);
     }
 	
 	// Update is called once per frame
@@ -17,6 +17,8 @@ public class ReceivePosition : MonoBehaviour {
 
     void OnReceive0(OscMessage message) {
 		float val = message.GetInt(0);
+
+		Debug.Log (val);
 
         Vector3 position = transform.position;
 
