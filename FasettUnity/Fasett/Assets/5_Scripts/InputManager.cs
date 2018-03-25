@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 
 public class InputManager : MonoBehaviour {
+    /*
 	public OSC osc;
 	[SerializeField] private FloatInput _floatInput;
 
@@ -18,5 +19,5 @@ public class InputManager : MonoBehaviour {
 		float newValue = message.GetFloat(0);
 		_floatInput.SetNewValue(newValue);
 	}
-
+    */
 }
