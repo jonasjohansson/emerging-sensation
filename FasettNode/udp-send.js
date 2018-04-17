@@ -12,22 +12,55 @@ server.bind(function() {
 	server.setBroadcast(true);
 });
 
-SerialPort.list(function (err, results){
-	let portData = results.filter(data => data.manufacturer === 'Teensyduino')[0];
-	let port = new SerialPort(portData.comName, {
+async function getPort() {
+	let ports = await getPorts();
+	let port = ports.filter(data => data.manufacturer === 'Teensyduino')[0];
+	if (port !== undefined){
+		connectPort(port.comName);
+	} else {
+		setTimeout(getPort,3000);
+	}
+}
+
+async function getPorts() {
+	console.log('Scanning all ports…');
+	return SerialPort.list();
+}
+
+function connectPort(com){
+	console.log('Connecting to port:',com);
+	let port = new SerialPort(com, {
 		baudRate: BAUDRATE
 	});
 	port.on('readable', function () {
-		let data = port.read();
-		data = data.toString('utf8');
-		data = data.trim();
-		const message = new Buffer(data);
-		sendMessage(message);
+		readData(port);
 	});
-	port.on('error', function(err) {
-		console.log('Error: ', err.message);
-	})
-});
+	port.on('open', function(err) {
+		connected = true;
+		console.log('Port connected!');
+	});
+	port.on('close', function(err) {
+		console.log('Port closed!');
+		console.log('Reconnecting…')
+		getPort();
+	});
+}
+
+function readData(port){
+	let data = port.read();
+	data = data.toString('utf8');
+	data = data.trim();
+	const message = new Buffer(data);
+	sendMessage(message);
+}
+
+function sendMessage(msg){
+	server.send(msg, 0, msg.length, PORT, BROADCAST_ADDR, function() {
+		console.log("Sent '" + msg + "'");
+	});
+}
+
+getPort();
 
 if (DEBUG){
 	let val = 0;
@@ -36,10 +69,4 @@ if (DEBUG){
 		const message = new Buffer(val);
 		sendMessage(message);
 	},1000);
-}
-
-function sendMessage(msg){
-	server.send(msg, 0, msg.length, PORT, BROADCAST_ADDR, function() {
-		console.log("Sent '" + msg + "'");
-	});
 }
