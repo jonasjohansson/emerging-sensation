@@ -7,6 +7,8 @@ void setup(){
   Serial.begin(115200);
   for (uint8_t i = 0; i < PINS; i++){
     pinMode(i, INPUT);
+    touches[i] = 0;
+    lastTouches[i] = 0;
   }
 }
 
