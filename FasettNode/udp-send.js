@@ -1,3 +1,10 @@
+/*
+
+- smarter reconenct with n devices available
+- more efficient lookup for device id
+
+*/
+
 const dgram = require('dgram'); 
 const SerialPort = require('serialport');
 
@@ -6,7 +13,17 @@ const server = dgram.createSocket('udp4');
 const PORT 				= 9000;
 const BROADCAST_ADDR 	= '255.255.255.255';
 const BAUDRATE 			= 152000;
-const DEBUG				= false;
+
+const devices = [
+	{
+		serialNumber: '2211820',
+		id: 'a',
+	},
+	{
+		serialNumber: '2214590',
+		id: 'b',
+	}
+]
 
 server.bind(function() {
 	server.setBroadcast(true);
@@ -14,11 +31,23 @@ server.bind(function() {
 
 async function getPort() {
 	let ports = await getPorts();
-	let port = ports.filter(data => data.manufacturer === 'Teensyduino')[0];
-	if (port !== undefined){
-		connectPort(port.comName);
+	ports = ports.filter(data => data.manufacturer === 'Teensyduino');
+	if (ports.length > 0){
+		for (let port of ports){
+			setId(port);
+			connectPort(port.comName,port.id);
+		}
 	} else {
 		setTimeout(getPort,3000);
+	}
+}
+
+function setId(port){
+	for (var key in devices){
+		let device = devices[key];
+		if (device.serialNumber === port.serialNumber){
+			port.id = device.id;
+		}
 	}
 }
 
@@ -27,16 +56,16 @@ async function getPorts() {
 	return SerialPort.list();
 }
 
-function connectPort(com){
+function connectPort(com,id){
 	console.log('Connecting to port:',com);
 	let port = new SerialPort(com, {
 		baudRate: BAUDRATE
 	});
 	port.on('readable', function () {
-		readData(port);
+		let msg = getMessage(port);
+		sendMessage(id+msg);
 	});
 	port.on('open', function(err) {
-		connected = true;
 		console.log('Port connected!');
 	});
 	port.on('close', function(err) {
@@ -46,12 +75,11 @@ function connectPort(com){
 	});
 }
 
-function readData(port){
+function getMessage(port){
 	let data = port.read();
 	data = data.toString('utf8');
 	data = data.trim();
-	const message = new Buffer(data);
-	sendMessage(message);
+	return new Buffer(data);
 }
 
 function sendMessage(msg){
@@ -61,12 +89,3 @@ function sendMessage(msg){
 }
 
 getPort();
-
-if (DEBUG){
-	let val = 0;
-	setInterval(()=>{
-		val = (val === '0') ? '127' : '0';
-		const message = new Buffer(val);
-		sendMessage(message);
-	},1000);
-}
