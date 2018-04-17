@@ -10,9 +10,11 @@ using System.Threading;
 public class Main : MonoBehaviour {
 
 	public BroadcastReceiver receiver = new BroadcastReceiver ();
+	private int port = 9000;
+
 	// Use this for initialization
 	void Start () {
-		receiver.Receive (7003);
+		receiver.Receive (port);
 		receiver.MessageReceived += Log;
 	}
 	
