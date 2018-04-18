@@ -22,6 +22,8 @@ Run npm install in FasettNode folder.
 ### Dgram
 
 - https://stackoverflow.com/questions/6177423/send-broadcast-datagram
+- https://github.com/rondagdag/hololens-littlebits/blob/master/UnityScripts/UDPCommunication.cs
+- https://gist.github.com/michaelosthege/857acac92b8ee689a6bb30d5bf23d9f6
 
 ## Arduino
 
