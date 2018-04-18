@@ -12,17 +12,20 @@
 #define NUM_LEDS 21
 #define BRIGHTNESS 96
 
-byte touches[PINS];
-byte lastTouches[PINS];
+byte touches[SENSOR_PINS];
+byte lastTouches[SENSOR_PINS];
 
 CRGB leds[NUM_LEDS];
 
 void setup(){
   Serial.begin(115200);
+
+  delay(1000);
   
   FastLED.addLeds<NEOPIXEL,DATA_PIN>(leds, NUM_LEDS);
   FastLED.setBrightness(BRIGHTNESS);
   FastLED.clear();
+  FastLED.show();
   
   for (uint8_t i = 0; i < SENSOR_PINS; i++){
     pinMode(i, INPUT);
@@ -41,7 +44,7 @@ void loop() {
       Serial.println(touches[i]);
     }
   }
-  if (digitalRead(12)){
+  if (touches[5] == 1){
     turnOn();
   } else {
     turnOff();
@@ -57,5 +60,6 @@ void turnOn() {
 
 void turnOff() {
   FastLED.clear();
+  FastLED.show();
 }
 
