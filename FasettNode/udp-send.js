@@ -29,6 +29,8 @@ server.bind(function() {
 	server.setBroadcast(true);
 });
 
+
+
 async function getPort() {
 	let ports = await getPorts();
 	ports = ports.filter(data => data.manufacturer === 'Teensyduino');
@@ -89,3 +91,10 @@ function sendMessage(msg){
 }
 
 getPort();
+
+// let val;
+// setInterval(()=>{
+// 	val = (val == '0') ? '127' : '0';
+// 	const msg = new Buffer(val);
+// 	sendMessage(msg);
+// },2000);
