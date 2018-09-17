@@ -1,5 +1,31 @@
 # fasett
 
+
+1. sudo apt-get update
+2. sudo apt-get dist-upgrade
+3. install Arduino IDE 1.8.6 for Linux ARM, https://www.arduino.cc/en/Main/Software, https://www.arduino.cc/en/Main/OldSoftwareReleases#previous
+4. install Teensy 
+
+
+## RPI
+
+### Update
+
+
+https://www.raspberrypi.org/documentation/raspbian/updating.md
+
+### VNC
+
+1. sudo apt-get install realvnc-vnc-server realvnc-vnc-viewer
+
+https://www.raspberrypi.org/documentation/remote-access/vnc/
+https://www.raspberrypi.org/forums/viewtopic.php?f=108&t=184762
+
+### Install
+
+- sudo apt-get install xscreensaver 
+
+
 ## Unity
 
 ### Socket
