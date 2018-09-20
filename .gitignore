@@ -70,3 +70,4 @@ FasettUnity/FasettComms/Temp
 FasettUnity/Fasett/HololensBuild/
 *.csproj
 FasettUnity/Fasett/.vs/
+FasettUnity/Fasett/obj/
