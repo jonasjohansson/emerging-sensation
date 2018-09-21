@@ -10,7 +10,7 @@ const SerialPort = require('serialport');
 
 const server = dgram.createSocket('udp4'); 
 
-const PORT = 9000;
+const PORT = 7003;
 const BROADCAST_ADDR = '255.255.255.255';
 const BAUDRATE = 152000;
 
