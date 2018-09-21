@@ -90,7 +90,16 @@ function sendMessage(msg){
 	});
 }
 
+function reset(){
+	for (let i = 0; i < 12; i++){
+		sendMessage('a'+i+' 0');
+		sendMessage('b'+i+' 0');
+	}
+}
+
 getPort();
+
+reset();
 
 // let val;
 // setInterval(()=>{
