@@ -69,6 +69,7 @@ function connectPort(com,id){
 	});
 	port.on('open', function(err) {
 		console.log('Port connected!');
+		reset();
 	});
 	port.on('close', function(err) {
 		console.log('Port closed!');
@@ -98,8 +99,6 @@ function reset(){
 }
 
 getPort();
-
-reset();
 
 // let val;
 // setInterval(()=>{
