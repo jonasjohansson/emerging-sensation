@@ -10,7 +10,7 @@ const SerialPort = require('serialport');
 
 const server = dgram.createSocket('udp4'); 
 
-const PORT = 9000;
+const PORT = 7003;
 const BROADCAST_ADDR = '255.255.255.255';
 const BAUDRATE = 152000;
 
@@ -69,6 +69,7 @@ function connectPort(com,id){
 	});
 	port.on('open', function(err) {
 		console.log('Port connected!');
+		reset();
 	});
 	port.on('close', function(err) {
 		console.log('Port closed!');
@@ -88,6 +89,13 @@ function sendMessage(msg){
 	server.send(msg, 0, msg.length, PORT, BROADCAST_ADDR, function() {
 		console.log("Sent '" + msg + "'");
 	});
+}
+
+function reset(){
+	for (let i = 0; i < 12; i++){
+		sendMessage('a'+i+' 0');
+		sendMessage('b'+i+' 0');
+	}
 }
 
 getPort();
