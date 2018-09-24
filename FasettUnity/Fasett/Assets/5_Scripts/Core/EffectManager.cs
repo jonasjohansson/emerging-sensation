@@ -4,8 +4,14 @@ using UnityEngine;
 
 namespace Fasett {
     public class EffectManager : MonoBehaviour {
-        public void SetEffectValue(string node, float value) {
-            Debug.Log(node + " " + value);
+        [SerializeField] private Effect[] _effects;
+
+        public void SetEffectValue(string effectName, float value) {
+            foreach (Effect e in _effects) {
+                if (e.Name == effectName) {
+                    e.SetValue(value);
+                }
+            }
         }
     }
 }
