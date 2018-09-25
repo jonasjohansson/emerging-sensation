@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.WSA;
 using UnityEngine.XR.WSA.Input;
+using UnityEngine.Windows.Speech;
+using UnityEngine.XR.WSA.Persistence;
 
 namespace Fasett {
     public class EffectManager : MonoBehaviour {
         [SerializeField] private Effect[] _effects;
+        private WorldAnchorStore _worldAnchorStore;
 
         private Effect _currentlyCalibratingEffect;
         private bool _next;
@@ -13,15 +17,7 @@ namespace Fasett {
         private Vector3 _grabbingHandStartPosition;
 
         public void Setup() {
-            // Check if calibrated before
-            // ELSE
-            // Stop accepting messages
-            foreach(Effect e in _effects) {
-                e.SetValue(0);
-                e.transform.SetParent(Camera.main.transform);
-                e.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 0.6f;
-            }
-            StartCoroutine(Calibrate());
+            WorldAnchorStore.GetAsync(StoreLoaded);
         }
 
         public void SetEffectValue(string effectName, float value) {
@@ -29,6 +25,26 @@ namespace Fasett {
                 if (e.Name == effectName) {
                     e.SetValue(value);
                 }
+            }
+        }
+
+        private void StoreLoaded(WorldAnchorStore store) {
+            _worldAnchorStore = store;
+
+            Debug.Log("World anchor store loaded, containing " + _worldAnchorStore.anchorCount + " anchors.");
+
+            if(_worldAnchorStore.anchorCount > 0) {
+                foreach (Effect e in _effects) {
+                    _worldAnchorStore.Load(e.Name, e.gameObject);
+                }
+            }
+            else {
+                foreach(Effect e in _effects) {
+                    e.SetValue(0);
+                    e.transform.SetParent(Camera.main.transform);
+                    e.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 0.6f;
+                }
+                StartCoroutine(Calibrate());
             }
         }
 
@@ -40,6 +56,11 @@ namespace Fasett {
             recognizer.ManipulationCompleted += CompleteMoveEffect;
             recognizer.StartCapturingGestures();
 
+            KeywordRecognizer keywordRecognizer;
+            keywordRecognizer = new KeywordRecognizer(new string[] { "next" });
+            keywordRecognizer.OnPhraseRecognized += PhraseRecognized;
+            keywordRecognizer.Start();
+
             foreach (Effect e in _effects) {
                 e.SetValue(1);
                 e.transform.SetParent(transform);
@@ -49,12 +70,26 @@ namespace Fasett {
                     yield return 0;
                 }
                 e.SetValue(0);
+                if (_worldAnchorStore != null) {
+                    WorldAnchor anchor = e.gameObject.AddComponent<WorldAnchor>();
+                    _worldAnchorStore.Save(e.Name, anchor);
+                }
             }
             recognizer.ManipulationStarted -= StartMoveEffect;
             recognizer.ManipulationUpdated -= UpdateMoveEffect;
             recognizer.ManipulationCompleted -= CompleteMoveEffect;
             recognizer.StopCapturingGestures();
             recognizer = null;
+
+            keywordRecognizer.OnPhraseRecognized -= PhraseRecognized;
+            keywordRecognizer.Stop();
+            keywordRecognizer = null;
+
+            // Debug see where all effects are
+            foreach(Effect e in _effects) {
+                e.SetValue(1);
+            }
+            Debug.Log("Calibration complete, world anchor store now contains " + _worldAnchorStore.anchorCount + " anchors.");
         }
 
         private void StartMoveEffect(ManipulationStartedEventArgs eventArgs) {
@@ -82,6 +117,12 @@ namespace Fasett {
         private void CancelMoveEffect(ManipulationCanceledEventArgs eventArgs) {
             _currentlyCalibratingEffect.transform.SetParent(transform);
             Destroy(_grabbingHand);
+        }
+
+        private void PhraseRecognized(PhraseRecognizedEventArgs eventArgs) {
+            if (eventArgs.text == "next") {
+                _next = true;
+            }
         }
     }
 }
