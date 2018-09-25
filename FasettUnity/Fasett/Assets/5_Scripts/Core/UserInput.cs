@@ -10,7 +10,7 @@ namespace Fasett {
 
         [SerializeField] private SpatialMappingToggle _spatialMappingToggle;
 
-        public void Setup(Core core) {
+        public void Setup() {
             recognizer = new GestureRecognizer();
             recognizer.Tapped += UserTapped;
             recognizer.StartCapturingGestures();

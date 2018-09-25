@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 namespace Fasett {
@@ -11,7 +12,8 @@ namespace Fasett {
         private string _message;
 
         protected void Start () {
-            _userInput.Setup(this);
+            _effectManager.Setup();
+            _userInput.Setup();
 		    receiver.Receive(7003);
 		    receiver.MessageReceived += ReceiveMessage;
 	    }
@@ -20,7 +22,7 @@ namespace Fasett {
             receiver.Dispose();
         }
 
-        private void ReceiveMessage (string message) {
+        private void ReceiveMessage (string message, IPEndPoint remoteEndpoint) {
             _message = message;
         }
 
@@ -40,7 +42,7 @@ namespace Fasett {
         }
 
         public void DebugReceiveMessage(string message) {
-            ReceiveMessage(message);
+            ReceiveMessage(message, null);
         }
     }
 }
