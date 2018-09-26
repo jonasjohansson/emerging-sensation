@@ -16,6 +16,8 @@ namespace Fasett {
         private GameObject _grabbingHand;
         private Vector3 _grabbingHandStartPosition;
 
+        private KeywordRecognizer _calibrateKeywordRecognizer;
+
         public void Setup() {
             WorldAnchorStore.GetAsync(StoreLoaded);
         }
@@ -30,8 +32,10 @@ namespace Fasett {
 
         private void StoreLoaded(WorldAnchorStore store) {
             _worldAnchorStore = store;
-
             Debug.Log("World anchor store loaded, containing " + _worldAnchorStore.anchorCount + " anchors.");
+            _calibrateKeywordRecognizer = new KeywordRecognizer(new string[] { "calibrate" });
+            _calibrateKeywordRecognizer.OnPhraseRecognized += PhraseRecognized;
+            _calibrateKeywordRecognizer.Start();
 
             if(_worldAnchorStore.anchorCount > 0) {
                 foreach (Effect e in _effects) {
@@ -39,16 +43,25 @@ namespace Fasett {
                 }
             }
             else {
-                foreach(Effect e in _effects) {
-                    e.SetValue(0);
-                    e.transform.SetParent(Camera.main.transform);
-                    e.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 0.6f;
-                }
                 StartCoroutine(Calibrate());
             }
         }
 
         private IEnumerator Calibrate() {
+            _calibrateKeywordRecognizer.Stop();
+
+            foreach(Effect e in _effects) {
+                WorldAnchor existingAnchor = e.GetComponent<WorldAnchor>();
+                if (existingAnchor != null) {
+                    DestroyImmediate(existingAnchor);
+                }
+                e.SetValue(0);
+                e.transform.SetParent(Camera.main.transform);
+                e.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 0.6f;
+            }
+
+            _worldAnchorStore.Clear();
+
             GestureRecognizer recognizer = new GestureRecognizer();
             recognizer.SetRecognizableGestures(GestureSettings.Tap | GestureSettings.ManipulationTranslate);
             recognizer.ManipulationStarted += StartMoveEffect;
@@ -72,7 +85,7 @@ namespace Fasett {
                 e.SetValue(0);
                 if (_worldAnchorStore != null) {
                     WorldAnchor anchor = e.gameObject.AddComponent<WorldAnchor>();
-                    _worldAnchorStore.Save(e.Name, anchor);
+                    anchor.OnTrackingChanged += Anchor_OnTrackingChanged;
                 }
             }
             recognizer.ManipulationStarted -= StartMoveEffect;
@@ -89,7 +102,18 @@ namespace Fasett {
             foreach(Effect e in _effects) {
                 e.SetValue(1);
             }
+            yield return new WaitForSeconds(1);
             Debug.Log("Calibration complete, world anchor store now contains " + _worldAnchorStore.anchorCount + " anchors.");
+
+            _calibrateKeywordRecognizer.Start();
+        }
+
+        private void Anchor_OnTrackingChanged(WorldAnchor worldAnchor, bool located) {
+            bool succeeded = _worldAnchorStore.Save(worldAnchor.GetComponent<Effect>().Name, worldAnchor);
+            Debug.Log(succeeded ? "Saving anchor succeeded." : "Saving anchor failed.");
+            string[] ids = _worldAnchorStore.GetAllIds();
+            Debug.Log("Number of ids in world anchor store: " + ids.Length);
+            worldAnchor.OnTrackingChanged -= Anchor_OnTrackingChanged;
         }
 
         private void StartMoveEffect(ManipulationStartedEventArgs eventArgs) {
@@ -122,6 +146,9 @@ namespace Fasett {
         private void PhraseRecognized(PhraseRecognizedEventArgs eventArgs) {
             if (eventArgs.text == "next") {
                 _next = true;
+            }
+            else if (eventArgs.text == "calibrate") {
+                StartCoroutine(Calibrate());
             }
         }
     }
