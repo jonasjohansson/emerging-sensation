@@ -5,25 +5,24 @@ using UnityEngine;
 
 namespace Fasett {
     public class Core : MonoBehaviour {
-        private BroadcastReceiver receiver = new BroadcastReceiver ();
-        [SerializeField] private EffectManager _effectManager;
         [SerializeField] private UserInput _userInput;
+        [SerializeField] private EffectManager _effectManager;
+        [SerializeField] private SpatialMappingToggle _spatialMappingToggle;
+
+        private BroadcastReceiver receiver = new BroadcastReceiver();
         private string _oldMessage;
         private string _message;
 
         protected void Start () {
             _effectManager.Setup();
-            _userInput.Setup();
+            _userInput.Setup(this);
+            _spatialMappingToggle.Setup();
 		    receiver.Receive(7003);
 		    receiver.MessageReceived += ReceiveMessage;
 	    }
 
         protected void OnDisable() {
             receiver.Dispose();
-        }
-
-        private void ReceiveMessage (string message, IPEndPoint remoteEndpoint) {
-            _message = message;
         }
 
         protected void Update() {
@@ -41,8 +40,24 @@ namespace Fasett {
             }
         }
 
+        private void ReceiveMessage(string message, IPEndPoint remoteEndpoint) {
+            _message = message;
+        }
+
         public void DebugReceiveMessage(string message) {
             ReceiveMessage(message, null);
+        }
+
+        public void CalibrateAllEffects() {
+            _effectManager.CalibrateAllEffects();
+        }
+
+        public void CalibrateNextEffect() {
+            _effectManager.CalibrateNextEffect();
+        }
+
+        public void ToggleSpaceWireframe() {
+            _spatialMappingToggle.ToggleRendering();
         }
     }
 }

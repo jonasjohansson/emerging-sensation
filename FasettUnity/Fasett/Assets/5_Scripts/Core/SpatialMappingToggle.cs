@@ -8,6 +8,10 @@ namespace Fasett {
     public class SpatialMappingToggle : MonoBehaviour {
         [SerializeField] private SpatialMappingRenderer spatialMappingRenderer;
 
+        public void Setup() {
+            spatialMappingRenderer.renderState = SpatialMappingRenderer.RenderState.Occlusion;
+        }
+
         public void ToggleRendering() {
             if (spatialMappingRenderer.renderState != SpatialMappingRenderer.RenderState.Occlusion)
                 spatialMappingRenderer.renderState = SpatialMappingRenderer.RenderState.Occlusion;

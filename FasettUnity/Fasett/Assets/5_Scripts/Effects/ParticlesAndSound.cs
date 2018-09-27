@@ -7,7 +7,8 @@ namespace Fasett {
         [SerializeField] private ParticleSystem _particleSystem;
         private float _startEmission;
 
-        protected void Awake() {
+        protected override void Awake() {
+            base.Awake();
             _startEmission = _particleSystem.emission.rateOverTimeMultiplier;
         }
 
