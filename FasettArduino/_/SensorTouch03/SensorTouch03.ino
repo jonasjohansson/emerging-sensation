@@ -8,7 +8,7 @@
 
 #define SENSOR_PINS 12
 
-#define DATA_PIN 14
+#define DATA_PIN 7
 #define NUM_LEDS 21
 #define BRIGHTNESS 96
 
@@ -58,4 +58,3 @@ void turnOn() {
 void turnOff() {
   FastLED.clear();
 }
-
