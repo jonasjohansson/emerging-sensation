@@ -1,3 +1,9 @@
+/*
+ * 
+ * Fasett Body configuration
+ * 
+ */
+ 
 #include<FastLED.h>
 
 #define NUM_LEDS 289
