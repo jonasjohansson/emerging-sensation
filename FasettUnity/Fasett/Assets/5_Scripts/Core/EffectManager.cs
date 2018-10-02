@@ -23,29 +23,34 @@ namespace Fasett {
             WorldAnchorStore.GetAsync(WorldAnchorStoreLoaded);
         }
 
-        private void WorldAnchorStoreLoaded(WorldAnchorStore store) {
-            _worldAnchorStore = store;
+        private void WorldAnchorStoreLoaded(WorldAnchorStore worldAnchorStore) {
+            _worldAnchorStore = worldAnchorStore;
             GetFirebaseData();
         }
 
         private void GetFirebaseData() {
             _firebase = Firebase.CreateNew("https://fasett-f1c82.firebaseio.com/", "8D5RgCy6rwZFmKKdfE8EbrD0JmdEjJnz73vdLTcw");
             _firebase.OnGetSuccess += Firebase_GetSucceeded;
+            _firebase.OnGetFailed += Firebase_GetFailed;
             _firebase.OnUpdateFailed += Firebase_UpdateFailed;
             _firebase.OnUpdateSuccess += Firebase_UpdateSuccess;
             _firebase.GetValue(FirebaseParam.Empty.OrderByKey().LimitToFirst(2));
         }
 
-        private void Firebase_GetSucceeded(Firebase sender, DataSnapshot snapshot) {
-            Dictionary<string, object> dictionary = snapshot.Value<Dictionary<string, object>>();
+        private void Firebase_GetSucceeded(Firebase firebase, DataSnapshot dataSnapshot) {
+            Dictionary<string, object> dictionary = dataSnapshot.Value<Dictionary<string, object>>();
             string dataString = dictionary["Anchors"].ToString();
-            Debug.Log(dataString);
+            Debug.Log("Got data from Firebase: " + dataString);
             byte[] data = Encoding.ASCII.GetBytes(dataString);
 #if !UNITY_EDITOR
             WorldAnchorTransferBatch.ImportAsync(data, TransferBatchImportCompleted);
 #else
             CalibrateAllEffects();
 #endif
+        }
+
+        private void Firebase_GetFailed(Firebase firebase, FirebaseError firebaseError) {
+            Debug.Log("Firebase data retrieval failed with error: " + firebaseError);
         }
 
         private void TransferBatchImportCompleted(SerializationCompletionReason serializationCompletionReason, WorldAnchorTransferBatch worldAnchorTransferBatch) {
