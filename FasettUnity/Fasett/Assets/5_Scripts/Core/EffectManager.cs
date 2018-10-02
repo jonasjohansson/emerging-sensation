@@ -1,42 +1,62 @@
-﻿using System.Collections;
+﻿using System.Text;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.WSA;
-using UnityEngine.XR.WSA.Input;
-using UnityEngine.Windows.Speech;
 using UnityEngine.XR.WSA.Persistence;
+using UnityEngine.XR.WSA.Sharing;
+using SimpleFirebaseUnity;
 
 namespace Fasett {
     public class EffectManager : MonoBehaviour {
         [SerializeField] private Effect[] _effects;
-        private WorldAnchorStore _worldAnchorStore;
 
         private bool _calibrating;
         private Effect _currentEffectBeingCalibrated;
         private bool _calibrateNextEffect;
 
+        private Firebase _firebase;
+        private WorldAnchorStore _worldAnchorStore;
+        private WorldAnchorTransferBatch _worldAnchorTransferBatch;
+
         public void Setup() {
             WorldAnchorStore.GetAsync(WorldAnchorStoreLoaded);
         }
 
-        public void SetEffectValue(string effectName, float value) {
-            foreach (Effect e in _effects) {
-                if (e.Name == effectName) {
-                    e.SetValue(value);
-                }
-            }
-        }
-
         private void WorldAnchorStoreLoaded(WorldAnchorStore store) {
             _worldAnchorStore = store;
-            Debug.Log("World anchor store loaded, containing " + _worldAnchorStore.anchorCount + " anchors.");
+            GetFirebaseData();
+        }
 
-            if(_worldAnchorStore.anchorCount > 0) {
-                foreach (Effect e in _effects) {
-                    _worldAnchorStore.Load(e.Name, e.gameObject);
+        private void GetFirebaseData() {
+            _firebase = Firebase.CreateNew("https://fasett-f1c82.firebaseio.com/", "8D5RgCy6rwZFmKKdfE8EbrD0JmdEjJnz73vdLTcw");
+            _firebase.OnGetSuccess += Firebase_GetSucceeded;
+            _firebase.OnUpdateFailed += Firebase_UpdateFailed;
+            _firebase.OnUpdateSuccess += Firebase_UpdateSuccess;
+            _firebase.GetValue(FirebaseParam.Empty.OrderByKey().LimitToFirst(2));
+        }
+
+        private void Firebase_GetSucceeded(Firebase sender, DataSnapshot snapshot) {
+            Dictionary<string, object> dictionary = snapshot.Value<Dictionary<string, object>>();
+            string dataString = dictionary["Anchors"].ToString();
+            Debug.Log(dataString);
+            byte[] data = Encoding.ASCII.GetBytes(dataString);
+#if !UNITY_EDITOR
+            WorldAnchorTransferBatch.ImportAsync(data, TransferBatchImportCompleted);
+#else
+            CalibrateAllEffects();
+#endif
+        }
+
+        private void TransferBatchImportCompleted(SerializationCompletionReason serializationCompletionReason, WorldAnchorTransferBatch worldAnchorTransferBatch) {
+            if(worldAnchorTransferBatch != null) {
+                foreach(Effect e in _effects) {
+                    worldAnchorTransferBatch.LockObject(e.Name, e.gameObject);
+                    Debug.Log("Locked effect " + e.Name + " to world anchor imported from transfer batch.");
                 }
             }
             else {
+                Debug.Log("Deserialization of world anchor transfer batch failed with reason: " + serializationCompletionReason + ". Starting calibration.");
                 CalibrateAllEffects();
             }
         }
@@ -49,6 +69,7 @@ namespace Fasett {
 
         private IEnumerator CalibrateEffectPositions() {
             _calibrating = true;
+            _worldAnchorTransferBatch = new WorldAnchorTransferBatch();
 
             foreach(Effect e in _effects) {
                 WorldAnchor existingAnchor = e.GetComponent<WorldAnchor>();
@@ -60,8 +81,6 @@ namespace Fasett {
                 e.transform.rotation = Quaternion.identity;
                 e.gameObject.SetActive(false);
             }
-
-            _worldAnchorStore.Clear();
 
             foreach (Effect e in _effects) {
                 e.gameObject.SetActive(true);
@@ -75,28 +94,51 @@ namespace Fasett {
                 }
                 e.SetCalibrating(false);
                 Destroy(transformByHands);
-                if (_worldAnchorStore != null) {
-                    WorldAnchor anchor = e.gameObject.AddComponent<WorldAnchor>();
-                    anchor.OnTrackingChanged += Anchor_OnTrackingChanged;
-                }
+                WorldAnchor anchor = e.gameObject.AddComponent<WorldAnchor>();
+                anchor.OnTrackingChanged += Anchor_OnTrackingChanged;
             }
 
             yield return new WaitForSeconds(1);
-            Debug.Log("Calibration complete, world anchor store now contains " + _worldAnchorStore.anchorCount + " anchors.");
-
+#if !UNITY_EDITOR
+            WorldAnchorTransferBatch.ExportAsync(_worldAnchorTransferBatch, TransferBatchExportDataAvailable, TransferBatchExportSerializationCompleted);
+#endif
             _calibrating = false;
         }
 
+        public void CalibrateNextEffect() {
+            if(_calibrating) {
+                _calibrateNextEffect = true;
+            }
+        }
+
         private void Anchor_OnTrackingChanged(WorldAnchor worldAnchor, bool located) {
-            bool succeeded = _worldAnchorStore.Save(worldAnchor.GetComponent<Effect>().Name, worldAnchor);
-            Debug.Log(succeeded ? "Saving anchor succeeded." : "Saving anchor failed.");
-            Debug.Log("Number of anchors in world anchor store: " + _worldAnchorStore.anchorCount);
+            _worldAnchorTransferBatch.AddWorldAnchor(worldAnchor.GetComponent<Effect>().Name, worldAnchor);
             worldAnchor.OnTrackingChanged -= Anchor_OnTrackingChanged;
         }
 
-        public void CalibrateNextEffect() {
-            if (_calibrating) {
-                _calibrateNextEffect = true;
+        private void TransferBatchExportDataAvailable(byte[] data) {
+            Debug.Log("WorldAnchorTransferBatch data available.");
+            string dataString = Encoding.ASCII.GetString(data);
+            _firebase.Child("Anchors").SetValue(dataString, false);
+        }
+
+        private void Firebase_UpdateFailed(Firebase firebase, FirebaseError firebaseError) {
+            Debug.Log("Updating firebase failed with error: " + firebaseError);
+        }
+
+        private void Firebase_UpdateSuccess(Firebase firebase, DataSnapshot dataSnapshot) {
+            Debug.Log("Updating firebase succeeded!");
+        }
+
+        private void TransferBatchExportSerializationCompleted(SerializationCompletionReason serializationCompletionReason) {
+            Debug.Log("WorldAnchorTransferBatch data serialization completed. Reason: " + serializationCompletionReason);
+        }
+
+        public void SetEffectValue(string effectName, float value) {
+            foreach(Effect e in _effects) {
+                if(e.Name == effectName) {
+                    e.SetValue(value);
+                }
             }
         }
     }
