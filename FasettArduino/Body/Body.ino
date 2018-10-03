@@ -43,10 +43,12 @@ int lights[NUM_PARTS][3] = {
   { 278, 6, 1 },  // 24 
   { 284, 5, 1 },  // 25
 };
+
 void setup() {
   Serial.begin(115200);
   FastLED.addLeds<NEOPIXEL,LED_PIN>(leds, NUM_LEDS);
   FastLED.setBrightness(BRIGHTNESS);
+  resetLights();
   //setColorAll(0,0,0);
   setColor(2,255,0,0);
   setColor(3,0,0,255);

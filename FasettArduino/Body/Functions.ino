@@ -3,7 +3,6 @@ void setColor(uint8_t i, uint8_t r, uint8_t g, uint8_t b){
   uint8_t inc = lights[i][2];
   for (uint8_t j = 0; j < steps; j+=inc){
     int k = lights[i][0] + j;
-    Serial.println(k);
     leds[k] = CRGB(r, g, b);
     FastLED.show();
   }
