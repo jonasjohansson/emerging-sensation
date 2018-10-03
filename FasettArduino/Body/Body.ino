@@ -5,7 +5,6 @@
  */
  
 #include<FastLED.h>
-//#include <Adafruit_NeoPixel.h>
 
 #define NUM_LEDS 289
 #define NUM_PARTS 26
@@ -13,7 +12,6 @@
 #define BRIGHTNESS 32
 
 CRGB leds[NUM_LEDS];
-//Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 int lights[NUM_PARTS][3] = {
   { 0, 9, 1 },    // 0
@@ -50,15 +48,18 @@ void setup() {
   FastLED.setBrightness(BRIGHTNESS);
   resetLights();
   //setColorAll(0,0,0);
-  setColor(2,255,0,0);
-  setColor(3,0,0,255);
-  setColor(6,255,0,0);
-  setColor(7,255,0,0);
-  setColor(19,255,0,0);
-  setColor(20,0,0,255);
-  setColor(22,0,255,0);
-  setColor(23,255,0,0);
+  //setColor(2,255,0,0);
+  //setColor(3,0,0,255);
+  //setColor(6,255,0,0);
+  //setColor(7,255,0,0);
+  //setColor(19,255,0,0);
+  //setColor(20,0,0,255);
+  //setColor(22,0,255,0);
+  //setColor(23,255,0,0);
 }
 
 void loop(){
+  for (uint8_t i = 0; i < NUM_PARTS; i++){
+    blink(i,5,50);
+  }
 }
