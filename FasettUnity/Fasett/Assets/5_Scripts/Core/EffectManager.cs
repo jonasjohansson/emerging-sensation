@@ -1,11 +1,17 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.IO;
 using UnityEngine;
 using UnityEngine.XR.WSA;
 using UnityEngine.XR.WSA.Persistence;
 using UnityEngine.XR.WSA.Sharing;
-using SimpleFirebaseUnity;
+#if !UNITY_EDITOR
+using System.Threading.Tasks;
+using Windows.Storage.Streams;
+#endif
 
 namespace Fasett {
     public class EffectManager : MonoBehaviour {
@@ -15,43 +21,61 @@ namespace Fasett {
         private Effect _currentEffectBeingCalibrated;
         private bool _calibrateNextEffect;
 
-        private Firebase _firebase;
         private WorldAnchorStore _worldAnchorStore;
         private WorldAnchorTransferBatch _worldAnchorTransferBatch;
         private List<byte> _worldAnchorTransferBatchData = new List<byte>(0);
 
-        public void Setup() {
+        private string _transferBatchFileName = "TransferBatch.dat";
+
+        private AzureFileHandler _azureFileHandler;
+
+#if !UNITY_EDITOR
+        private Windows.Storage.StorageFolder _storageFolder;
+#endif
+
+        public async void Setup() {
+            // Test azure
+#if !UNITY_EDITOR
+            string fileName = "HololensTest.txt";
+            _storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile testFile = await _storageFolder.CreateFileAsync(fileName, Windows.Storage.CreationCollisionOption.ReplaceExisting);
+            _azureFileHandler = new AzureFileHandler();
+            _azureFileHandler.UploadFile(fileName, _storageFolder.Path, "HololensShare", "HololensFolder", UploadCompleted);
+#endif
             WorldAnchorStore.GetAsync(WorldAnchorStoreLoaded);
+
+        }
+
+        private void UploadCompleted() {
+            Debug.Log("[Effect Manager] Upload completed.");
+#if !UNITY_EDITOR
+            _azureFileHandler.DownloadFile("HololensTest.txt", _storageFolder.Path, "HololensShare", "HololensFolder", DownloadCompleted);
+#endif
+        }
+
+        private void DownloadCompleted() {
+            Debug.Log("[Effect Manager] Download completed.");
         }
 
         private void WorldAnchorStoreLoaded(WorldAnchorStore worldAnchorStore) {
             _worldAnchorStore = worldAnchorStore;
-            GetFirebaseData();
-        }
-
-        private void GetFirebaseData() {
-            _firebase = Firebase.CreateNew("https://fasett-f1c82.firebaseio.com/", "8D5RgCy6rwZFmKKdfE8EbrD0JmdEjJnz73vdLTcw");
-            _firebase.OnGetSuccess += Firebase_GetSucceeded;
-            _firebase.OnGetFailed += Firebase_GetFailed;
-            _firebase.OnUpdateFailed += Firebase_UpdateFailed;
-            _firebase.OnUpdateSuccess += Firebase_UpdateSuccess;
-            _firebase.GetValue(FirebaseParam.Empty.OrderByKey().LimitToFirst(2));
-        }
-
-        private void Firebase_GetSucceeded(Firebase firebase, DataSnapshot dataSnapshot) {
-            Dictionary<string, object> dictionary = (Dictionary<string, object>) dataSnapshot.RawValue;
-            string dataString = (string) dictionary["Anchors"];
-            byte[] data = Encoding.ASCII.GetBytes(dataString);
-            Debug.Log("[Effect Manager] Got data from Firebase, length in kb: " + data.Length / 1024);
 #if !UNITY_EDITOR
-            WorldAnchorTransferBatch.ImportAsync(data, TransferBatchImportCompleted);
-#else
-            CalibrateAllEffects();
-#endif
+            //GetFileData();
         }
 
-        private void Firebase_GetFailed(Firebase firebase, FirebaseError firebaseError) {
-            Debug.Log("[Effect Manager] Firebase data retrieval failed with error: " + firebaseError);
+        private async Task GetFileData() {
+            if (File.Exists(Path.Combine(_storageFolder.Path, _transferBatchFileName))) {
+                Windows.Storage.StorageFile transferBatchFile = await _storageFolder.GetFileAsync(_transferBatchFileName);
+                var buffer = await Windows.Storage.FileIO.ReadBufferAsync(transferBatchFile);
+                byte[] data = buffer.ToArray();
+                Debug.Log("[Effect Manager] Got data from file, length in kb: " + data.Length / 1024);
+                WorldAnchorTransferBatch.ImportAsync(data, TransferBatchImportCompleted);
+            }
+            else {
+                Debug.Log("[Effect Manager] No transfer batch file found, calibrating all effects.");
+                CalibrateAllEffects();
+            }
+#endif
         }
 
         private void TransferBatchImportCompleted(SerializationCompletionReason serializationCompletionReason, WorldAnchorTransferBatch worldAnchorTransferBatch) {
@@ -128,20 +152,19 @@ namespace Fasett {
             _worldAnchorTransferBatchData.AddRange(data);
         }
 
-        private void Firebase_UpdateFailed(Firebase firebase, FirebaseError firebaseError) {
-            Debug.Log("[Effect Manager] Updating firebase failed with error: " + firebaseError);
-        }
-
-        private void Firebase_UpdateSuccess(Firebase firebase, DataSnapshot dataSnapshot) {
-            Debug.Log("[Effect Manager] Updating firebase succeeded!");
-        }
-
         private void TransferBatchExportSerializationCompleted(SerializationCompletionReason serializationCompletionReason) {
             Debug.Log("[Effect Manager] WorldAnchorTransferBatch data serialization completed. Reason: " + serializationCompletionReason);
             byte[] completeData = _worldAnchorTransferBatchData.ToArray();
-            string dataString = Encoding.ASCII.GetString(completeData);
             Debug.Log("[Effect Manager] Saving data, total size in kb: " + completeData.Length / 1024);
-            _firebase.Child("Anchors").SetValue(dataString, false);
+#if !UNITY_EDITOR
+            CreateTransferBatchFile(completeData);
+        }
+
+        private async Task CreateTransferBatchFile(byte[] data) {
+            Windows.Storage.StorageFile transferBatchFile = await _storageFolder.CreateFileAsync(_transferBatchFileName, Windows.Storage.CreationCollisionOption.ReplaceExisting);
+            IBuffer buffer = data.AsBuffer();
+            await Windows.Storage.FileIO.WriteBufferAsync(transferBatchFile, buffer);
+#endif
         }
 
         public void SetEffectValue(string effectName, float value) {
