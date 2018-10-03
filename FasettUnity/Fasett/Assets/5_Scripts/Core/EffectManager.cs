@@ -18,6 +18,7 @@ namespace Fasett {
         private Firebase _firebase;
         private WorldAnchorStore _worldAnchorStore;
         private WorldAnchorTransferBatch _worldAnchorTransferBatch;
+        private List<byte> _worldAnchorTransferBatchData = new List<byte>(0);
 
         public void Setup() {
             WorldAnchorStore.GetAsync(WorldAnchorStoreLoaded);
@@ -38,10 +39,10 @@ namespace Fasett {
         }
 
         private void Firebase_GetSucceeded(Firebase firebase, DataSnapshot dataSnapshot) {
-            Dictionary<string, object> dictionary = dataSnapshot.Value<Dictionary<string, object>>();
-            string dataString = dictionary["Anchors"].ToString();
-            Debug.Log("Got data from Firebase: " + dataString);
+            Dictionary<string, object> dictionary = (Dictionary<string, object>) dataSnapshot.RawValue;
+            string dataString = (string) dictionary["Anchors"];
             byte[] data = Encoding.ASCII.GetBytes(dataString);
+            Debug.Log("[Effect Manager] Got data from Firebase, length in kb: " + data.Length / 1024);
 #if !UNITY_EDITOR
             WorldAnchorTransferBatch.ImportAsync(data, TransferBatchImportCompleted);
 #else
@@ -50,18 +51,19 @@ namespace Fasett {
         }
 
         private void Firebase_GetFailed(Firebase firebase, FirebaseError firebaseError) {
-            Debug.Log("Firebase data retrieval failed with error: " + firebaseError);
+            Debug.Log("[Effect Manager] Firebase data retrieval failed with error: " + firebaseError);
         }
 
         private void TransferBatchImportCompleted(SerializationCompletionReason serializationCompletionReason, WorldAnchorTransferBatch worldAnchorTransferBatch) {
-            if(worldAnchorTransferBatch != null) {
+            Debug.Log("[Effect Manager] Deserialization of world anchor transfer batch completed, result: " + serializationCompletionReason);
+            if(worldAnchorTransferBatch != null && serializationCompletionReason == SerializationCompletionReason.Succeeded) {
                 foreach(Effect e in _effects) {
                     worldAnchorTransferBatch.LockObject(e.Name, e.gameObject);
-                    Debug.Log("Locked effect " + e.Name + " to world anchor imported from transfer batch.");
+                    Debug.Log("[Effect Manager] Locked effect " + e.Name + " to world anchor imported from transfer batch.");
                 }
             }
             else {
-                Debug.Log("Deserialization of world anchor transfer batch failed with reason: " + serializationCompletionReason + ". Starting calibration.");
+                Debug.Log("[Effect Manager] Deserialization failed or transfer batch is null. Starting calibration.");
                 CalibrateAllEffects();
             }
         }
@@ -122,21 +124,24 @@ namespace Fasett {
         }
 
         private void TransferBatchExportDataAvailable(byte[] data) {
-            Debug.Log("WorldAnchorTransferBatch data available.");
-            string dataString = Encoding.ASCII.GetString(data);
-            _firebase.Child("Anchors").SetValue(dataString, false);
+            Debug.Log("[Effect Manager] Finished serializing some data, length: " + data.Length);
+            _worldAnchorTransferBatchData.AddRange(data);
         }
 
         private void Firebase_UpdateFailed(Firebase firebase, FirebaseError firebaseError) {
-            Debug.Log("Updating firebase failed with error: " + firebaseError);
+            Debug.Log("[Effect Manager] Updating firebase failed with error: " + firebaseError);
         }
 
         private void Firebase_UpdateSuccess(Firebase firebase, DataSnapshot dataSnapshot) {
-            Debug.Log("Updating firebase succeeded!");
+            Debug.Log("[Effect Manager] Updating firebase succeeded!");
         }
 
         private void TransferBatchExportSerializationCompleted(SerializationCompletionReason serializationCompletionReason) {
-            Debug.Log("WorldAnchorTransferBatch data serialization completed. Reason: " + serializationCompletionReason);
+            Debug.Log("[Effect Manager] WorldAnchorTransferBatch data serialization completed. Reason: " + serializationCompletionReason);
+            byte[] completeData = _worldAnchorTransferBatchData.ToArray();
+            string dataString = Encoding.ASCII.GetString(completeData);
+            Debug.Log("[Effect Manager] Saving data, total size in kb: " + completeData.Length / 1024);
+            _firebase.Child("Anchors").SetValue(dataString, false);
         }
 
         public void SetEffectValue(string effectName, float value) {
