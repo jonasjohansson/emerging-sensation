@@ -30,11 +30,17 @@ namespace Fasett {
         private string _azureShareName = "hololens";
         private string _azureFolderName = "spatialdata";
 
+        private bool _loadingCalibration;
+
 #if !UNITY_EDITOR
         private Windows.Storage.StorageFolder _storageFolder;
 #endif
 
         public async void Setup() {
+            _loadingCalibration = true;
+            foreach (Effect e in _effects) {
+                e.UpdateEffect(0);
+            }
 #if !UNITY_EDITOR
             _azureFileHandler = new AzureFileHandler();
             _storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
@@ -54,7 +60,13 @@ namespace Fasett {
         private void DownloadCompleted(bool succeeded) {
             Debug.Log("[Effect Manager] Azure download completed with result: " + (succeeded ? "succeeded." : "failed."));
 #if !UNITY_EDITOR
-            GetTransferBatchFileData();
+            if (succeeded) {
+                GetTransferBatchFileData();
+            }
+            else {
+                _loadingCalibration = false;
+                CalibrateAllEffects();
+            }
 #endif
         }
 
@@ -71,6 +83,7 @@ namespace Fasett {
             }
             else {
                 Debug.Log("[Effect Manager] No transfer batch file found, calibrating all effects.");
+                _loadingCalibration = false;
                 CalibrateAllEffects();
             }
         }
@@ -83,15 +96,17 @@ namespace Fasett {
                     worldAnchorTransferBatch.LockObject(e.Name, e.gameObject);
                     Debug.Log("[Effect Manager] Locked effect " + e.Name + " to world anchor imported from transfer batch.");
                 }
+                _loadingCalibration = false;
             }
             else {
                 Debug.Log("[Effect Manager] Deserialization failed or transfer batch is null. Starting calibration.");
+                _loadingCalibration = false;
                 CalibrateAllEffects();
             }
         }
 
         public void CalibrateAllEffects() {
-            if(!_calibrating) {
+            if(!_calibrating && !_loadingCalibration) {
                 StartCoroutine(CalibrateEffectPositions());
             }
         }
@@ -120,11 +135,30 @@ namespace Fasett {
                 _currentEffectBeingCalibrated = e;
                 _calibrateNextEffect = false;
                 TransformByHands transformByHands = e.gameObject.AddComponent<TransformByHands>();
+                bool increasing = true;
+                float effectValue = 0;
                 while (!_calibrateNextEffect) {
+                    // Pulsate effect
+                    if (increasing) {
+                        effectValue += Time.deltaTime;
+                        if (effectValue >= 1.0f) {
+                            effectValue = 1.0f;
+                            increasing = false;
+                        }
+                    }
+                    else {
+                        effectValue -= Time.deltaTime;
+                        if (effectValue <= 0.0f) {
+                            effectValue = 0.0f;
+                            increasing = true;
+                        }
+                    }
+                    e.UpdateEffect(Mathf.Clamp01(effectValue));
                     yield return 0;
                 }
                 // Positioning done, fix in place and apply a world anchor 
                 e.SetCalibrating(false);
+                e.UpdateEffect(0);
                 Destroy(transformByHands);
                 WorldAnchor anchor = e.gameObject.AddComponent<WorldAnchor>();
                 anchor.OnTrackingChanged += Anchor_OnTrackingChanged;
@@ -175,10 +209,12 @@ namespace Fasett {
             Debug.Log("[Effect Manager] Azure upload completed.");
         }
 
-        public void SetEffectValue(string effectName, float value) {
-            foreach(Effect e in _effects) {
-                if(e.Name == effectName) {
-                    e.SetValue(value);
+        public void SetEffectValueAsync(string effectName, float value) {
+            if (!_calibrating) {
+                foreach(Effect e in _effects) {
+                    if(e.Name == effectName) {
+                        e.SetValueAsync(value);
+                    }
                 }
             }
         }

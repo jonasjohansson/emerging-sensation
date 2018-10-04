@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Fasett {
     public class ToggleGameObject : Effect {
-        public override void SetValue(float value) {
-            if (value >= 0.5f) {
+        public override void UpdateEffect(float value) {
+            base.UpdateEffect(value);
+            if(value >= 0.5f) {
                 gameObject.SetActive(true);
             }
             else {

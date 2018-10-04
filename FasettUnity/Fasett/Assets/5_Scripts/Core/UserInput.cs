@@ -19,7 +19,7 @@ namespace Fasett {
             recognizer.Tapped += UserTapped;
             recognizer.StartCapturingGestures();
 
-            _keywordRecognizer = new KeywordRecognizer(new string[] { "next", "calibrate", "wireframe" });
+            _keywordRecognizer = new KeywordRecognizer(new string[] { "next", "calibrate all effects", "wireframe" });
             _keywordRecognizer.OnPhraseRecognized += PhraseRecognized;
             _keywordRecognizer.Start();
         }
@@ -32,7 +32,7 @@ namespace Fasett {
             if(eventArgs.text == "next") {
                 _core.CalibrateNextEffect();
             }
-            else if(eventArgs.text == "calibrate") {
+            else if(eventArgs.text == "calibrate all effects") {
                 _core.CalibrateAllEffects();
             }
             else if(eventArgs.text == "wireframe") {

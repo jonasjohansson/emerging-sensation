@@ -28,19 +28,19 @@ namespace Fasett {
         protected void Update() {
             if (_message != _oldMessage) {
                 Debug.Log(_message);
-                string[] splitMessage = _message.Split(' ');
-                if(splitMessage.Length == 2) {
-                    string effectName = splitMessage[0];
-                    float value = 0;
-                    if (float.TryParse(splitMessage[1], out value)) {
-                        _effectManager.SetEffectValue(effectName, value);
-                    }
-                }
                 _oldMessage = _message;
             }
         }
 
         private void ReceiveMessage(string message, IPEndPoint remoteEndpoint) {
+            string[] splitMessage = message.Split(' ');
+            if(splitMessage.Length == 2) {
+                string effectName = splitMessage[0];
+                float value = 0;
+                if(float.TryParse(splitMessage[1], out value)) {
+                    _effectManager.SetEffectValueAsync(effectName, value);
+                }
+            }
             _message = message;
         }
 
