@@ -28,7 +28,7 @@ public class AzureFileHandler {
             await share.CreateIfNotExistsAsync();
         }
         catch(StorageException) {
-            Debug.LogWarning("[Azure File Handler] Could not create file, please make sure your storage account has storage file endpoint enabled and specified correctly in the app.config.");
+            Debug.LogWarning("[Azure File Handler] Could not create file, please make sure storage account has storage file endpoint enabled and specified correctly in the app.config.");
             throw;
         }
 
@@ -71,32 +71,39 @@ public class AzureFileHandler {
         }
     }
 
-    public async void DownloadFile(string nameOfFile, string localDirectory, string shareName, string remoteDirectory, Action callback) {
-        // Create a file client for interacting with the file service.
-        CloudFileClient fileClient = StorageAccount.CreateCloudFileClient();
+    public async void DownloadFile(string nameOfFile, string localDirectory, string shareName, string remoteDirectory, Action<bool> callback) {
+        bool downloadSucceeded = false;
+        try {
+            // Create a file client for interacting with the file service.
+            CloudFileClient fileClient = StorageAccount.CreateCloudFileClient();
 
-        // Create a share for organizing files and directories within the storage account.
-        CloudFileShare share = fileClient.GetShareReference(shareName.ToLower());
+            // Create a share for organizing files and directories within the storage account.
+            CloudFileShare share = fileClient.GetShareReference(shareName.ToLower());
 
-        // Get a reference to the root directory of the share.        
-        CloudFileDirectory root = share.GetRootDirectoryReference();
+            // Get a reference to the root directory of the share.        
+            CloudFileDirectory root = share.GetRootDirectoryReference();
 
-        // Get the directory under the root directory
-        CloudFileDirectory dir = root.GetDirectoryReference(remoteDirectory.ToLower());
+            // Get the directory under the root directory
+            CloudFileDirectory dir = root.GetDirectoryReference(remoteDirectory.ToLower());
 
-        // Get the remote file
-        CloudFile file = dir.GetFileReference(nameOfFile);
+            // Get the remote file
+            CloudFile file = dir.GetFileReference(nameOfFile);
 
 #if WINDOWS_UWP
-		StorageFolder storageFolder = await StorageFolder.GetFolderFromPathAsync(localDirectory);
-        StorageFile sf = await storageFolder.CreateFileAsync(nameOfFile, CreationCollisionOption.ReplaceExisting);
-		await file.DownloadToFileAsync(sf);
+		    StorageFolder storageFolder = await StorageFolder.GetFolderFromPathAsync(localDirectory);
+            StorageFile sf = await storageFolder.CreateFileAsync(nameOfFile, CreationCollisionOption.ReplaceExisting);
+		    await file.DownloadToFileAsync(sf);
 #else
-        string path = Path.Combine(Application.temporaryCachePath, nameOfFile);
-        await file.DownloadToFileAsync(path, FileMode.Create);
+            string path = Path.Combine(Application.temporaryCachePath, nameOfFile);
+            await file.DownloadToFileAsync(path, FileMode.Create);
 #endif
+            downloadSucceeded = true;
+        }
+        catch {
+            downloadSucceeded = false;
+        }
         if (callback != null) {
-            callback();
+            callback(downloadSucceeded);
         }
     }
 }
