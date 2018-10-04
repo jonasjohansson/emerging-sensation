@@ -14,6 +14,15 @@ void setColorAll(uint8_t r, uint8_t g, uint8_t b){
   }
 }
 
+void blink(uint8_t i, uint8_t num, uint8_t wait){
+  for (uint8_t j = 0; j < num; j++){
+    setColor(i,255,255,255);
+    delay(wait);
+    setColor(i,0,0,0);
+    delay(wait);
+  }
+}
+
 void cycleHSV(){
   static uint8_t hue = 0;
   FastLED.showColor(CHSV(hue++, 255, 255)); 
