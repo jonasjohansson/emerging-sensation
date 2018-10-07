@@ -4,8 +4,8 @@ void setColor(uint8_t i, uint8_t r, uint8_t g, uint8_t b){
   for (uint8_t j = 0; j < steps; j+=inc){
     int k = lights[i][0] + j;
     leds[k] = CRGB(r, g, b);
-    FastLED.show();
   }
+  FastLED.show();
 }
 
 void setColorAll(uint8_t r, uint8_t g, uint8_t b){

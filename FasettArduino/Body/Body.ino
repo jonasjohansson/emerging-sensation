@@ -60,6 +60,6 @@ void setup() {
 
 void loop(){
   for (uint8_t i = 0; i < NUM_PARTS; i++){
-    blink(i,5,50);
+    blink(i,4,40);
   }
 }
