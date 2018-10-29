@@ -1,6 +1,7 @@
 /*
  * 
  * Fasett Body configuration
+ * 5 x Touch / Proximity
  * 
  */
  
