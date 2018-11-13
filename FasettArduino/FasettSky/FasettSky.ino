@@ -26,10 +26,10 @@
 
 CRGB leds[NUM_STRIPS][NUM_LEDS_PER_STRIP];
 
-const byte wingA[NUM_WINGS][2] = { {0,0}, {4,1}, {7,0}, {3,1} };
-const byte wingB[NUM_WINGS][2] = { {1,0}, {5,1}, {4,0}, {0,1} };
-const byte wingC[NUM_WINGS][2] = { {2,0}, {6,1}, {5,0}, {1,1} };
-const byte wingD[NUM_WINGS][2] = { {3,0}, {7,1}, {6,0}, {2,1} };
+byte wingA[NUM_WINGS][2] = { {0,0}, {4,1}, {7,0}, {3,1} };
+byte wingB[NUM_WINGS][2] = { {1,0}, {5,1}, {4,0}, {0,1} };
+byte wingC[NUM_WINGS][2] = { {2,0}, {6,1}, {5,0}, {1,1} };
+ byte wingD[NUM_WINGS][2] = { {3,0}, {7,1}, {6,0}, {2,1} };
 
 void setup() {
   Serial.begin(115200);
