@@ -1,5 +1,11 @@
+#define smoothStep(x) ((x) * (x) * (3 - 2 * (x)))
+
 int a, b, c;
 int al, bl, cl;
+
+/*
+ * Add diff LERP animations / easings / transitions
+ */
 
 void setup(){
   Serial.begin(115200);
@@ -12,9 +18,9 @@ void loop(){
 
 void receiveTransmitSimple(int &val, int &last, int pin){
   val = analogRead(pin);
-  val = (val > 512) ? 1 : 0;
   if (val != last){
     last = val;
+    val = (val > 512) ? 1 : 0;
     s(pin,val);
   }
 }
@@ -29,6 +35,7 @@ void receiveTransmitAdvanced(int &val, int &last, int pin, int min, int max){
     val = map(val,min,max,1023,0);
     s(pin,val);
   }
+  val = smoothStep(val);
 }
 
 void s(byte index, int val){
