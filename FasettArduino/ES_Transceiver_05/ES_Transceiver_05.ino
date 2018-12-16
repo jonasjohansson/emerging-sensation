@@ -1,10 +1,4 @@
-#include <FastLED.h>
-
-#define smoothStep(x) ((x) * (x) * (3 - 2 * (x)))
-
 int a, b, al, bl;
-float v;
-float X;
 
 void setup(){
   Serial.begin(115200);
@@ -12,17 +6,9 @@ void setup(){
 
 void loop(){
   //rxtxA(23, a, al); // val, last, pin
-  //rxtxB(19, b, bl, 30, 120); // val, last, pin, min, max
-
-  a = analogRead(19);
-  a = smooth(a);
-
-  //int n = lerp(al, a, 0.1);
-  a = lerp8by8(al, a, 0.5);
-
-  if (al != a) Serial.println(a);
-
-  al = a;
+  rxtxB(19, b, bl, 30, 120); // val, last, pin, min, max
+  
+  delay(10);
 }
 
 void rxtxA(byte pin, int &val, int &last){
@@ -36,14 +22,19 @@ void rxtxA(byte pin, int &val, int &last){
 
 void rxtxB(byte pin, int &val, int &last, int min, int max){
   val = analogRead(pin);
-  val = smooth(val);
+
+  //val = smooth(val);
+  val = constrain(val,min,max);
+
   int diff = abs(val - last);
-  if (diff > 3){
-    last = val;
-    val = constrain(val,min,max);
-    val = map(val,min,max,1023,0);
-    //s(pin,val);
+  if (diff > 0){
+    int valMap = map(val,min,max,255,0);
+    //s(pin,valMap);
   }
+  int valLerp = lerp(last, val, 0.1);
+  s(pin,valLerp);
+  
+  last = val;
 }
 
 void s(byte pin, int val){
