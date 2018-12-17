@@ -18,30 +18,28 @@ namespace Fasett {
         [SerializeField] private Effect[] _effects;
 
         private bool _calibrating;
-        private Effect _currentEffectBeingCalibrated;
         private bool _calibrateNextEffect;
 
-        private WorldAnchorStore _worldAnchorStore;
         private WorldAnchorTransferBatch _worldAnchorTransferBatch;
         private List<byte> _worldAnchorTransferBatchData = new List<byte>(0);
 
         private AzureFileHandler _azureFileHandler;
-        private string _transferBatchFileName = "TransferBatch.dat";
-        private string _azureShareName = "hololens";
-        private string _azureFolderName = "spatialdata";
 
         private bool _loadingCalibration;
 
 #if !UNITY_EDITOR
+        private string _transferBatchFileName = "TransferBatch.dat";
         private Windows.Storage.StorageFolder _storageFolder;
+        private string _azureFolderName = "spatialdata";
+        private string _azureShareName = "hololens";
 #endif
 
         public async void Setup() {
-            _loadingCalibration = true;
             foreach (Effect e in _effects) {
                 e.UpdateEffect(0);
             }
 #if !UNITY_EDITOR
+            _loadingCalibration = true;
             _azureFileHandler = new AzureFileHandler();
             _storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
 #endif
@@ -50,7 +48,6 @@ namespace Fasett {
         }
 
         private void WorldAnchorStoreLoaded(WorldAnchorStore worldAnchorStore) {
-            _worldAnchorStore = worldAnchorStore;
 #if !UNITY_EDITOR
             // Attempt to download world anchor transfer batch file from Azure
             _azureFileHandler.DownloadFile(_transferBatchFileName, _storageFolder.Path, _azureShareName, _azureFolderName, DownloadCompleted);
@@ -128,11 +125,11 @@ namespace Fasett {
                 e.gameObject.SetActive(false);
             }
             foreach (Effect e in _effects) {
+                Debug.Log($"[Effect Manager] Calibrating effect {e.Name}.");
                 // Turn on effect, deparent from user and let user manipulate with hands
                 e.gameObject.SetActive(true);
                 e.transform.SetParent(transform);
                 e.SetCalibrating(true);
-                _currentEffectBeingCalibrated = e;
                 _calibrateNextEffect = false;
                 TransformByHands transformByHands = e.gameObject.AddComponent<TransformByHands>();
                 bool increasing = true;
@@ -162,6 +159,7 @@ namespace Fasett {
                 Destroy(transformByHands);
                 WorldAnchor anchor = e.gameObject.AddComponent<WorldAnchor>();
                 anchor.OnTrackingChanged += Anchor_OnTrackingChanged;
+                Debug.Log($"[Effect Manager] Done calibrating effect {e.Name}.");
             }
             // All effects positioned, wait a little to allow the last anchor to register, then serialize the world anchor transfer batch
             yield return new WaitForSeconds(1);
