@@ -1,3 +1,7 @@
+#define SMOOTHSTEP(x) ((x) * (x) * (3 - 2 * (x)))
+
+float N = 10.0;
+
 int a, b, al, bl;
 
 void setup(){
@@ -15,32 +19,48 @@ void rxtxA(byte pin, int &val, int &last){
   val = analogRead(pin);
   val = (val > 512) ? 1 : 0;
   if (val != last){
-    last = val;
     s(pin,val);
+    last = val;
   }
 }
 
-void rxtxB(byte pin, int &val, int &last, int min, int max){
-  val = analogRead(pin);
 
-  //val = smooth(val);
-  val = constrain(val,min,max);
+bool flag = false;
+
+void rxtxB(byte pin, int &val, int &last, int min, int max){
+  int temp = analogRead(pin);
+  temp = constrain(temp,min,max);
+  temp = smooth(temp);
+
+  if (temp == last) return;
 
   int diff = abs(val - last);
-  if (diff > 0){
-    int valMap = map(val,min,max,255,0);
-    //s(pin,valMap);
+  if (diff > 3){
+    val = map(val,min,max,255,0);
+    s(pin,_val);
   }
-  int valLerp = lerp(last, val, 0.1);
-  s(pin,valLerp);
   
-  last = val;
+  float v;
+  
+  for (int i = 0; i < N; i++){
+    v = i / N;
+    v = SMOOTHSTEP(v);
+    val = (last * v) + (temp * (1 - v));
+    //s(pin,temp);
+    Serial.println(val);
+  }
+  
+  last = temp;
 }
 
 void s(byte pin, int val){
   Serial.print(pin);
   Serial.print(' ');
   Serial.println(val);
+}
+
+int smoothStep(int val){
+  
 }
 
 float lerp(float a, float b, float x){ 
