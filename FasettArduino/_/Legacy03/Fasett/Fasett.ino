@@ -1,7 +1,7 @@
 #include<FastLED.h>
 
-//#define BODY
-#define SKY
+#define BODY
+//#define SKY
 //#define WATER
 
 #if defined (BODY) 
