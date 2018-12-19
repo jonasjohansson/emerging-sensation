@@ -8,10 +8,14 @@ namespace Fasett {
         [SerializeField] private UserInput _userInput;
         [SerializeField] private EffectManager _effectManager;
         [SerializeField] private SpatialMappingToggle _spatialMappingToggle;
+        [SerializeField] private GameObject _fitCalibrationObject;
+        [SerializeField] private GameObject _vignette;
 
         private BroadcastReceiver receiver = new BroadcastReceiver();
         private string _oldMessage;
         private string _message;
+
+        private bool _calibratingHoloLensFit;
 
         protected void Start () {
             _effectManager.Setup();
@@ -19,6 +23,7 @@ namespace Fasett {
             _spatialMappingToggle.Setup();
 		    receiver.Receive(7003);
 		    receiver.MessageReceived += ReceiveMessage;
+            CalibrateHoloLensFit();
 	    }
 
         protected void OnDisable() {
@@ -30,6 +35,25 @@ namespace Fasett {
                 Debug.Log(_message);
                 _oldMessage = _message;
             }
+        }
+
+        public void CalibrateHoloLensFit() {
+            if (!_calibratingHoloLensFit) {
+                _calibratingHoloLensFit = true;
+                _fitCalibrationObject.SetActive(true);
+                _vignette.SetActive(false);
+                UserInput.OnUserSaidOK += FitCalibrationCompleted;
+            }
+        }
+
+        private void FitCalibrationCompleted() {
+            if (_calibratingHoloLensFit) {
+                _calibratingHoloLensFit = false;
+                _fitCalibrationObject.SetActive(false);
+                _vignette.SetActive(true);
+                UserInput.OnUserSaidOK -= FitCalibrationCompleted;
+            }
+
         }
 
         private void ReceiveMessage(string message, IPEndPoint remoteEndpoint) {
