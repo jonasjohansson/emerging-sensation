@@ -1,40 +1,49 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Net;
 using UnityEngine;
 
 namespace Fasett {
     public class Core : MonoBehaviour {
+        public static Core Instance { get; private set; }
         [SerializeField] private UserInput _userInput;
         [SerializeField] private EffectManager _effectManager;
+        [SerializeField] private NetworkHandler _networkHandler;
+        [SerializeField] private StateManager _stateManager;
         [SerializeField] private SpatialMappingToggle _spatialMappingToggle;
         [SerializeField] private GameObject _fitCalibrationObject;
         [SerializeField] private GameObject _vignette;
 
-        private BroadcastReceiver receiver = new BroadcastReceiver();
-        private string _oldMessage;
-        private string _message;
+        public EffectManager EffectManager { get { return _effectManager; } }
+        public NetworkHandler NetworkHandler { get { return _networkHandler; } }
 
+        private AppState _appState;
         private bool _calibratingHoloLensFit;
 
         protected void Start () {
+            Instance = this;
             _effectManager.Setup();
+            _networkHandler.Setup(this);
+            _stateManager.Setup(this);
             _userInput.Setup(this);
             _spatialMappingToggle.Setup();
-		    receiver.Receive(7003);
-		    receiver.MessageReceived += ReceiveMessage;
-            CalibrateHoloLensFit();
+            _stateManager.SetState<SettingUpExhibition>();
+            SetUpUserForDemo();
 	    }
 
-        protected void OnDisable() {
-            receiver.Dispose();
+        public void SetUpUserForDemo() {
+            _stateManager.SetState<SettingUpUserForDemo>();
+            // Hide UI to return hololens to crew
+            CalibrateHoloLensFit();
         }
 
-        protected void Update() {
-            if (_message != _oldMessage) {
-                Debug.Log(_message);
-                _oldMessage = _message;
-            }
+        private void StartDemo() {
+            _stateManager.SetState<DemoInProgress>();
+        }
+
+        public void StopDemo() {
+            _stateManager.SetState<DemoEnded>();
+            // Hide all effects
+            // Show UI to return HoloLens to crew
         }
 
         public void CalibrateHoloLensFit() {
@@ -52,24 +61,8 @@ namespace Fasett {
                 _fitCalibrationObject.SetActive(false);
                 _vignette.SetActive(true);
                 UserInput.OnUserSaidOK -= FitCalibrationCompleted;
+                StartDemo();
             }
-
-        }
-
-        private void ReceiveMessage(string message, IPEndPoint remoteEndpoint) {
-            string[] splitMessage = message.Split(' ');
-            if(splitMessage.Length == 2) {
-                string effectName = splitMessage[0];
-                float value = 0;
-                if(float.TryParse(splitMessage[1], out value)) {
-                    _effectManager.SetEffectValueAsync(effectName, value);
-                }
-            }
-            _message = message;
-        }
-
-        public void DebugReceiveMessage(string message) {
-            ReceiveMessage(message, null);
         }
 
         public void CalibrateAllEffects() {

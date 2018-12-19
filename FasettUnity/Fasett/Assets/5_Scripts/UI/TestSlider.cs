@@ -14,7 +14,7 @@ namespace Fasett {
 	    }
 
         private void SetFloat(float value) {
-            _core.DebugReceiveMessage(string.Format("{0}/{1}", _nodeName, value));
+            _core.NetworkHandler.DebugReceiveMessage(string.Format("{0}/{1}", _nodeName, value));
         }
     }
 }
