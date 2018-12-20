@@ -33,5 +33,13 @@ namespace Fasett {
             _oldValue = value;
             _latestValue = value;
         }
+
+        public void HideEffect() {
+            gameObject.SetActive(false);
+        }
+
+        public void ShowEffect() {
+            gameObject.SetActive(true);
+        }
     }
 }

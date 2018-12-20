@@ -8,10 +8,13 @@ using System;
 
 namespace Fasett {
     public class UserInput : MonoBehaviour {
-        private Core _core;
         private GestureRecognizer recognizer;
         private KeywordRecognizer _keywordRecognizer;
 
+        public static Action OnUserSaidNextEffect;
+        public static Action OnUserSaidCalibrateAllEffects;
+        public static Action OnUserSaidDemoMode;
+        public static Action OnUserSaidWireframe;
         public static Action OnUserSaidOK;
 
         private const string NEXT_EFFECT_PHRASE = "next";
@@ -21,8 +24,6 @@ namespace Fasett {
         private const string OK_PHRASE = "ok";
 
         public void Setup(Core core) {
-            _core = core;
-
             recognizer = new GestureRecognizer();
             recognizer.Tapped += UserTapped;
             recognizer.StartCapturingGestures();
@@ -33,21 +34,28 @@ namespace Fasett {
         }
 
         private void UserTapped(TappedEventArgs eventArgs) {
-            
         }
 
         private void PhraseRecognized(PhraseRecognizedEventArgs eventArgs) {
             if(eventArgs.text == NEXT_EFFECT_PHRASE) {
-                _core.CalibrateNextEffect();
+                if (OnUserSaidNextEffect != null) {
+                    OnUserSaidNextEffect();
+                }
             }
             else if(eventArgs.text == CALIBRATE_ALL_EFFECTS_PHRASE) {
-                _core.CalibrateAllEffects();
+                if (OnUserSaidCalibrateAllEffects != null) {
+                    OnUserSaidCalibrateAllEffects();
+                }
             }
             else if(eventArgs.text == DEMO_MODE_PHRASE) {
-                _core.SetUpUserForDemo();
+                if (OnUserSaidDemoMode != null) {
+                    OnUserSaidDemoMode();
+                }
             }
             else if(eventArgs.text == SHOW_WIREFRAME_PHRASE) {
-                _core.ToggleSpaceWireframe();
+                if (OnUserSaidWireframe != null) {
+                    OnUserSaidWireframe();
+                }
             }
             else if(eventArgs.text == OK_PHRASE) {
                 if(OnUserSaidOK != null) {

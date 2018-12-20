@@ -34,7 +34,7 @@ namespace Fasett {
         private string _azureShareName = "hololens";
 #endif
 
-        public async void Setup() {
+        public async void Setup(Core core) {
             foreach (Effect e in _effects) {
                 e.UpdateEffect(0);
             }
@@ -214,6 +214,18 @@ namespace Fasett {
                         e.SetValueAsync(value);
                     }
                 }
+            }
+        }
+
+        public void HideEffects() {
+            foreach (Effect e in _effects) {
+                e.HideEffect();
+            }
+        }
+
+        public void ShowEffects() {
+            foreach(Effect e in _effects) {
+                e.ShowEffect();
             }
         }
     }

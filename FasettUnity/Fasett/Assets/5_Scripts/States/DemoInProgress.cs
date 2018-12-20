@@ -12,15 +12,19 @@ namespace Fasett {
             if (_running) {
                 _demoCounter -= Time.deltaTime;
                 if(_demoCounter <= 0.0f) {
-                    Core.Instance.StopDemo();
+                    _stateManager.SetState<DemoEnded>();
                 }
             }
         }
 
         public override void SetActive(bool active) {
-            _demoCounter = _demoDuration;
-            _running = active;
-            // Show all effects
+            if (active) {
+                _demoCounter = _demoDuration;
+                _running = true;
+            }
+            else {
+                _running = false;
+            }
         }
     }
 }
