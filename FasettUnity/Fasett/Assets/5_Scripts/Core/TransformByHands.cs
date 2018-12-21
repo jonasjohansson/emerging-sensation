@@ -67,6 +67,9 @@ namespace Fasett {
         [SerializeField] private float _measurementAveragingTime = 0.15f;
         [SerializeField] private bool _stayWithinPlayerReach = false;
         public bool StayWithinPlayerReach { get { return _stayWithinPlayerReach; } set { _stayWithinPlayerReach = value; } }
+
+        private Vector3 _frameStartPosition;
+        private Quaternion _frameStartRotation;
         #endregion
 
         #region InternalMeasurementClasses
@@ -164,12 +167,19 @@ namespace Fasett {
         }
 
         protected void Update() {
+            _frameStartPosition = transform.position;
+            _frameStartRotation = transform.rotation;
             if(!_isTransforming && _grabPoints.Count > 0 && !_lockedRotating) {
                 StartCoroutine(TransformCoroutine());
             }
         }
 
         protected void LateUpdate() {
+            if(Vector3.Distance(_frameStartPosition, transform.position) > 0.05f) { // HACK - Prevents bugs that make the whole thing jump in certain situations.
+                transform.position = _frameStartPosition;
+                transform.rotation = _frameStartRotation;
+            }
+
             Slide();
         }
 
@@ -534,8 +544,8 @@ namespace Fasett {
                 }
 
                 if(!_transformerGhost) {
-                    GameObject _transformerGhostGo = new GameObject("Transformer Ghost");
-                    _transformerGhost = _transformerGhostGo.transform;
+                    GameObject transformerGhostGo = new GameObject("Transformer Ghost");
+                    _transformerGhost = transformerGhostGo.transform;
                 }
 
                 _transformerGhost.position = _transformer.transform.position;
