@@ -17,17 +17,15 @@ namespace Fasett {
     public class EffectManager : MonoBehaviour {
         [SerializeField] private Effect[] _effects;
 
-        private bool _calibrating;
-        private bool _calibrateNextEffect;
-
         private WorldAnchorTransferBatch _worldAnchorTransferBatch;
         private List<byte> _worldAnchorTransferBatchData = new List<byte>(0);
 
-        private AzureFileHandler _azureFileHandler;
-
+        private bool _calibrating;
+        private bool _calibrateNextEffect;
         private bool _loadingCalibration;
 
 #if !UNITY_EDITOR
+        private AzureFileHandler _azureFileHandler;
         private string _transferBatchFileName = "TransferBatch.dat";
         private Windows.Storage.StorageFolder _storageFolder;
         private string _azureFolderName = "spatialdata";
@@ -42,21 +40,19 @@ namespace Fasett {
             _loadingCalibration = true;
             _azureFileHandler = new AzureFileHandler();
             _storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-#endif
             // World anchor store might have to be loaded for world anchor actions and transfer batch stuff to work
             WorldAnchorStore.GetAsync(WorldAnchorStoreLoaded);
+#endif
         }
 
-        private void WorldAnchorStoreLoaded(WorldAnchorStore worldAnchorStore) {
 #if !UNITY_EDITOR
+        private void WorldAnchorStoreLoaded(WorldAnchorStore worldAnchorStore) {
             // Attempt to download world anchor transfer batch file from Azure
             _azureFileHandler.DownloadFile(_transferBatchFileName, _storageFolder.Path, _azureShareName, _azureFolderName, DownloadCompleted);
-#endif
         }
 
         private void DownloadCompleted(bool succeeded) {
             Debug.Log("[Effect Manager] Azure download completed with result: " + (succeeded ? "succeeded." : "failed."));
-#if !UNITY_EDITOR
             if (succeeded) {
                 GetTransferBatchFileData();
             }
@@ -64,10 +60,8 @@ namespace Fasett {
                 _loadingCalibration = false;
                 CalibrateAllEffects();
             }
-#endif
         }
 
-#if !UNITY_EDITOR
         private async Task GetTransferBatchFileData() {
             if (File.Exists(Path.Combine(_storageFolder.Path, _transferBatchFileName))) {
                 Windows.Storage.StorageFile transferBatchFile = await _storageFolder.GetFileAsync(_transferBatchFileName);
@@ -104,65 +98,102 @@ namespace Fasett {
 
         public void CalibrateAllEffects() {
             if(!_calibrating && !_loadingCalibration) {
-                StartCoroutine(CalibrateEffectPositions());
+                StartCoroutine(CalibrateAllEffectsCoroutine());
             }
         }
 
-        private IEnumerator CalibrateEffectPositions() {
+        public void CalibrateClosestEffect() {
+            if(!_calibrating && !_loadingCalibration) {
+                StartCoroutine(CalibrateClosestEffectCoroutine());
+            }
+        }
+
+        private IEnumerator CalibrateAllEffectsCoroutine() {
             _calibrating = true;
-            _worldAnchorTransferBatch = new WorldAnchorTransferBatch();
-            _worldAnchorTransferBatchData.Clear();
+            PrepareWorldAnchorTransferBatch();
             foreach(Effect e in _effects) {
-                WorldAnchor existingAnchor = e.GetComponent<WorldAnchor>();
-                if (existingAnchor != null) {
-                    // Existing world anchors need to be removed before objects can be moved
-                    DestroyImmediate(existingAnchor);
-                }
-                // Place all effects in front of the user for easy grabbing once turned on
-                e.transform.SetParent(Camera.main.transform);
-                e.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 0.6f;
-                e.transform.rotation = Quaternion.identity;
-                e.gameObject.SetActive(false);
+                PrepareEffectForCalibration(e);
             }
             foreach (Effect e in _effects) {
-                Debug.Log($"[Effect Manager] Calibrating effect {e.Name}.");
-                // Turn on effect, deparent from user and let user manipulate with hands
-                e.gameObject.SetActive(true);
-                e.transform.SetParent(transform);
-                e.SetCalibrating(true);
-                _calibrateNextEffect = false;
-                TransformByHands transformByHands = e.gameObject.AddComponent<TransformByHands>();
-                bool increasing = true;
-                float effectValue = 0;
-                while (!_calibrateNextEffect) {
-                    // Pulsate effect
-                    if (increasing) {
-                        effectValue += Time.deltaTime;
-                        if (effectValue >= 1.0f) {
-                            effectValue = 1.0f;
-                            increasing = false;
-                        }
-                    }
-                    else {
-                        effectValue -= Time.deltaTime;
-                        if (effectValue <= 0.0f) {
-                            effectValue = 0.0f;
-                            increasing = true;
-                        }
-                    }
-                    e.UpdateEffect(Mathf.Clamp01(effectValue));
-                    yield return 0;
-                }
-                // Positioning done, fix in place and apply a world anchor 
-                e.SetCalibrating(false);
-                e.UpdateEffect(0);
-                Destroy(transformByHands);
-                WorldAnchor anchor = e.gameObject.AddComponent<WorldAnchor>();
-                anchor.OnTrackingChanged += Anchor_OnTrackingChanged;
-                Debug.Log($"[Effect Manager] Done calibrating effect {e.Name}.");
+                yield return CalibrateEffectCoroutine(e);
             }
-            // All effects positioned, wait a little to allow the last anchor to register, then serialize the world anchor transfer batch
+            // All effects positioned, wait a little to allow all anchors to register, then serialize the world anchor transfer batch
+            AnchorAllEffects();
             yield return new WaitForSeconds(1);
+            ConcludeCalibration();
+        }
+
+        private IEnumerator CalibrateClosestEffectCoroutine() {
+            _calibrating = true;
+            PrepareWorldAnchorTransferBatch();
+            Effect closest = null;
+            float closestDistance = Mathf.Infinity;
+            foreach (Effect effect in _effects) {
+                float effectDistance = Vector3.Distance(Camera.main.transform.position, effect.transform.position);
+                if (effectDistance < closestDistance) {
+                    closestDistance = effectDistance;
+                    closest = effect;
+                }
+            }
+            PrepareEffectForCalibration(closest, false);
+            yield return CalibrateEffectCoroutine(closest);
+            AnchorAllEffects();
+            yield return new WaitForSeconds(1);
+            ConcludeCalibration();
+        }
+
+        private void PrepareEffectForCalibration(Effect effect, bool move = true) {
+            WorldAnchor existingAnchor = effect.GetComponent<WorldAnchor>();
+            if(existingAnchor != null) {
+                // Existing world anchors need to be removed before objects can be moved
+                DestroyImmediate(existingAnchor);
+            }
+            // Place all effects in front of the user for easy grabbing once turned on
+            if (move) {
+                effect.transform.SetParent(Camera.main.transform);
+                effect.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 0.6f;
+                effect.transform.rotation = Quaternion.identity;
+            }
+            effect.gameObject.SetActive(false);
+        }
+
+        private IEnumerator CalibrateEffectCoroutine(Effect effect) {
+            Debug.Log($"[Effect Manager] Calibrating effect {effect.Name}.");
+            // Turn on effect, deparent from user and let user manipulate with hands
+            effect.gameObject.SetActive(true);
+            effect.transform.SetParent(transform);
+            effect.SetCalibrating(true);
+            _calibrateNextEffect = false;
+            TransformByHands transformByHands = effect.gameObject.AddComponent<TransformByHands>();
+            bool increasing = true;
+            float effectValue = 0;
+            while(!_calibrateNextEffect) {
+                // Pulsate effect
+                if(increasing) {
+                    effectValue += Time.deltaTime;
+                    if(effectValue >= 1.0f) {
+                        effectValue = 1.0f;
+                        increasing = false;
+                    }
+                }
+                else {
+                    effectValue -= Time.deltaTime;
+                    if(effectValue <= 0.0f) {
+                        effectValue = 0.0f;
+                        increasing = true;
+                    }
+                }
+                effect.UpdateEffect(Mathf.Clamp01(effectValue));
+                yield return 0;
+            }
+            // Positioning done, fix in place and apply a world anchor 
+            effect.SetCalibrating(false);
+            effect.UpdateEffect(0);
+            Destroy(transformByHands);
+            Debug.Log($"[Effect Manager] Done calibrating effect {effect.Name}.");
+        }
+
+        private void ConcludeCalibration() {
 #if !UNITY_EDITOR
             WorldAnchorTransferBatch.ExportAsync(_worldAnchorTransferBatch, TransferBatchExportDataAvailable, TransferBatchExportSerializationCompleted);
 #endif
@@ -172,6 +203,21 @@ namespace Fasett {
         public void CalibrateNextEffect() {
             if(_calibrating) {
                 _calibrateNextEffect = true;
+            }
+        }
+
+        private void PrepareWorldAnchorTransferBatch() {
+            _worldAnchorTransferBatch = new WorldAnchorTransferBatch();
+            _worldAnchorTransferBatchData.Clear();
+        }
+
+        private void AnchorAllEffects() {
+            foreach (Effect effect in _effects) {
+                WorldAnchor anchor = effect.gameObject.GetComponent<WorldAnchor>();
+                if (anchor ==  null) {
+                    anchor = effect.gameObject.AddComponent<WorldAnchor>();
+                }
+                anchor.OnTrackingChanged += Anchor_OnTrackingChanged;
             }
         }
 
@@ -192,20 +238,22 @@ namespace Fasett {
             Debug.Log("[Effect Manager] Saving data to file, total size in kb: " + completeData.Length / 1024);
 #if !UNITY_EDITOR
             CreateTransferBatchFile(completeData);
+#endif
         }
 
+#if !UNITY_EDITOR
         private async Task CreateTransferBatchFile(byte[] data) {
             Windows.Storage.StorageFile transferBatchFile = await _storageFolder.CreateFileAsync(_transferBatchFileName, Windows.Storage.CreationCollisionOption.ReplaceExisting);
             IBuffer buffer = data.AsBuffer();
             await Windows.Storage.FileIO.WriteBufferAsync(transferBatchFile, buffer);
             // Transfer batch file created, upload it to Azure
             _azureFileHandler.UploadFile(_transferBatchFileName, _storageFolder.Path, _azureShareName, _azureFolderName, UploadCompleted);
-#endif
         }
 
         private void UploadCompleted() {
             Debug.Log("[Effect Manager] Azure upload completed.");
         }
+#endif
 
         public void SetEffectValueAsync(string effectName, float value) {
             if (!_calibrating) {

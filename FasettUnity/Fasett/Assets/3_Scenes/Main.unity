@@ -6244,10 +6244,12 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1009194642}
-  m_Text: "Say \"Calibrate all effects\" to start calibration.\nPosition effects by
-    making and holding a tap gesture, then moving \nyour hand. Tap and hold with both
-    hands to rotate.\nSay \"Next\" to move on to the next effect.\nSay \"Wireframe\"
-    to display room mapping.\nSay \"Start Demo\" when the exhibit is ready for visitors."
+  m_Text: "Say \"Calibrate all\" to start calibration of all effects.\n\nPosition
+    effects by making and holding a tap gesture, then moving \nyour hand. Tap and
+    hold with both hands to rotate.\n\nSay \"Next effect\" or \"OK\" when you are
+    done calibrating an effect.\n\nSay \"Calibrate closest\" to adjust the closest
+    effect.\n\nSay \"Start demo\" when the exhibit is ready for visitors.\n\nSay \"Information\"
+    to toggle this screen."
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1

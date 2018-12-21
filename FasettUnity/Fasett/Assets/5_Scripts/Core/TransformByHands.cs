@@ -70,6 +70,7 @@ namespace Fasett {
 
         private Vector3 _frameStartPosition;
         private Quaternion _frameStartRotation;
+        private bool _firstFrame = true;
         #endregion
 
         #region InternalMeasurementClasses
@@ -175,12 +176,16 @@ namespace Fasett {
         }
 
         protected void LateUpdate() {
-            if(Vector3.Distance(_frameStartPosition, transform.position) > 0.05f) { // HACK - Prevents bugs that make the whole thing jump in certain situations.
+            if(Vector3.Distance(_frameStartPosition, transform.position) > 0.05f && !_firstFrame) { // HACK - Prevents bugs that make the whole thing jump in certain situations.
+                Debug.Log("Repositioning because of jump");
                 transform.position = _frameStartPosition;
                 transform.rotation = _frameStartRotation;
             }
 
             Slide();
+            if (_firstFrame) {
+                _firstFrame = false;
+            }
         }
 
         protected void OnDestroy() {

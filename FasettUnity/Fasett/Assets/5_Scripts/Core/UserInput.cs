@@ -13,22 +13,26 @@ namespace Fasett {
 
         public static Action OnUserSaidNextEffect;
         public static Action OnUserSaidCalibrateAllEffects;
+        public static Action OnUserSaidCalibrateClosestEffect;
         public static Action OnUserSaidDemoMode;
         public static Action OnUserSaidWireframe;
         public static Action OnUserSaidOK;
+        public static Action OnUserSaidInformation;
 
-        private const string NEXT_EFFECT_PHRASE = "next";
-        private const string CALIBRATE_ALL_EFFECTS_PHRASE = "calibrate all effects";
+        private const string NEXT_EFFECT_PHRASE = "next effect";
+        private const string CALIBRATE_ALL_EFFECTS_PHRASE = "calibrate all";
+        private const string CALIBRATE_CLOSEST_EFFECT_PHRASE = "calibrate closest";
         private const string DEMO_MODE_PHRASE = "start demo";
         private const string SHOW_WIREFRAME_PHRASE = "wireframe";
         private const string OK_PHRASE = "ok";
+        private const string INFORMATION_PHRASE = "information";
 
         public void Setup(Core core) {
             recognizer = new GestureRecognizer();
             recognizer.Tapped += UserTapped;
             recognizer.StartCapturingGestures();
 
-            _keywordRecognizer = new KeywordRecognizer(new string[] { NEXT_EFFECT_PHRASE, CALIBRATE_ALL_EFFECTS_PHRASE, DEMO_MODE_PHRASE, SHOW_WIREFRAME_PHRASE, OK_PHRASE });
+            _keywordRecognizer = new KeywordRecognizer(new string[] { NEXT_EFFECT_PHRASE, CALIBRATE_ALL_EFFECTS_PHRASE, CALIBRATE_CLOSEST_EFFECT_PHRASE, DEMO_MODE_PHRASE, SHOW_WIREFRAME_PHRASE, OK_PHRASE, INFORMATION_PHRASE });
             _keywordRecognizer.OnPhraseRecognized += PhraseRecognized;
             _keywordRecognizer.Start();
         }
@@ -37,30 +41,32 @@ namespace Fasett {
         }
 
         private void PhraseRecognized(PhraseRecognizedEventArgs eventArgs) {
-            if(eventArgs.text == NEXT_EFFECT_PHRASE) {
-                if (OnUserSaidNextEffect != null) {
-                    OnUserSaidNextEffect();
-                }
+            Action action = null;
+            switch(eventArgs.text) {
+                case NEXT_EFFECT_PHRASE:
+                    action = OnUserSaidNextEffect;
+                    break;
+                case CALIBRATE_ALL_EFFECTS_PHRASE:
+                    action = OnUserSaidCalibrateAllEffects;
+                    break;
+                case CALIBRATE_CLOSEST_EFFECT_PHRASE:
+                    action = OnUserSaidCalibrateClosestEffect;
+                    break;
+                case DEMO_MODE_PHRASE:
+                    action = OnUserSaidDemoMode;
+                    break;
+                case SHOW_WIREFRAME_PHRASE:
+                    action = OnUserSaidWireframe;
+                    break;
+                case OK_PHRASE:
+                    action = OnUserSaidOK;
+                    break;
+                case INFORMATION_PHRASE:
+                    action = OnUserSaidInformation;
+                    break;
             }
-            else if(eventArgs.text == CALIBRATE_ALL_EFFECTS_PHRASE) {
-                if (OnUserSaidCalibrateAllEffects != null) {
-                    OnUserSaidCalibrateAllEffects();
-                }
-            }
-            else if(eventArgs.text == DEMO_MODE_PHRASE) {
-                if (OnUserSaidDemoMode != null) {
-                    OnUserSaidDemoMode();
-                }
-            }
-            else if(eventArgs.text == SHOW_WIREFRAME_PHRASE) {
-                if (OnUserSaidWireframe != null) {
-                    OnUserSaidWireframe();
-                }
-            }
-            else if(eventArgs.text == OK_PHRASE) {
-                if(OnUserSaidOK != null) {
-                    OnUserSaidOK();
-                }
+            if (action != null) {
+                action();
             }
         }
     }
