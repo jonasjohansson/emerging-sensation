@@ -1,5 +1,5 @@
 #define SMOOTHSTEP(x) ((x) * (x) * (3 - 2 * (x)))
-#define N 10.0
+#define N 4.0
 
 int a, b, al, bl;
 
@@ -9,7 +9,7 @@ void setup(){
 
 void loop(){
   //readSimple(23, a, al);
-  readAdvanced(23, b, bl, 30, 120);
+  readAdvanced(23, b, bl, 30, 320);
   
   delay(10);
 }
@@ -29,27 +29,22 @@ void readAdvanced(byte pin, int &val, int &last, int min, int max){
   temp = constrain(temp,min,max);
   temp = smooth(temp);
 
-  if (temp == last) return;
 
-  s(pin,val);
+  if (abs(temp - val) > 10){
+    
+    for (int i = 0; i < N; i++){
+      float v = i / N;
+      v = SMOOTHSTEP(v);
+      val = (last * v) + (temp * (1 - v));
+    }
 
-  int diff = abs(val - last);
-  if (diff > 3){
-    val = map(val,min,max,255,0);
-    s(pin,val);
-  }
-  
-  float v;
-  
-  for (int i = 0; i < N; i++){
-    v = i / N;
-    v = SMOOTHSTEP(v);
-    val = (last * v) + (temp * (1 - v));
-    //s(pin,temp);
+    //val = lerp(val,temp,0.1);
+    
     Serial.println(val);
+    last = val;
+
   }
   
-  last = temp;
 }
 
 void s(byte pin, int val){
