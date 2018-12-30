@@ -1,6 +1,6 @@
-const int numReadings = 8;
+const int numReadings = 10;
 
-int readings[numReadings] = {0,0,0,0,0,0,0,0};
+int readings[numReadings] = {0,0,0,0,0,0,0,0,0,0};
 int readIndex = 0;
 int total = 0;
 int average = 0;

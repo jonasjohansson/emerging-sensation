@@ -6,7 +6,7 @@ void setup(){
 
 void loop(){
   //readSimple(23, a, al);
-  readAdvanced(23, b, bl, 30, 320);
+  readAdvanced(23, b, bl, 40, 360);
   
   delay(10);
 }

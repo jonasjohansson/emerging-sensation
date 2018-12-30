@@ -1,5 +1,5 @@
 #define SMOOTHSTEP(x) ((x) * (x) * (3 - 2 * (x)))
-#define N 10.0
+#define N 20.0
 
 void readSimple(byte pin, float &val, float &last){
   val = analogRead(pin);
@@ -14,13 +14,14 @@ void readSimple(byte pin, float &val, float &last){
 void readAdvanced(byte pin, float &val, float &last, float min, float max){
   float temp = analogRead(pin);
   temp = constrain(temp,min,max);
-  //temp = smooth(temp);
+  temp = smooth(temp);
 
   if (abs(temp - last) < 2) return;
 
   for (byte i = 0; i < N; i++) {
     float v = i / N;
     v = SMOOTHSTEP(v);
+    //v = v*v;
     val = (last * v) + (temp * (1 - v));
   }
   
