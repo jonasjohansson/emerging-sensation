@@ -1,4 +1,4 @@
-int a, b, al, bl;
+float a, b, al, bl;
 
 void setup(){
   Serial.begin(115200);
