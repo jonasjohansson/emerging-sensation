@@ -16,6 +16,7 @@ namespace Fasett {
                 UserInput.OnUserSaidOK += CalibrateNextEffect;
                 UserInput.OnUserSaidWireframe += ToggleSpaceWireframe;
                 UserInput.OnUserSaidInformation += ToggleInformation;
+                UserInput.OnUserSaidDemoMode += SetUpUserForDemo;
                 _setupInstructions.SetActive(true);
             }
             else {
@@ -25,6 +26,7 @@ namespace Fasett {
                 UserInput.OnUserSaidOK -= CalibrateNextEffect;
                 UserInput.OnUserSaidWireframe -= ToggleSpaceWireframe;
                 UserInput.OnUserSaidInformation -= ToggleInformation;
+                UserInput.OnUserSaidDemoMode -= SetUpUserForDemo;
                 _setupInstructions.SetActive(false);
             }
         }
@@ -47,6 +49,12 @@ namespace Fasett {
 
         private void ToggleInformation() {
             _setupInstructions.SetActive(!_setupInstructions.activeSelf);
+        }
+
+        private void SetUpUserForDemo() {
+            if (!_effectManager.IsCalibrating) {
+                _stateManager.SetState<SettingUpUserForDemo>();
+            }
         }
     }
 }

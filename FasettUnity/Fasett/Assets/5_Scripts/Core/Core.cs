@@ -18,9 +18,9 @@ namespace Fasett {
         protected void Start () {
             Instance = this;
             _userInput.Setup(this);
-            _effectManager.Setup(this);
             _networkHandler.Setup(this);
             _stateManager.Setup(this);
 	    }
+
     }
 }

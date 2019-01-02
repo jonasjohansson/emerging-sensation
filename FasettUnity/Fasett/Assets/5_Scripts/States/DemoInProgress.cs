@@ -21,10 +21,16 @@ namespace Fasett {
             if (active) {
                 _demoCounter = _demoDuration;
                 _running = true;
+                UserInput.OnUserSaidDemoMode += SetUpUserForDemo;
             }
             else {
                 _running = false;
+                UserInput.OnUserSaidDemoMode -= SetUpUserForDemo;
             }
+        }
+
+        private void SetUpUserForDemo() {
+            _stateManager.SetState<SettingUpUserForDemo>();
         }
     }
 }

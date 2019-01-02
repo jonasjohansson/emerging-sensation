@@ -24,6 +24,14 @@ namespace Fasett {
         private bool _calibrateNextEffect;
         private bool _loadingCalibration;
 
+        private Action<bool, string> _setupCompleteCallback;
+
+        public bool IsCalibrating {
+            get {
+                return _calibrating || _loadingCalibration;
+            }
+        }
+
 #if !UNITY_EDITOR
         private AzureFileHandler _azureFileHandler;
         private string _transferBatchFileName = "TransferBatch.dat";
@@ -32,17 +40,26 @@ namespace Fasett {
         private string _azureShareName = "hololens";
 #endif
 
-        public async void Setup(Core core) {
+        public async void Setup(Action<bool, string> setupCompleteCallback) {
+            _setupCompleteCallback = setupCompleteCallback;
             foreach (Effect e in _effects) {
                 e.UpdateEffect(0);
             }
+            HideEffects();
 #if !UNITY_EDITOR
+            await Task.Delay(3000); // Give user time to go to exhibition setup
             _loadingCalibration = true;
             _azureFileHandler = new AzureFileHandler();
             _storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             // World anchor store might have to be loaded for world anchor actions and transfer batch stuff to work
             WorldAnchorStore.GetAsync(WorldAnchorStoreLoaded);
+#else
+            Invoke("LoadedFromEditor", 5.0f);
 #endif
+        }
+
+        private void LoadedFromEditor() {
+            _setupCompleteCallback(false, "Loading calibration not supported in editor.");
         }
 
 #if !UNITY_EDITOR
@@ -58,7 +75,8 @@ namespace Fasett {
             }
             else {
                 _loadingCalibration = false;
-                CalibrateAllEffects();
+                ShowEffects();
+                _setupCompleteCallback(false, "Azure download failed.");
             }
         }
 
@@ -73,9 +91,10 @@ namespace Fasett {
                 WorldAnchorTransferBatch.ImportAsync(data, TransferBatchImportCompleted);
             }
             else {
-                Debug.Log("[Effect Manager] No transfer batch file found, calibrating all effects.");
+                Debug.Log("[Effect Manager] No transfer batch file found.");
                 _loadingCalibration = false;
-                CalibrateAllEffects();
+                ShowEffects();
+                _setupCompleteCallback(false, "Couldn't get transfer batch file from disk.");
             }
         }
 #endif
@@ -88,22 +107,25 @@ namespace Fasett {
                     Debug.Log("[Effect Manager] Locked effect " + e.Name + " to world anchor imported from transfer batch.");
                 }
                 _loadingCalibration = false;
+                ShowEffects();
+                _setupCompleteCallback(true, "Calibration successfully loaded!");
             }
             else {
-                Debug.Log("[Effect Manager] Deserialization failed or transfer batch is null. Starting calibration.");
+                Debug.Log("[Effect Manager] Deserialization failed or transfer batch is null.");
                 _loadingCalibration = false;
-                CalibrateAllEffects();
+                ShowEffects();
+                _setupCompleteCallback(false, "Transfer batch deserialization failed or result is null.");
             }
         }
 
         public void CalibrateAllEffects() {
-            if(!_calibrating && !_loadingCalibration) {
+            if(!IsCalibrating) {
                 StartCoroutine(CalibrateAllEffectsCoroutine());
             }
         }
 
         public void CalibrateClosestEffect() {
-            if(!_calibrating && !_loadingCalibration) {
+            if(!IsCalibrating) {
                 StartCoroutine(CalibrateClosestEffectCoroutine());
             }
         }

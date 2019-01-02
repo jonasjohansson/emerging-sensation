@@ -11,8 +11,7 @@ namespace Fasett {
             foreach (AppState appState in _states) {
                 appState.Setup(this);
             }
-            SetState<SettingUpExhibition>();
-            UserInput.OnUserSaidDemoMode += SetUpUserForDemo;
+            SetState<StartingApp>();
         }
 
         public void SetState<T>() where T : AppState {
@@ -26,14 +25,6 @@ namespace Fasett {
                     appState.SetActive(false);
                 }
             }
-        }
-
-        private void SetUpUserForDemo() {
-            SetState<SettingUpUserForDemo>();
-        }
-
-        protected void OnDestroy() {
-            UserInput.OnUserSaidDemoMode -= SetUpUserForDemo;
         }
     }
 }

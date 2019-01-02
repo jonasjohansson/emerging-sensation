@@ -14,6 +14,7 @@ namespace Fasett {
         public static Action OnUserSaidNextEffect;
         public static Action OnUserSaidCalibrateAllEffects;
         public static Action OnUserSaidCalibrateClosestEffect;
+        public static Action OnUserSaidExhibitionSetup;
         public static Action OnUserSaidDemoMode;
         public static Action OnUserSaidWireframe;
         public static Action OnUserSaidOK;
@@ -22,6 +23,7 @@ namespace Fasett {
         private const string NEXT_EFFECT_PHRASE = "next effect";
         private const string CALIBRATE_ALL_EFFECTS_PHRASE = "calibrate all";
         private const string CALIBRATE_CLOSEST_EFFECT_PHRASE = "calibrate closest";
+        private const string EXHIBITION_SETUP_PHRASE = "exhibition setup";
         private const string DEMO_MODE_PHRASE = "start demo";
         private const string SHOW_WIREFRAME_PHRASE = "wireframe";
         private const string OK_PHRASE = "ok";
@@ -32,7 +34,7 @@ namespace Fasett {
             recognizer.Tapped += UserTapped;
             recognizer.StartCapturingGestures();
 
-            _keywordRecognizer = new KeywordRecognizer(new string[] { NEXT_EFFECT_PHRASE, CALIBRATE_ALL_EFFECTS_PHRASE, CALIBRATE_CLOSEST_EFFECT_PHRASE, DEMO_MODE_PHRASE, SHOW_WIREFRAME_PHRASE, OK_PHRASE, INFORMATION_PHRASE });
+            _keywordRecognizer = new KeywordRecognizer(new string[] { NEXT_EFFECT_PHRASE, CALIBRATE_ALL_EFFECTS_PHRASE, CALIBRATE_CLOSEST_EFFECT_PHRASE, EXHIBITION_SETUP_PHRASE, DEMO_MODE_PHRASE, SHOW_WIREFRAME_PHRASE, OK_PHRASE, INFORMATION_PHRASE });
             _keywordRecognizer.OnPhraseRecognized += PhraseRecognized;
             _keywordRecognizer.Start();
         }
@@ -51,6 +53,9 @@ namespace Fasett {
                     break;
                 case CALIBRATE_CLOSEST_EFFECT_PHRASE:
                     action = OnUserSaidCalibrateClosestEffect;
+                    break;
+                case EXHIBITION_SETUP_PHRASE:
+                    action = OnUserSaidExhibitionSetup;
                     break;
                 case DEMO_MODE_PHRASE:
                     action = OnUserSaidDemoMode;
