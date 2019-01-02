@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Veins
+  m_Shader: {fileID: 4800000, guid: 17e2f589a21d4534fbe2ddfb46e7d9e7, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _ColorRamp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Main:
+        m_Texture: {fileID: 2800000, guid: faf5a355835d3144fab8378e6e82a49b, type: 3}
+        m_Scale: {x: 0.22, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: faf5a355835d3144fab8378e6e82a49b, type: 3}
+        m_Scale: {x: 0.2, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Ramp:
+        m_Texture: {fileID: 2800000, guid: 403618c456605d04d9a3ef48a2de1940, type: 3}
+        m_Scale: {x: 0.64, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _fg:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _node_9821:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorShift: 0
+    - _NormalPush: -0.02
+    - _PulseSpeed: 0.18
+    - _ScrollSpeed1: 0.11
+    m_Colors:
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
