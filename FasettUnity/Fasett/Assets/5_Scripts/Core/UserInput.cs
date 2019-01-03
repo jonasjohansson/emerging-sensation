@@ -23,7 +23,7 @@ namespace Fasett {
         private const string NEXT_EFFECT_PHRASE = "next effect";
         private const string CALIBRATE_ALL_EFFECTS_PHRASE = "calibrate all";
         private const string CALIBRATE_CLOSEST_EFFECT_PHRASE = "calibrate closest";
-        private const string EXHIBITION_SETUP_PHRASE = "exhibition setup";
+        private const string EXHIBITION_SETUP_PHRASE = "setup exhibition";
         private const string DEMO_MODE_PHRASE = "start demo";
         private const string SHOW_WIREFRAME_PHRASE = "wireframe";
         private const string OK_PHRASE = "ok";

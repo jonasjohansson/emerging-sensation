@@ -23,6 +23,7 @@ namespace Fasett {
 
         private void UserSaidExhibitionSetup() {
             _exhibitionSetup = true;
+            _startupMessage.text = _startupMessage.text + "\nSetting up exhibition...";
         }
 
         private void EffectSetupCompleteCallback(bool successful, string message) {
