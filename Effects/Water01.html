@@ -10,7 +10,7 @@
 	<script>
 
 		var DAMPING = 0.899;
-		var RETURN = false;
+		var swarm = true;
 
 		function Particle(x, y) {
 			this.originX = x;
@@ -29,14 +29,6 @@
 		};
 
 		Particle.prototype.attract = function(x, y) {
-			var dx = x - this.x;
-			var dy = y - this.y;
-			var distance = Math.sqrt(dx * dx + dy * dy);
-			this.x += dx / distance;
-			this.y += dy / distance;
-		};
-
-		Particle.prototype.return = function(x, y) {
 			var dx = x - this.x;
 			var dy = y - this.y;
 			var distance = Math.sqrt(dx * dx + dy * dy);
@@ -68,26 +60,25 @@
 		display.addEventListener('click', onMouseclick);
 
 		function onMousemove(e) {
-			RETURN = false;
 			mouse.x = e.clientX;
 			mouse.y = e.clientY;
 		}
 
 		function onMouseclick(e) {
-			RETURN = true;
-			console.log(RETURN);
+			swarm = (swarm === true) ? false : true;
 		}
 
 		requestAnimationFrame(frame);
 
 		function frame() {
+			console.log(swarm)
 			requestAnimationFrame(frame);
 			ctx.clearRect(0, 0, width, height);
 			for (var i = 0; i < particles.length; i++) {
-				if (!RETURN){
+				if (swarm){
 					particles[i].attract(mouse.x, mouse.y);
 				} else {
-					particles[i].return(particles[i].originX, particles[i].originY);
+					particles[i].attract(particles[i].originX, particles[i].originY);
 				}
 				particles[i].integrate();
 				particles[i].draw();
