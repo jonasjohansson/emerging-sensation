@@ -9,9 +9,12 @@
 
 	<script>
 
-		var DAMPING = 0.999;
+		var DAMPING = 0.899;
+		var RETURN = false;
 
 		function Particle(x, y) {
+			this.originX = x;
+			this.originY = y;
 			this.x = this.oldX = x;
 			this.y = this.oldY = y;
 		}
@@ -33,8 +36,16 @@
 			this.y += dy / distance;
 		};
 
+		Particle.prototype.return = function(x, y) {
+			var dx = x - this.x;
+			var dy = y - this.y;
+			var distance = Math.sqrt(dx * dx + dy * dy);
+			this.x += dx / distance;
+			this.y += dy / distance;
+		};
+
 		Particle.prototype.draw = function() {
-			ctx.strokeStyle = '#ffffff';
+			ctx.strokeStyle = '#eb6123';
 			ctx.lineWidth = 2;
 			ctx.beginPath();
 			ctx.moveTo(this.oldX, this.oldY);
@@ -54,10 +65,17 @@
 		}
 
 		display.addEventListener('mousemove', onMousemove);
+		display.addEventListener('click', onMouseclick);
 
 		function onMousemove(e) {
+			RETURN = false;
 			mouse.x = e.clientX;
 			mouse.y = e.clientY;
+		}
+
+		function onMouseclick(e) {
+			RETURN = true;
+			console.log(RETURN);
 		}
 
 		requestAnimationFrame(frame);
@@ -66,7 +84,11 @@
 			requestAnimationFrame(frame);
 			ctx.clearRect(0, 0, width, height);
 			for (var i = 0; i < particles.length; i++) {
-				particles[i].attract(mouse.x, mouse.y);
+				if (!RETURN){
+					particles[i].attract(mouse.x, mouse.y);
+				} else {
+					particles[i].return(particles[i].originX, particles[i].originY);
+				}
 				particles[i].integrate();
 				particles[i].draw();
 			}
