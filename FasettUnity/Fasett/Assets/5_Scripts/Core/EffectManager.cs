@@ -24,7 +24,8 @@ namespace Fasett {
         private bool _calibrateNextEffect;
         private bool _loadingCalibration;
 
-        private Action<bool, string> _setupCompleteCallback;
+        private Action<bool> _setupCompleteCallback;
+        private Action<string> _updateLoadingMessageCallback;
 
         public bool IsCalibrating {
             get {
@@ -40,8 +41,9 @@ namespace Fasett {
         private string _azureShareName = "hololens";
 #endif
 
-        public async void Setup(Action<bool, string> setupCompleteCallback) {
+        public async void Setup(Action<bool> setupCompleteCallback, Action<string> updateLoadingMessageCallback) {
             _setupCompleteCallback = setupCompleteCallback;
+            _updateLoadingMessageCallback = updateLoadingMessageCallback;
             foreach (Effect e in _effects) {
                 e.UpdateEffect(0);
             }
@@ -59,11 +61,13 @@ namespace Fasett {
         }
 
         private void LoadedFromEditor() {
-            _setupCompleteCallback(false, "Loading calibration not supported in editor.");
+            _updateLoadingMessageCallback("Loading calibration not supported in editor.");
+            _setupCompleteCallback(false);
         }
 
 #if !UNITY_EDITOR
         private void WorldAnchorStoreLoaded(WorldAnchorStore worldAnchorStore) {
+            _updateLoadingMessageCallback("Downloading anchors...");
             // Attempt to download world anchor transfer batch file from Azure
             _azureFileHandler.DownloadFile(_transferBatchFileName, _storageFolder.Path, _azureShareName, _azureFolderName, DownloadCompleted);
         }
@@ -71,12 +75,14 @@ namespace Fasett {
         private void DownloadCompleted(bool succeeded) {
             Debug.Log("[Effect Manager] Azure download completed with result: " + (succeeded ? "succeeded." : "failed."));
             if (succeeded) {
+                _updateLoadingMessageCallback("Importing anchor file...");
                 GetTransferBatchFileData();
             }
             else {
                 _loadingCalibration = false;
                 ShowEffects();
-                _setupCompleteCallback(false, "Azure download failed.");
+                _updateLoadingMessageCallback("Azure download failed.");
+                _setupCompleteCallback(false);
             }
         }
 
@@ -94,7 +100,8 @@ namespace Fasett {
                 Debug.Log("[Effect Manager] No transfer batch file found.");
                 _loadingCalibration = false;
                 ShowEffects();
-                _setupCompleteCallback(false, "Couldn't get transfer batch file from disk.");
+                _updateLoadingMessageCallback("Failed to get transfer batch file from disk.");
+                _setupCompleteCallback(false);
             }
         }
 #endif
@@ -102,20 +109,38 @@ namespace Fasett {
         private void TransferBatchImportCompleted(SerializationCompletionReason serializationCompletionReason, WorldAnchorTransferBatch worldAnchorTransferBatch) {
             Debug.Log("[Effect Manager] Deserialization of world anchor transfer batch completed, result: " + serializationCompletionReason);
             if(worldAnchorTransferBatch != null && serializationCompletionReason == SerializationCompletionReason.Succeeded) {
+                StartCoroutine(WaitForRoomRecognition(_effects[0]));
                 foreach(Effect e in _effects) {
                     worldAnchorTransferBatch.LockObject(e.Name, e.gameObject);
                     Debug.Log("[Effect Manager] Locked effect " + e.Name + " to world anchor imported from transfer batch.");
                 }
                 _loadingCalibration = false;
                 ShowEffects();
-                _setupCompleteCallback(true, "Calibration successfully loaded!");
             }
             else {
                 Debug.Log("[Effect Manager] Deserialization failed or transfer batch is null.");
                 _loadingCalibration = false;
                 ShowEffects();
-                _setupCompleteCallback(false, "Transfer batch deserialization failed or result is null.");
+                _updateLoadingMessageCallback("File deserialization failed or result is null.");
+                _setupCompleteCallback(false);
             }
+        }
+
+        private IEnumerator WaitForRoomRecognition(Effect e) {
+            _updateLoadingMessageCallback("Waiting for room to be recognized...");
+            float startTime = Time.time;
+            Vector3 startPosition = e.transform.position;
+            bool timedOut = false;
+            while (e.GetComponent<WorldAnchor>() == null || e.transform.position == startPosition) {
+                yield return 0;
+                if (Time.time > startTime + 15.0f && !timedOut) {
+                    timedOut = true;
+                    _updateLoadingMessageCallback("Room recognition is taking long, try looking around and/or restarting.");
+                }
+            }
+            Debug.Log("[Effect Manager] Effect was anchored: " + e.Name);
+            _updateLoadingMessageCallback("Calibration completed successfully!");
+            _setupCompleteCallback(true);
         }
 
         public void CalibrateAllEffects() {

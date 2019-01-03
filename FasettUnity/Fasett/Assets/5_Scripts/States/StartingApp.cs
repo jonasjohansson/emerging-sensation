@@ -12,7 +12,7 @@ namespace Fasett {
         public override void SetActive(bool active) {
             if(active) {
                 _startupMessage.gameObject.SetActive(true);
-                _effectManager.Setup(EffectSetupCompleteCallback);
+                _effectManager.Setup(EffectSetupCompleteCallback, UpdateLoadingMessage);
                 UserInput.OnUserSaidExhibitionSetup += UserSaidExhibitionSetup;
             }
             else {
@@ -26,9 +26,9 @@ namespace Fasett {
             _startupMessage.text = _startupMessage.text + "\nSetting up exhibition...";
         }
 
-        private void EffectSetupCompleteCallback(bool successful, string message) {
+        private void EffectSetupCompleteCallback(bool successful) {
             if (_exhibitionSetup) {
-                _startupMessage.text = message + " Say 'OK' to continue to setup.";
+                _startupMessage.text = _startupMessage.text + "\nSay 'OK' to continue to setup.";
                 UserInput.OnUserSaidOK += ContinueToExhibitionSetup;
             }
             else {
@@ -39,6 +39,10 @@ namespace Fasett {
                     _startupMessage.text = "Couldn't load effects. Please give the HoloLens to exhibition staff.";
                 }
             }
+        }
+
+        private void UpdateLoadingMessage(string message) {
+            _startupMessage.text = _startupMessage.text + "\n" + message;
         }
 
         private void ContinueToExhibitionSetup() {
