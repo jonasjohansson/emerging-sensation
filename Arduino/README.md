@@ -1,5 +1,12 @@
 # Emerging Sensation
 
+/\*
+
+-   https://github.com/FastLED/FastLED/wiki/Pixel-reference
+-   OctoWS2811: 2,14,7,8,6,20,21,5
+-   Teensy: 0,1,23,22,19,18,17
+    \*/
+
 ## Mapping
 
 ### Body

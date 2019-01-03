@@ -14,8 +14,8 @@ void readSimple(byte pin, float &val, float &last){
 void readAdvanced(byte pin, float &val, float &last, float min, float max){
   float temp = analogRead(pin);
   temp = constrain(temp,min,max);
-  temp = map(temp,min,max,255,0);
-  temp = smooth(temp);
+  //temp = map(temp,min,max,255,0);
+  //temp = smooth(temp);
 
   if (abs(temp - last) < 2) return;
 
@@ -31,7 +31,7 @@ void readAdvanced(byte pin, float &val, float &last, float min, float max){
 }
 
 void s(byte pin, int val){
-  //Serial.print(pin);
-  //Serial.print(' ');
+  Serial.print(pin);
+  Serial.print(' ');
   Serial.println(val);
 }
