@@ -15,7 +15,7 @@ using Windows.Storage.Streams;
 
 namespace Fasett {
     public class EffectManager : MonoBehaviour {
-        [SerializeField] private Effect[] _effects;
+        private Effect[] _effects;
 
         private WorldAnchorTransferBatch _worldAnchorTransferBatch;
         private List<byte> _worldAnchorTransferBatchData = new List<byte>(0);
@@ -26,6 +26,10 @@ namespace Fasett {
 
         private Action<bool> _setupCompleteCallback;
         private Action<string> _updateLoadingMessageCallback;
+
+        protected void Awake() {
+            _effects = GetComponentsInChildren<Effect>(false);
+        }
 
         public bool IsCalibrating {
             get {
@@ -198,7 +202,7 @@ namespace Fasett {
             // Place all effects in front of the user for easy grabbing once turned on
             if (move) {
                 effect.transform.SetParent(Camera.main.transform);
-                effect.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 0.6f;
+                effect.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2.0f;
                 effect.transform.rotation = Quaternion.identity;
             }
             effect.gameObject.SetActive(false);
