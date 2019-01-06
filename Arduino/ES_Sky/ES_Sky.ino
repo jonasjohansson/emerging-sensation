@@ -18,14 +18,14 @@ CRGB col = CRGB(255,255,255);
 #define NUM_WINGS 4
 
 byte wingA[NUM_WINGS][2] = { {2,1}, {3,0}, {4,0}, {5,1} };
-byte wingB[NUM_WINGS][2] = { {6,1}, {7,0}, {0,0}, {0,1} };
-byte wingC[NUM_WINGS][2] = { {2,3}, {3,2}, {4,2}, {5,3} };
-byte wingD[NUM_WINGS][2] = { {6,3}, {7,2}, {0,2}, {1,3} };
+byte wingB[NUM_WINGS][2] = { {4,1}, {5,0}, {6,0}, {7,1} };
+byte wingC[NUM_WINGS][2] = { {6,1}, {7,0}, {0,0}, {0,1} };
+byte wingD[NUM_WINGS][2] = { {0,1}, {1,0}, {2,0}, {3,1} };
 
-byte wingE[NUM_WINGS][2] = { {0,1}, {1,0}, {2,0}, {3,1} };
-byte wingF[NUM_WINGS][2] = { {4,1}, {5,0}, {6,0}, {7,1} };
-byte wingG[NUM_WINGS][2] = { {0,3}, {1,2}, {2,2}, {3,3} };
-byte wingH[NUM_WINGS][2] = { {4,3}, {5,2}, {6,2}, {7,3} };
+byte wingE[NUM_WINGS][2] = { {2,3}, {3,2}, {4,2}, {5,3} };
+byte wingF[NUM_WINGS][2] = { {4,3}, {5,2}, {6,2}, {7,3} };
+byte wingG[NUM_WINGS][2] = { {6,3}, {7,2}, {0,2}, {1,3} };
+byte wingH[NUM_WINGS][2] = { {0,3}, {1,2}, {2,2}, {3,3} };
 
 void setup(){
   Serial.begin(115200);
@@ -41,20 +41,27 @@ void setup(){
 }
 
 void loop(){
-  colorise(wingA,255,0,0);
+  colorise(wingA,CRGB::Red);
+  colorise(wingB,CRGB::Orange);
+  colorise(wingC,CRGB::Yellow);
+  colorise(wingD,CRGB::Green);
+  colorise(wingE,CRGB::Cyan);
+  colorise(wingF,CRGB::Blue);
+  colorise(wingG,CRGB::Violet);
+  colorise(wingH,CRGB::White);
 }
 
-void colorise(byte wing[][2], byte r, byte g, byte b){
+void colorise(byte wing[][2], CRGB c){
   for (uint8_t i = 0; i < NUM_WINGS; i++){
     byte x = wing[i][0];
     byte y = wing[i][1];
     uint8_t start = NUM_LEDS_PER_SIDE * y;
     uint8_t end = NUM_LEDS_PER_SIDE * (y + 1);
     for(uint8_t j = 0; j < 12; j++) {
-      leds[x][start+j] = CRGB(r,g,b);
-      leds[x][start+23-j] = CRGB(r,g,b);
-      leds[x][start+24+j] = CRGB(r,g,b);
-      FastLED.show();
+      leds[x][start+j] = c;
+      leds[x][start+23-j] = c;
+      leds[x][start+24+j] = c;
     }
   }
+  FastLED.show();
 }
