@@ -41,37 +41,7 @@ void setup(){
 }
 
 void loop(){
-
-  // 0x0, 1x1, 2x1, 3x0s
-//  setColorRange(2,36,72,255,0,0);
-//  setColorRange(3,0,36,255,0,0);
-//  setColorRange(4,0,36,255,0,0);
-//  setColorRange(5,36,72,255,0,0);
-//  
-//  setColorRange(2,72,72,255,0,0);
-//  setColorRange(3,0,36,255,0,0);
-//  setColorRange(4,0,36,255,0,0);
-//  setColorRange(5,36,72,255,0,0);
-//  
-//  setColorRange(6,36,72,0,255,0);
-//  setColorRange(7,0,36,0,255,0);
-//  setColorRange(0,0,36,0,255,0);
-//  setColorRange(1,36,72,0,255,0);
-//  
-//  
-//  setColorRange(6,36,72,0,255,0);
-//  setColorRange(7,0,36,0,255,0);
-//  setColorRange(0,0,36,0,255,0);
-//  setColorRange(1,36,72,0,255,0);
-
   colorise(wingA,255,0,0);
-  colorise(wingB,0,255,0);
-  colorise(wingC,0,0,255);
-  colorise(wingD,255,128,0);
-  colorise(wingE,0,255,128);
-  colorise(wingF,128,0,255);
-  colorise(wingG,255,0,128);
-  colorise(wingH,128,255,0);
 }
 
 void colorise(byte wing[][2], byte r, byte g, byte b){
@@ -84,15 +54,6 @@ void colorise(byte wing[][2], byte r, byte g, byte b){
       leds[x][start+j] = CRGB(r,g,b);
       leds[x][start+23-j] = CRGB(r,g,b);
       leds[x][start+24+j] = CRGB(r,g,b);
-      FastLED.show();
-    }
-  }
-}
-
-void test(){
-  for (int i = 0; i < 8; i++){
-    for (int j = 0; j < NUM_LEDS; j++){
-      leds[i][j].setRGB(255,255,255);
       FastLED.show();
     }
   }
