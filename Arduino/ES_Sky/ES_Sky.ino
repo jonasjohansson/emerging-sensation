@@ -7,25 +7,25 @@
 
 #include<FastLED.h>
 
-#define NUM_LEDS 144
-
-CRGB leds[8][NUM_LEDS];
-CRGB col = CRGB(255,255,255);
+#define RED CRGB::Red
+#define GREEN CRGB::Green
+#define BLUE CRGB::Blue
 
 #define NUM_STRIPS 8
-#define NUM_LEDS_PER_STRIP 144
-#define NUM_LEDS_PER_SIDE 36
+#define NUM_LEDS 144
 #define NUM_WINGS 4
 
-byte wingA[NUM_WINGS][2] = { {2,1}, {3,0}, {4,0}, {5,1} };
-byte wingB[NUM_WINGS][2] = { {4,1}, {5,0}, {6,0}, {7,1} };
-byte wingC[NUM_WINGS][2] = { {6,1}, {7,0}, {0,0}, {0,1} };
-byte wingD[NUM_WINGS][2] = { {0,1}, {1,0}, {2,0}, {3,1} };
+CRGB leds[NUM_STRIPS][NUM_LEDS];
 
-byte wingE[NUM_WINGS][2] = { {2,3}, {3,2}, {4,2}, {5,3} };
-byte wingF[NUM_WINGS][2] = { {4,3}, {5,2}, {6,2}, {7,3} };
-byte wingG[NUM_WINGS][2] = { {6,3}, {7,2}, {0,2}, {1,3} };
-byte wingH[NUM_WINGS][2] = { {0,3}, {1,2}, {2,2}, {3,3} };
+byte wingA[NUM_WINGS][2] = { {1,0}, {0,1}, {3,1}, {2,0} };
+byte wingB[NUM_WINGS][2] = { {3,0}, {2,1}, {5,1}, {4,0} };
+byte wingC[NUM_WINGS][2] = { {5,0}, {4,1}, {7,1}, {6,0} };
+byte wingD[NUM_WINGS][2] = { {7,0}, {6,1}, {1,1}, {0,0} };
+
+byte wingE[NUM_WINGS][2] = { {3,2}, {6,3}, {5,3}, {0,2} };
+byte wingF[NUM_WINGS][2] = { {5,2}, {0,3}, {7,3}, {2,2} };
+byte wingG[NUM_WINGS][2] = { {7,2}, {2,3}, {1,3}, {4,2} };
+byte wingH[NUM_WINGS][2] = { {1,2}, {4,3}, {3,3}, {6,2} };
 
 void setup(){
   Serial.begin(115200);
@@ -42,17 +42,16 @@ void setup(){
 
 void loop(){
   colorise(wingA,CRGB::Red);
-  colorise(wingB,CRGB::Orange);
-  colorise(wingC,CRGB::Yellow);
-  colorise(wingD,CRGB::Green);
-  colorise(wingE,CRGB::Cyan);
-  colorise(wingF,CRGB::Blue);
-  colorise(wingG,CRGB::Violet);
-  colorise(wingH,CRGB::White);
+  colorise(wingB,CRGB::Green);
+  colorise(wingC,CRGB::Blue);
+  colorise(wingE,CRGB::Red);
+  colorise(wingF,CRGB::Green);
+  colorise(wingG,CRGB::Blue);
+  colorise(wingH,CRGB::Yellow);
 }
 
 void colorise(byte wing[][2], CRGB c){
-  for (uint8_t i = 0; i < NUM_WINGS; i++){
+  for (uint8_t i = 0; i < 4; i++){
     byte x = wing[i][0];
     byte y = wing[i][1];
     uint8_t start = NUM_LEDS_PER_SIDE * y;
@@ -62,6 +61,6 @@ void colorise(byte wing[][2], CRGB c){
       leds[x][start+23-j] = c;
       leds[x][start+24+j] = c;
     }
+    FastLED.show();
   }
-  FastLED.show();
 }
