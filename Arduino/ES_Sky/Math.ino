@@ -1,3 +1,5 @@
+extern const uint8_t gamma8[];
+
 const int numReadings = 10;
 
 int readings[numReadings];
@@ -34,6 +36,10 @@ double mapf(double val, double in_min, double in_max, double out_min, double out
 
 float lerp(float a, float b, float x){ 
   return a + x * (b - a);
+}
+
+byte gammaCorrect(byte val){
+  return pgm_read_byte(&gamma8[val]);
 }
 
 const uint8_t PROGMEM gamma8[] = {
