@@ -21,7 +21,6 @@ byte wingA[NUM_WINGS][2] = { {1,0}, {0,1}, {3,1}, {2,0} };
 byte wingB[NUM_WINGS][2] = { {3,0}, {2,1}, {5,1}, {4,0} };
 byte wingC[NUM_WINGS][2] = { {5,0}, {4,1}, {7,1}, {6,0} };
 byte wingD[NUM_WINGS][2] = { {7,0}, {6,1}, {1,1}, {0,0} };
-
 byte wingE[NUM_WINGS][2] = { {3,2}, {6,3}, {5,3}, {0,2} };
 byte wingF[NUM_WINGS][2] = { {5,2}, {0,3}, {7,3}, {2,2} };
 byte wingG[NUM_WINGS][2] = { {7,2}, {2,3}, {1,3}, {4,2} };
