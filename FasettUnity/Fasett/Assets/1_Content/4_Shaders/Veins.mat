@@ -44,7 +44,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _ColorShift: 0.02
-    - _NormalPush: -0.02
+    - _NormalPush: -0.01
     - _PulseEffect: 5
     - _PulseSpeed: 0.18
     - _ScrollSpeed1: 0.11
