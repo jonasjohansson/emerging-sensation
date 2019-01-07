@@ -139,11 +139,14 @@ namespace Fasett {
                 yield return 0;
                 if (Time.time > startTime + 15.0f && !timedOut) {
                     timedOut = true;
-                    _updateLoadingMessageCallback("Room recognition is taking long, try looking around and/or restarting.");
+                    _updateLoadingMessageCallback("Room recognition failed, try looking around, restarting or recalibrating.");
+                    break;
                 }
             }
-            Debug.Log("[Effect Manager] Effect was anchored: " + e.Name);
-            _updateLoadingMessageCallback("Calibration completed successfully!");
+            if (!timedOut) {
+                Debug.Log("[Effect Manager] Effect was anchored: " + e.Name);
+                _updateLoadingMessageCallback("Calibration completed successfully!");
+            }
             _setupCompleteCallback(true);
         }
 
@@ -205,13 +208,13 @@ namespace Fasett {
                 effect.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2.0f;
                 effect.transform.rotation = Quaternion.identity;
             }
-            effect.gameObject.SetActive(false);
+            effect.HideEffect();
         }
 
         private IEnumerator CalibrateEffectCoroutine(Effect effect) {
             Debug.Log($"[Effect Manager] Calibrating effect {effect.Name}.");
             // Turn on effect, deparent from user and let user manipulate with hands
-            effect.gameObject.SetActive(true);
+            effect.ShowEffect();
             effect.transform.SetParent(transform);
             effect.SetCalibrating(true);
             _calibrateNextEffect = false;
