@@ -33,7 +33,7 @@ Shader "Unlit/CellShader" {
             #include "UnityCG.cginc"
             #pragma multi_compile_fwdbase_fullshadows
             #pragma multi_compile_fog
-            #pragma only_renderers d3d9 d3d11 glcore gles 
+            #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal 
             #pragma target 3.0
             uniform float4 _Tint;
             uniform float _Fresnel;
@@ -112,7 +112,7 @@ Shader "Unlit/CellShader" {
             #pragma fragmentoption ARB_precision_hint_fastest
             #pragma multi_compile_shadowcaster
             #pragma multi_compile_fog
-            #pragma only_renderers d3d9 d3d11 glcore gles 
+            #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal 
             #pragma target 3.0
             uniform float _node_9008;
             uniform sampler2D _Particles; uniform float4 _Particles_ST;
