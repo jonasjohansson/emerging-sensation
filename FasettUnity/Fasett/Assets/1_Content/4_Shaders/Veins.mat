@@ -45,7 +45,9 @@ Material:
     m_Floats:
     - _ColorShift: 0.02
     - _NormalPush: -0.02
+    - _PulseEffect: 5
     - _PulseSpeed: 0.18
     - _ScrollSpeed1: 0.11
+    - _node_561: 0
     m_Colors:
-    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 0.2689654, g: 0.2689654, b: 0.2689654, a: 1}
