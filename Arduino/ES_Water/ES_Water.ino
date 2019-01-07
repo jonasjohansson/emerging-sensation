@@ -11,8 +11,11 @@ CRGB leds[3][300];
 
 uint8_t gHue = 0;
 
+int a1,a2,a3,a1l,a2l,a3l;
+int b1,b2,b3,b1l,b2l,b3l;
+int c1,c2,c3,c4,c1l,c2l,c3l,c4l;
+
 void setup(){
-  //Serial.begin(115200);
   FastLED.setBrightness(192);
   FastLED.addLeds<NEOPIXEL,0>(leds[0],222);
   FastLED.addLeds<NEOPIXEL,2>(leds[1],213);
@@ -22,13 +25,35 @@ void setup(){
 }
 
 void loop(){
-  //setColorRange(0,0,222,255,255,255);
+
+  readSimple(6,c1,c1l);
+  readSimple(7,c2,c2l);
+  readSimple(8,c3,c3l);
+  readSimple(9,c4,c4l);
+
+  byte r = c1*255;
+  byte g = c2*255;
+  byte b = c3*255;
+
+  if (c1){
+    gHue = 0;
+  }
+  if (c2){
+    gHue = 64;
+  }
+  if (c3){
+    gHue = 128;
+  }
+  if (c4){
+    gHue = 192;
+  }
+  
   //setColorRange(1,0,213,255,255,255);
   //setColorRange(2,0,150,255,255,255);
   //setColorRange(2,150,300,255,255,255);
   fill_rainbow( leds[0], 222, gHue, 0);
-  fill_rainbow( leds[1], 213, gHue, 1);
-  fill_rainbow( leds[2], 300, gHue, 2);
+  fill_rainbow( leds[1], 213, gHue, 0);
+  fill_rainbow( leds[2], 300, gHue, 0);
   FastLED.show();
   EVERY_N_MILLISECONDS(20) { gHue++; }
 }
