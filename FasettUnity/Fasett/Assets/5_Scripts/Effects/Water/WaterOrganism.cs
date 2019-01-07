@@ -77,7 +77,8 @@ public class WaterOrganism : MonoBehaviour {
     }
 
     private Vector3 SetNewPosition() {
-        if(Vector3.Distance(transform.position, _centerpoint) > _maxDistanceFromCenter) {
+        _centerpoint = GetCenterPoint(); //Hack
+        if (Vector3.Distance(transform.position, _centerpoint) > _maxDistanceFromCenter) {
             return _centerpoint + Random.insideUnitSphere * _freeRadius;
         }
 
