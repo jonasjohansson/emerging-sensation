@@ -9,102 +9,105 @@ const DEBUG = false;
 const START = Date.now();
 
 const devices = [
-    {
-        serialNumber: '2211820',
-        id: 'a'
-    },
-    {
-        serialNumber: '4655120',
-        id: 'b'
-    }
+	{
+		serialNumber: '2211820',
+		id: 'a'
+	},
+	{
+		serialNumber: '4655120',
+		id: 'b'
+	}
 ];
 
 server.bind(function() {
-    server.setBroadcast(true);
+	server.setBroadcast(true);
 });
 
 async function getPort() {
-    let ports = await getPorts();
-    ports = ports.filter(data => data.manufacturer === 'Teensyduino');
-    if (ports.length > 0) {
-        for (let port of ports) {
-            setId(port);
-            connectPort(port.comName, port.id);
-        }
-    } else {
-        setTimeout(getPort, 3000);
-    }
+	let ports = await getPorts();
+	ports = ports.filter(data => data.manufacturer === 'Teensyduino');
+	if (ports.length > 0) {
+		for (let port of ports) {
+			setId(port);
+			connectPort(port.comName, port.id);
+		}
+	} else {
+		setTimeout(getPort, 3000);
+	}
 }
 
 async function getPorts() {
-    console.log('Scanning all ports…');
-    return SerialPort.list();
+	console.log('Scanning all ports…');
+	return SerialPort.list();
 }
 
 function setId(port) {
-    for (var key in devices) {
-        let device = devices[key];
-        if (device.serialNumber === port.serialNumber) {
-            port.id = device.id;
-        }
-    }
+	for (var key in devices) {
+		let device = devices[key];
+		if (device.serialNumber === port.serialNumber) {
+			port.id = device.id;
+		}
+	}
 }
 
 function connectPort(com, id) {
-    console.log('Connecting to port:', com);
+	console.log('Connecting to port:', com);
 
-    let port = new SerialPort(com, {
-        baudRate: BAUDRATE,
-        parser: SerialPort.parsers.raw
-    });
+	let port = new SerialPort(com, {
+		baudRate: BAUDRATE,
+		parser: SerialPort.parsers.raw
+	});
 
-    let Readline = SerialPort.parsers.Readline;
-    let parser = new Readline();
-    port.pipe(parser);
+	let Readline = SerialPort.parsers.Readline;
+	let parser = new Readline();
+	port.pipe(parser);
 
-    parser.on('data', function(data) {
-        // console.log('data received: ' + data);
-        console.log(`${id} ${data}`);
-    });
+	parser.on('data', function(data) {
+		// console.log('data received: ' + data);
+		console.log(`${id} ${data}`);
+	});
 
-    port.on('open', () => {
-        console.log('port open');
-    });
+	port.on('open', () => {
+		console.log('port open');
+	});
 
-    port.on('readable', () => {
-        // console.log('reading…');
-        // console.log('Data:', port.read());
-        var buffer = port.read();
-        if (buffer !== null) {
-            msg = buffer.toString('utf8');
-            msg = msg.trim();
-            // console.log(msg);
-            // sendMessage(`${id} ${msg}`);
-        }
-    });
-    port.on('close', function(err) {
-        console.log('Port closed!');
-        console.log('Reconnecting…');
-        getPort();
-    });
-    port.on('error', function(err) {
-        console.log('Error: ', err.message);
-    });
+	port.on('readable', () => {
+		// console.log('reading…');
+		// console.log('Data:', port.read());
+		var buffer = port.read();
+		if (buffer !== null) {
+			msg = buffer.toString('utf8');
+			msg = msg.trim();
+			// console.log(msg);
+			// sendMessage(`${id} ${msg}`);
+		}
+	});
+	port.on('close', function(err) {
+		console.log('Port closed!');
+		console.log('Reconnecting…');
+		getPort();
+	});
+	port.on('error', function(err) {
+		console.log('Error: ', err.message);
+	});
 }
 
 sendMessage = message => {
-    console.log(message);
-    server.send(message, 0, message.length, PORT, BROADCAST_ADDR, function() {
-        // console.log(`Sent ${message}`);
-    });
+	console.log(message);
+	server.send(message, 0, message.length, PORT, BROADCAST_ADDR, function() {
+		// console.log(`Sent ${message}`);
+	});
 };
 
 sprayMessage = message => {
-    for (let i = 0; i < 10; i++) {
-        setTimeout(() => {
-            sendMessage(message);
-        }, i * 20);
-    }
+	for (let i = 0; i < 10; i++) {
+		setTimeout(() => {
+			sendMessage(message);
+		}, i * 20);
+	}
 };
+
+sprayMessage('S1 1');
+sprayMessage('B1 1');
 
 getPort();
