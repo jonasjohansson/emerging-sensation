@@ -4,13 +4,14 @@ using UnityEngine;
 
 namespace Fasett {
     public class ToggleGameObject : Effect {
+        [SerializeField] private GameObject _toggleObject;
         public override void UpdateEffect(float value) {
             base.UpdateEffect(value);
             if(value >= 0.5f) {
-                gameObject.SetActive(true);
+                _toggleObject.SetActive(true);
             }
             else {
-                gameObject.SetActive(false);
+                _toggleObject.SetActive(false);
             }
         }
     }

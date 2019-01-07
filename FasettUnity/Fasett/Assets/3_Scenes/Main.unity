@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1333,6 +1333,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4676791095009256, guid: 99bf57728a9a8c74182d6865b95c10ad,
     type: 2}
   m_PrefabInternal: {fileID: 320463951}
+--- !u!1 &320463953 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1560540823656528, guid: 99bf57728a9a8c74182d6865b95c10ad,
+    type: 2}
+  m_PrefabInternal: {fileID: 320463951}
 --- !u!1 &364281248
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,6 +2618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc75cf232fb39a9468aa39eebebd5c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _effectManager: {fileID: 260082556}
 --- !u!1 &892622589
 GameObject:
   m_ObjectHideFlags: 0
@@ -2926,11 +2932,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 998644232}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5209efe0f770f0b4db779ce7fab84acd, type: 3}
+  m_Script: {fileID: 11500000, guid: e3def5788bb237040893577d3c80d86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: S1
   _calibrationView: {fileID: 855854977}
+  _toggleObject: {fileID: 320463953}
 --- !u!1 &1001278740
 GameObject:
   m_ObjectHideFlags: 0
@@ -3937,11 +3944,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1230593398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5209efe0f770f0b4db779ce7fab84acd, type: 3}
+  m_Script: {fileID: 11500000, guid: e3def5788bb237040893577d3c80d86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: B1
   _calibrationView: {fileID: 1554566836}
+  _toggleObject: {fileID: 1685501622}
 --- !u!4 &1231557693 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4622507886698642, guid: 8c8e0dd5218599a46b206c55fad1cc02,
@@ -4618,7 +4626,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.01
+      value: 3
       mode: 0
       spread: 0
       speed:
@@ -9707,6 +9715,11 @@ Prefab:
 --- !u!4 &1685501621 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4191418536465040, guid: a6076dd9078ef5e4a9546e1c4b6f4e47,
+    type: 2}
+  m_PrefabInternal: {fileID: 1685501620}
+--- !u!1 &1685501622 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1465535686847372, guid: a6076dd9078ef5e4a9546e1c4b6f4e47,
     type: 2}
   m_PrefabInternal: {fileID: 1685501620}
 --- !u!1 &1688385656

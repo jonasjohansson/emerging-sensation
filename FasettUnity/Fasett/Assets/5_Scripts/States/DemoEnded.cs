@@ -14,7 +14,6 @@ namespace Fasett {
             }
             else {
                 _demoEndedInstructions.SetActive(false);
-                _effectManager.ShowEffects();
             }
         }
     }

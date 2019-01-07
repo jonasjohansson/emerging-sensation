@@ -35,10 +35,12 @@ namespace Fasett {
         }
 
         public void HideEffect() {
+            Debug.Log("Hiding effect " + Name);
             gameObject.SetActive(false);
         }
 
         public void ShowEffect() {
+            Debug.Log("Showing effect " + Name);
             gameObject.SetActive(true);
         }
     }
