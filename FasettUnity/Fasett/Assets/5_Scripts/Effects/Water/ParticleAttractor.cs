@@ -9,7 +9,7 @@ public class ParticleAttractor : MonoBehaviour {
     [SerializeField] private float _outerRadius;
     [SerializeField] private AnimationCurve _movement;
 
-    [SerializeField] private TouchBasedTrigger _trigger;
+    [SerializeField] private WaterTrigger _trigger;
 
     private void OnEnable() {
         _trigger.OnPressedChanged += AffectParticles;
@@ -19,10 +19,10 @@ public class ParticleAttractor : MonoBehaviour {
         _trigger.OnPressedChanged -= AffectParticles;
     }
 
-    private void AffectParticles(float amount) {
+    private void AffectParticles(WaterTrigger trigger) {
         Vector3 attractPoint = _particleSystem.transform.InverseTransformPoint(transform.position);
-        Color color = _gradient.Evaluate(amount);
-        float power = _movement.Evaluate(amount);
+        Color color = _gradient.Evaluate(trigger.PressAmount);
+        float power = _movement.Evaluate(trigger.PressAmount);
 
         ParticleSystem.Particle[] particles = new ParticleSystem.Particle[_particleSystem.particleCount];
         _particleSystem.GetParticles(particles);
@@ -31,7 +31,7 @@ public class ParticleAttractor : MonoBehaviour {
             if (dir.magnitude < _outerRadius) {
                 float distance = Mathf.Clamp01(Mathf.InverseLerp(_innerRadius, _outerRadius, dir.magnitude));
                 particles[i].position = Vector3.Lerp(particles[i].position, attractPoint, power* distance);
-                particles[i].color = Color.Lerp(particles[i].color, color, amount* distance);
+                particles[i].color = Color.Lerp(particles[i].color, color, trigger.PressAmount * distance);
             }
         }
         _particleSystem.SetParticles(particles, particles.Length);

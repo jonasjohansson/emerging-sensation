@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TouchBasedTrigger : MonoBehaviour {
+public class WaterTrigger : MonoBehaviour {
+    public float PressAmount { private set; get; }
+
     [SerializeField] private float _riseSpeed;
     [SerializeField] private float _fallSpeed;
 
     private bool _pressed;
-    private float _pressAmount;
 
-    public Action<float> OnPressedChanged;
+    public Action<WaterTrigger> OnPressedChanged;
 
     private void OnMouseDrag() {
         _pressed = true;
@@ -20,11 +21,11 @@ public class TouchBasedTrigger : MonoBehaviour {
     }
 
     private void Update() {
-        if (_pressAmount > 0 || _pressed) {
-            _pressAmount = Mathf.Clamp01(_pressAmount + Time.deltaTime / (_pressed ? _riseSpeed : -_fallSpeed));
+        if (PressAmount > 0 || _pressed) {
+            PressAmount = Mathf.Clamp01(PressAmount + Time.deltaTime / (_pressed ? _riseSpeed : -_fallSpeed));
 
             if (OnPressedChanged != null) {
-                OnPressedChanged(_pressAmount);
+                OnPressedChanged(this);
             }
         }
     }
