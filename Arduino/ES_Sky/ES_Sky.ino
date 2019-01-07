@@ -25,6 +25,7 @@ byte wingH[NUM_WINGS][2] = { {1,2}, {4,3}, {3,3}, {6,2} };
 
 void setup(){
   Serial.begin(115200);
+  //FastLED.setBrightness(128);
   FastLED.addLeds<NEOPIXEL,6>(leds[0],NUM_LEDS);
   FastLED.addLeds<NEOPIXEL,20>(leds[1],NUM_LEDS);
   FastLED.addLeds<NEOPIXEL,21>(leds[2],NUM_LEDS);
@@ -37,12 +38,13 @@ void setup(){
 }
 
 void loop(){
-  colorise(wingA,CRGB::Red);
-  colorise(wingB,CRGB::Green);
-  colorise(wingC,CRGB::Blue);
-  colorise(wingD,CRGB::Yellow);
-  colorise(wingE,CRGB::Red);
-  colorise(wingF,CRGB::Green);
-  colorise(wingG,CRGB::Blue);
-  colorise(wingH,CRGB::Yellow);
+//  colorise(wingA,CRGB::Red);
+//  colorise(wingB,CRGB::Green);
+//  colorise(wingC,CRGB::Blue);
+//  colorise(wingD,CRGB::Yellow);
+//  colorise(wingE,CRGB::Red);
+//  colorise(wingF,CRGB::Green);
+//  colorise(wingG,CRGB::Blue);
+//  colorise(wingH,CRGB::Yellow);
+  colorAll(CRGB::White);
 }

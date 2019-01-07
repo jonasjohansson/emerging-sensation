@@ -16,6 +16,14 @@ void setup(){
 }
 
 void loop(){
+  int val = analogRead(0);
+  
+  Serial.println(val);
+  
+  if (val == 1023){
+    gHue = 0;
+  }
+  
   fill_rainbow( leds[0], NUM_LEDS, gHue, 0);
   EVERY_N_MILLISECONDS(20) { gHue++; }
 

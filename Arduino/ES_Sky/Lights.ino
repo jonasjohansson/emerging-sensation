@@ -18,3 +18,12 @@ void colorise(byte wing[][2], CRGB c){
     }
   }
 }
+
+void colorAll(CRGB c){
+  for (uint8_t i = 0; i < NUM_STRIPS; i++){
+    for (uint8_t j = 0; j < NUM_LEDS; j++){
+      leds[i][j] = c;
+      FastLED.show();
+    }
+  }
+}
