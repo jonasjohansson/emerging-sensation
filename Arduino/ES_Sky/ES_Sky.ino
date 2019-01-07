@@ -7,12 +7,9 @@
 
 #include<FastLED.h>
 
-#define RED CRGB::Red
-#define GREEN CRGB::Green
-#define BLUE CRGB::Blue
-
 #define NUM_STRIPS 8
 #define NUM_LEDS 144
+#define NUM_LEDS_PER_SIDE 36
 #define NUM_WINGS 4
 
 CRGB leds[NUM_STRIPS][NUM_LEDS];
@@ -43,23 +40,9 @@ void loop(){
   colorise(wingA,CRGB::Red);
   colorise(wingB,CRGB::Green);
   colorise(wingC,CRGB::Blue);
+  colorise(wingD,CRGB::Yellow);
   colorise(wingE,CRGB::Red);
   colorise(wingF,CRGB::Green);
   colorise(wingG,CRGB::Blue);
   colorise(wingH,CRGB::Yellow);
-}
-
-void colorise(byte wing[][2], CRGB c){
-  for (uint8_t i = 0; i < 4; i++){
-    byte x = wing[i][0];
-    byte y = wing[i][1];
-    uint8_t start = NUM_LEDS_PER_SIDE * y;
-    uint8_t end = NUM_LEDS_PER_SIDE * (y + 1);
-    for(uint8_t j = 0; j < 12; j++) {
-      leds[x][start+j] = c;
-      leds[x][start+23-j] = c;
-      leds[x][start+24+j] = c;
-    }
-    FastLED.show();
-  }
 }
