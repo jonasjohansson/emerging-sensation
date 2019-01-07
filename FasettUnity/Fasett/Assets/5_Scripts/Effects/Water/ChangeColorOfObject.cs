@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChangeColorOfObject : MonoBehaviour {
     [SerializeField] private Gradient _gradient;
-    [SerializeField] private WaterTrigger _trigger;
+    [SerializeField] private WaterEffect _trigger;
 
     private Mesh _mesh;
     private Color32[] _colors;
@@ -23,7 +23,7 @@ public class ChangeColorOfObject : MonoBehaviour {
         _trigger.OnPressedChanged -= SetColor;
     }
 
-    private void SetColor(WaterTrigger trigger) {
+    private void SetColor(WaterEffect trigger) {
         Color color = _gradient.Evaluate(trigger.PressAmount);
         for (int i = 0; i<_colors.Length; i++) {
             _colors[i] = color;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WaterOrganism : MonoBehaviour {
-    [SerializeField] private List<WaterTrigger> _triggers;
+    [SerializeField] private List<WaterEffect> _triggers;
     [SerializeField] private float _cooldownTime;
     [SerializeField] private float _attractionSpeed;
 
@@ -16,7 +16,7 @@ public class WaterOrganism : MonoBehaviour {
 
     private float _cooldown;
     private float _attraction;
-    private WaterTrigger _currentTrigger;
+    private WaterEffect _currentTrigger;
     private Vector3 _centerpoint;
 
     // Use this for initialization
@@ -46,7 +46,7 @@ public class WaterOrganism : MonoBehaviour {
         }
     }
 
-    private void TouchChanged(WaterTrigger trigger) {
+    private void TouchChanged(WaterEffect trigger) {
         if (trigger != _currentTrigger && trigger.PressAmount > _attraction && _cooldown <= 0) {
             _currentTrigger = trigger;
             _cooldown = _cooldownTime;

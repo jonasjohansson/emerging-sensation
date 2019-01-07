@@ -296,7 +296,6 @@ GameObject:
   - component: {fileID: 71955561}
   - component: {fileID: 71955560}
   - component: {fileID: 71955559}
-  - component: {fileID: 71955558}
   - component: {fileID: 71955557}
   - component: {fileID: 71955556}
   m_Layer: 0
@@ -388,7 +387,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _trigger: {fileID: 71955558}
+  _trigger: {fileID: 1786597009}
 --- !u!114 &71955557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,21 +429,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  _trigger: {fileID: 71955558}
---- !u!114 &71955558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114259079252947300, guid: fa2453d06e8204966a3d52241159890c,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 71955554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce02d4196c0047268527b9550dcaca3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _riseSpeed: 5
-  _fallSpeed: 1
+  _trigger: {fileID: 1786597009}
 --- !u!135 &71955559
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -547,9 +532,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggers:
-  - {fileID: 892622590}
-  - {fileID: 1876600353}
-  - {fileID: 71955558}
+  - {fileID: 808588830}
+  - {fileID: 1517260559}
+  - {fileID: 1786597009}
   _cooldownTime: 3
   _attractionSpeed: 2
   _freeRadius: 1
@@ -2005,9 +1990,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggers:
-  - {fileID: 892622590}
-  - {fileID: 1876600353}
-  - {fileID: 71955558}
+  - {fileID: 808588830}
+  - {fileID: 1517260559}
+  - {fileID: 1786597009}
   _cooldownTime: 3
   _attractionSpeed: 2
   _freeRadius: 1
@@ -2400,11 +2385,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 808588828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5209efe0f770f0b4db779ce7fab84acd, type: 3}
+  m_Script: {fileID: 11500000, guid: 24507425bee374f63b153df43bb2cf4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: W1
   _calibrationView: {fileID: 599103798}
+  _riseSpeed: 1
+  _fallSpeed: 3
 --- !u!1 &817397429
 GameObject:
   m_ObjectHideFlags: 0
@@ -2638,7 +2625,6 @@ GameObject:
   - component: {fileID: 892622595}
   - component: {fileID: 892622594}
   - component: {fileID: 892622593}
-  - component: {fileID: 892622590}
   - component: {fileID: 892622592}
   - component: {fileID: 892622591}
   m_Layer: 0
@@ -2648,20 +2634,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &892622590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114772434841307376, guid: fa2453d06e8204966a3d52241159890c,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 892622589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce02d4196c0047268527b9550dcaca3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _riseSpeed: 5
-  _fallSpeed: 1
 --- !u!114 &892622591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2730,7 +2702,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _trigger: {fileID: 892622590}
+  _trigger: {fileID: 808588830}
 --- !u!114 &892622592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2772,7 +2744,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  _trigger: {fileID: 892622590}
+  _trigger: {fileID: 808588830}
 --- !u!135 &892622593
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9167,11 +9139,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1517260558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5209efe0f770f0b4db779ce7fab84acd, type: 3}
+  m_Script: {fileID: 11500000, guid: 24507425bee374f63b153df43bb2cf4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: W2
   _calibrationView: {fileID: 1748588167}
+  _riseSpeed: 1
+  _fallSpeed: 3
 --- !u!4 &1517260560
 Transform:
   m_ObjectHideFlags: 0
@@ -10044,11 +10018,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1786597008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5209efe0f770f0b4db779ce7fab84acd, type: 3}
+  m_Script: {fileID: 11500000, guid: 24507425bee374f63b153df43bb2cf4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: W3
   _calibrationView: {fileID: 1721751776}
+  _riseSpeed: 1
+  _fallSpeed: 3
 --- !u!4 &1786597010
 Transform:
   m_ObjectHideFlags: 0
@@ -10247,9 +10223,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggers:
-  - {fileID: 892622590}
-  - {fileID: 1876600353}
-  - {fileID: 71955558}
+  - {fileID: 808588830}
+  - {fileID: 1517260559}
+  - {fileID: 1786597009}
   _cooldownTime: 3
   _attractionSpeed: 2
   _freeRadius: 1
@@ -10380,7 +10356,6 @@ GameObject:
   - component: {fileID: 1876600356}
   - component: {fileID: 1876600355}
   - component: {fileID: 1876600354}
-  - component: {fileID: 1876600353}
   - component: {fileID: 1876600352}
   - component: {fileID: 1876600351}
   m_Layer: 0
@@ -10472,7 +10447,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _trigger: {fileID: 1876600353}
+  _trigger: {fileID: 1517260559}
 --- !u!114 &1876600352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10514,21 +10489,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 4
-  _trigger: {fileID: 1876600353}
---- !u!114 &1876600353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114045144153115350, guid: fa2453d06e8204966a3d52241159890c,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1876600349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce02d4196c0047268527b9550dcaca3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _riseSpeed: 5
-  _fallSpeed: 1
+  _trigger: {fileID: 1517260559}
 --- !u!135 &1876600354
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10849,9 +10810,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggers:
-  - {fileID: 892622590}
-  - {fileID: 1876600353}
-  - {fileID: 71955558}
+  - {fileID: 808588830}
+  - {fileID: 1517260559}
+  - {fileID: 1786597009}
   _cooldownTime: 3
   _attractionSpeed: 2
   _freeRadius: 1

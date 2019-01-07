@@ -9,7 +9,7 @@ public class ParticleAttractor : MonoBehaviour {
     [SerializeField] private float _outerRadius;
     [SerializeField] private AnimationCurve _movement;
 
-    [SerializeField] private WaterTrigger _trigger;
+    [SerializeField] private WaterEffect _trigger;
 
     private void OnEnable() {
         _trigger.OnPressedChanged += AffectParticles;
@@ -19,7 +19,7 @@ public class ParticleAttractor : MonoBehaviour {
         _trigger.OnPressedChanged -= AffectParticles;
     }
 
-    private void AffectParticles(WaterTrigger trigger) {
+    private void AffectParticles(WaterEffect trigger) {
         Vector3 attractPoint = _particleSystem.transform.InverseTransformPoint(transform.position);
         Color color = _gradient.Evaluate(trigger.PressAmount);
         float power = _movement.Evaluate(trigger.PressAmount);

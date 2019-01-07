@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Fasett;
 
-public class WaterTrigger : MonoBehaviour {
+public class WaterEffect : Effect {
     public float PressAmount { private set; get; }
 
     [SerializeField] private float _riseSpeed;
@@ -10,7 +11,7 @@ public class WaterTrigger : MonoBehaviour {
 
     private bool _pressed;
 
-    public Action<WaterTrigger> OnPressedChanged;
+    public Action<WaterEffect> OnPressedChanged;
 
     private void OnMouseDrag() {
         _pressed = true;
@@ -20,7 +21,14 @@ public class WaterTrigger : MonoBehaviour {
         _pressed = false;
     }
 
-    private void Update() {
+    public override void UpdateEffect(float value) {
+        base.UpdateEffect(value);
+        _pressed = value > 0.5f;
+    }
+
+    protected override void Update() {
+        base.Update();
+    
         if (PressAmount > 0 || _pressed) {
             PressAmount = Mathf.Clamp01(PressAmount + Time.deltaTime / (_pressed ? _riseSpeed : -_fallSpeed));
 
