@@ -1,17 +1,11 @@
 const int numReadings = 10;
 
-int readings[numReadings];
+int readings[numReadings] = {0,0,0,0,0,0,0,0,0,0};
 int readIndex = 0;
 int total = 0;
 int average = 0;
-bool first = true;
 
 int smooth(int val) {
-
-  if (first){
-    first = false;
-    for (byte i = 0; i < numReadings; i++) readings[i] = 0;
-  }
 
   total = total - readings[readIndex];
   readings[readIndex] = val;
