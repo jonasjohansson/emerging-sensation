@@ -5,13 +5,19 @@ using UnityEngine;
 namespace Fasett {
     public class StateManager : MonoBehaviour {
         [SerializeField] private AppState[] _states;
+        [SerializeField] private bool _spectatorView;
         public AppState CurrentActiveState { get; private set; }
 
         public void Setup(Core core) {
             foreach (AppState appState in _states) {
                 appState.Setup(this);
             }
-            SetState<StartingApp>();
+            if (_spectatorView) {
+                SetState<SpectatorViewCapture>();
+            }
+            else {
+                SetState<StartingApp>();
+            }
         }
 
         public void SetState<T>() where T : AppState {
