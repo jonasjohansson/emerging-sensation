@@ -1,16 +1,7 @@
-/*
- * https://github.com/FastLED/FastLED/wiki/Pixel-reference
- */
-
-#include<FastLED.h>
-#include "test.h"
-
-#define NUM_STRIPS 26
 #define NUM_LEDS 289
+#define NUM_PARTS 26
 
-CRGB leds[NUM_LEDS];
-
-int lights[NUM_STRIPS][3] = {
+int lights[NUM_PARTS][3] = {
   { 0, 9, 1 },    // 0
   { 9, 6, 1 },    // 1
   { 15, 16, 1 },  // 2 large ball 1 outside
@@ -38,23 +29,3 @@ int lights[NUM_STRIPS][3] = {
   { 278, 6, 1 },  // 24 
   { 284, 5, 1 },  // 25
 };
-
-void setup(){
-  Serial.begin(115200);
-  FastLED.addLeds<NEOPIXEL,5>(leds,NUM_LEDS);  
-}
-
-void loop(){
-  int val = analogRead(0);
-  
-  Serial.println(val);
-  
-  if (val == 1023){
-    gHue = 0;
-  }
-  
-  for (uint8_t i = 0; i < NUM_LEDS; i++){
-    leds[i] = CRGB::White;
-  }
-  FastLED.show();
-}

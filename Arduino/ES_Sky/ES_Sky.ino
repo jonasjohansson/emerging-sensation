@@ -36,15 +36,17 @@ void setup(){
   FastLED.addLeds<NEOPIXEL,8>(leds[7],NUM_LEDS);
   FastLED.clear();
 }
+uint8_t gHue = 0;
 
 void loop(){
-//  colorise(wingA,CRGB::Red);
-//  colorise(wingB,CRGB::Green);
-//  colorise(wingC,CRGB::Blue);
-//  colorise(wingD,CRGB::Yellow);
-//  colorise(wingE,CRGB::Red);
-//  colorise(wingF,CRGB::Green);
-//  colorise(wingG,CRGB::Blue);
-//  colorise(wingH,CRGB::Yellow);
-  colorAll(CRGB::White);
+  fill_rainbow( leds[0], 144, gHue, 0);
+  fill_rainbow( leds[1], 144, gHue, 32);
+  fill_rainbow( leds[2], 144, gHue, 64);
+  fill_rainbow( leds[3], 144, gHue, 92);
+  fill_rainbow( leds[4], 144, gHue, 128);
+  fill_rainbow( leds[5], 144, gHue, 0);
+  fill_rainbow( leds[6], 144, gHue, 32);
+  fill_rainbow( leds[7], 144, gHue, 64);
+  FastLED.show();
+  EVERY_N_MILLISECONDS(20) { gHue++; }
 }
