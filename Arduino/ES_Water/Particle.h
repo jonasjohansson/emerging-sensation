@@ -10,10 +10,10 @@ class Particle {
     int originX;
     int originY;
   public:
-    init(int x, int y);
-    integrate();
-    attract(int x, int y);
-    draw();
+    void init(int x, int y);
+    void integrate();
+    void attract(int x, int y);
+    void draw();
 };
 
 

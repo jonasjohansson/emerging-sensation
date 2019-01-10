@@ -4,7 +4,7 @@ void readSimple(byte pin, int &val, int &last){
 
   s(pin,val);
   
-  val = (val > 128) ? 1 : 0;
+  val = (val > 512) ? 1 : 0;
 
   if (val == last) return;
   
