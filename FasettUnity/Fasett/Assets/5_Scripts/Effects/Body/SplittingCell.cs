@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Fasett { 
     public class SplittingCell : Effect {
-        private Animator _animator;
+        [SerializeField] private Animator _animator;
 
         public override void UpdateEffect(float value) {
             base.UpdateEffect(value);
