@@ -14,6 +14,10 @@
 
 CRGB leds[NUM_STRIPS][NUM_LEDS];
 
+float a,b,c,d,e;
+float ax,bx,cx,dx,ex;
+float al,bl,cl,dl,el;
+
 byte wingA[NUM_WINGS][2] = { {1,0}, {0,1}, {3,1}, {2,0} };
 byte wingB[NUM_WINGS][2] = { {3,0}, {2,1}, {5,1}, {4,0} };
 byte wingC[NUM_WINGS][2] = { {5,0}, {4,1}, {7,1}, {6,0} };
@@ -24,8 +28,6 @@ byte wingG[NUM_WINGS][2] = { {7,2}, {2,3}, {1,3}, {4,2} };
 byte wingH[NUM_WINGS][2] = { {1,2}, {4,3}, {3,3}, {6,2} };
 
 void setup(){
-  Serial.begin(115200);
-  //FastLED.setBrightness(128);
   FastLED.addLeds<NEOPIXEL,6>(leds[0],NUM_LEDS);
   FastLED.addLeds<NEOPIXEL,20>(leds[1],NUM_LEDS);
   FastLED.addLeds<NEOPIXEL,21>(leds[2],NUM_LEDS);
@@ -35,18 +37,15 @@ void setup(){
   FastLED.addLeds<NEOPIXEL,7>(leds[6],NUM_LEDS);
   FastLED.addLeds<NEOPIXEL,8>(leds[7],NUM_LEDS);
   FastLED.clear();
+  FastLED.show();
 }
-uint8_t gHue = 0;
 
 void loop(){
-  fill_rainbow( leds[0], 144, gHue, 0);
-  fill_rainbow( leds[1], 144, gHue, 32);
-  fill_rainbow( leds[2], 144, gHue, 64);
-  fill_rainbow( leds[3], 144, gHue, 92);
-  fill_rainbow( leds[4], 144, gHue, 128);
-  fill_rainbow( leds[5], 144, gHue, 0);
-  fill_rainbow( leds[6], 144, gHue, 32);
-  fill_rainbow( leds[7], 144, gHue, 64);
-  FastLED.show();
-  EVERY_N_MILLISECONDS(20) { gHue++; }
+  a = readAdvanced(17,ax,al,200,500);
+  b = readAdvanced(18,bx,bl,200,500);
+  c = readAdvanced(19,cx,cl,200,500);
+  d = readAdvanced(22,dx,dl,200,500);
+  e = readAdvanced(23,ex,el,200,500);
+
+  delay(10);
 }

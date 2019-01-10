@@ -11,7 +11,7 @@ void readSimple(byte pin, int &val, int &last){
 }
 
 void s(byte pin, int val){
-  Serial.print(pin);
+  Serial.print("B"+String(pin));
   Serial.print(' ');
   Serial.println(val);
 }

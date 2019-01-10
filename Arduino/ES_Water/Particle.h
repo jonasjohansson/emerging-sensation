@@ -1,4 +1,3 @@
-
 #define DAMPING 0.899
 
 class Particle {

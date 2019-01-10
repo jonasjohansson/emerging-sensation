@@ -4,6 +4,7 @@
 
 #include<FastLED.h>
 
+#define NUM_SENSORS 5
 #define NUM_STRIPS 26
 #define NUM_LEDS 289
 
@@ -55,22 +56,5 @@ void loop(){
   readSimple(3,d,dl);
   readSimple(4,e,el);
 
-  for (int i = 0; i < NUM_LEDS/2; i++){
-    leds[i] = CRGB(a*255,b*255,c*255);
-  }
-
-  for (int i = NUM_LEDS/2; i < NUM_LEDS; i++){
-    leds[i] = CRGB(c*255,d*255,e*255);
-  }
-  
-//  setColor(6,b*255,d*255,e*255);
-//  setColor(7,c*255,a*255,b*255);
-//  setColor(19,d*255,e*255,a*255);
-//  setColor(20,d*255,e*255,a*255);
-//  setColor(22,e*255,a*255,b*255);
-//  setColor(23,e*255,a*255,b*255);
-  
-  FastLED.show();
-
-  delay(20);
+  delay(10);
 }
