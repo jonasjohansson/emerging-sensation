@@ -27,9 +27,12 @@ public class DistanceScale : MonoBehaviour {
 
             Amount = Mathf.InverseLerp(_startBlend, _endBlend, distance);
 
-            _material.SetFloat("_Fade", Amount);
-            SetObjectsActive();
         }
+        else {
+            Amount = 0;
+        }
+        _material.SetFloat("_Fade", Amount);
+        SetObjectsActive();
     }
 
     private void SetObjectsActive(){
