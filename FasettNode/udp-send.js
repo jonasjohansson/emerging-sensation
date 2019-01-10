@@ -66,7 +66,7 @@ function connectPort(com) {
 	port.pipe(parser);
 
 	parser.on('data', function(data) {
-		// console.log('data received: ' + data);
+		console.log('data received: ' + data);
 		// console.log(`${id} ${data}`);
 		// console.log(`${data}`);
 		sprayMessage(`${msg}`);
@@ -99,9 +99,9 @@ function connectPort(com) {
 }
 
 sendMessage = message => {
-	// console.log(message);
+	console.log(message);
 	server.send(message, 0, message.length, PORT, BROADCAST_ADDR, function() {
-		console.log(`Sent ${message}`);
+		// console.log(`Sent ${message}`);
 	});
 };
 
