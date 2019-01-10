@@ -1,10 +1,3 @@
-void setColorRange(byte index, int startIndex, int endIndex, byte r, byte g, byte b){
-  for (int i = startIndex; i < endIndex; i++){
-    leds[index][i].setRGB(r,g,b);
-  }
-  FastLED.show();
-}
-
 void setColor(byte i, byte r, byte g, byte b){
   uint8_t steps = lights[i][1];
   uint8_t inc = lights[i][2];
@@ -12,7 +5,6 @@ void setColor(byte i, byte r, byte g, byte b){
     int k = lights[i][0] + j;
     leds[k].setRGB(r, g, b);
   }
-  FastLED.show();
 }
 
 void cycleHSV(){

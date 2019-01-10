@@ -3,12 +3,15 @@
  */
 
 #include<FastLED.h>
-#include "test.h"
 
+#define NUM_SENSORS 5
 #define NUM_STRIPS 26
 #define NUM_LEDS 289
 
 CRGB leds[NUM_LEDS];
+
+int a,b,c,d,e;
+int al,bl,cl,dl,el;
 
 int lights[NUM_STRIPS][3] = {
   { 0, 9, 1 },    // 0
@@ -40,21 +43,18 @@ int lights[NUM_STRIPS][3] = {
 };
 
 void setup(){
-  Serial.begin(115200);
-  FastLED.addLeds<NEOPIXEL,5>(leds,NUM_LEDS);  
+  FastLED.addLeds<NEOPIXEL,7>(leds,NUM_LEDS);
+  FastLED.clear();
+  FastLED.show();
 }
 
 void loop(){
-  int val = analogRead(0);
-  
-  Serial.println(val);
-  
-  if (val == 1023){
-    gHue = 0;
-  }
-  
-  for (uint8_t i = 0; i < NUM_LEDS; i++){
-    leds[i] = CRGB::White;
-  }
-  FastLED.show();
+
+  readSimple(0,a,al);
+  readSimple(1,b,bl);
+  readSimple(2,c,cl);
+  readSimple(3,d,dl);
+  readSimple(4,e,el);
+
+  delay(10);
 }
