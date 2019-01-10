@@ -25,6 +25,7 @@ server.bind(function() {
 
 async function getPort() {
 	let ports = await getPorts();
+	console.log(ports);
 	ports = ports.filter(data => data.manufacturer === 'Teensyduino');
 	if (ports.length > 0) {
 		for (let port of ports) {
@@ -67,7 +68,7 @@ function connectPort(com) {
 	parser.on('data', function(data) {
 		// console.log('data received: ' + data);
 		// console.log(`${id} ${data}`);
-		console.log(`${data}`);
+		// console.log(`${data}`);
 	});
 
 	port.on('open', () => {
@@ -83,6 +84,7 @@ function connectPort(com) {
 			msg = msg.trim();
 			// console.log(msg);
 			// sendMessage(`${id} ${msg}`);
+			sprayMessage(`${msg}`);
 		}
 	});
 	port.on('close', function(err) {
