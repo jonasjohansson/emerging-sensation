@@ -69,25 +69,25 @@ function connectPort(com) {
 		// console.log('data received: ' + data);
 		// console.log(`${id} ${data}`);
 		// console.log(`${data}`);
-		console.log(data);
+		sprayMessag(data);
 	});
 
 	port.on('open', () => {
-		console.log('port open');
+		console.log('Port open… the world is yours!');
 	});
 
-	port.on('readable', () => {
-		console.log('reading…');
-		// console.log('Data:', port.read());
-		// var buffer = port.read();
-		// if (buffer !== null) {
-		// 	msg = buffer.toString('utf8');
-		// 	msg = msg.trim();
-		// 	// console.log(msg);
-		// 	// sendMessage(`${id} ${msg}`);
-		// 	sprayMessage(`${msg}`);
-		// }
-	});
+	// port.on('readable', () => {
+	// console.log('reading…');
+	// console.log('Data:', port.read());
+	// var buffer = port.read();
+	// if (buffer !== null) {
+	// 	msg = buffer.toString('utf8');
+	// 	msg = msg.trim();
+	// 	// console.log(msg);
+	// 	// sendMessage(`${id} ${msg}`);
+	// 	sprayMessage(`${msg}`);
+	// }
+	// });
 
 	port.on('close', function(err) {
 		console.log('Port closed!');
@@ -103,7 +103,7 @@ function connectPort(com) {
 sendMessage = message => {
 	// console.log(message);
 	server.send(message, 0, message.length, PORT, BROADCAST_ADDR, function() {
-		console.log(`Sent ${message}`);
+		console.log('Sent'.message);
 	});
 };
 
