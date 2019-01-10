@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DistanceScale : MonoBehaviour {
+    [SerializeField] private GameObject[] _disablers;
+
     [SerializeField] private Renderer _target;
 
     [SerializeField] private float _startBlend;
@@ -16,14 +18,21 @@ public class DistanceScale : MonoBehaviour {
         _material = _target.material;
     }
 
-    void Update () {
+    void Update() {
         Vector3 cameraPosition = Camera.main.transform.position;
         float distance = Vector3.Distance(transform.position, cameraPosition);
 
         Amount = Mathf.InverseLerp(_startBlend, _endBlend, distance);
 
-        _target.gameObject.SetActive(Amount != 0);
         _material.SetFloat("_Fade", Amount);
+        SetObjectsActive();
+
+    }
+
+    private void SetObjectsActive(){
+        for (int i = 0; i< _disablers.Length; i++) {
+            _disablers[i].SetActive(Amount != 0);
+        }
     }
 
     private void OnDrawGizmosSelected() {
