@@ -8,16 +8,16 @@ const BAUDRATE = 152000;
 const DEBUG = false;
 const START = Date.now();
 
-const devices = [
-	{
-		serialNumber: '2211820',
-		id: 'a'
-	},
-	{
-		serialNumber: '4655120',
-		id: 'b'
-	}
-];
+// const devices = [
+// 	{
+// 		serialNumber: '2211820',
+// 		id: 'a'
+// 	},
+// 	{
+// 		serialNumber: '4655120',
+// 		id: 'b'
+// 	}
+// ];
 
 server.bind(function() {
 	server.setBroadcast(true);
@@ -28,8 +28,9 @@ async function getPort() {
 	ports = ports.filter(data => data.manufacturer === 'Teensyduino');
 	if (ports.length > 0) {
 		for (let port of ports) {
-			setId(port);
-			connectPort(port.comName, port.id);
+			// setId(port);
+			// connectPort(port.comName, port.id);
+			connectPort(port.comName);
 		}
 	} else {
 		setTimeout(getPort, 3000);
@@ -50,7 +51,8 @@ function setId(port) {
 	}
 }
 
-function connectPort(com, id) {
+// function connectPort(com, id) {
+function connectPort(com) {
 	console.log('Connecting to port:', com);
 
 	let port = new SerialPort(com, {
@@ -64,7 +66,8 @@ function connectPort(com, id) {
 
 	parser.on('data', function(data) {
 		// console.log('data received: ' + data);
-		console.log(`${id} ${data}`);
+		// console.log(`${id} ${data}`);
+		console.log(`${data}`);
 	});
 
 	port.on('open', () => {
@@ -106,8 +109,5 @@ sprayMessage = message => {
 		}, i * 20);
 	}
 };
-
-sprayMessage('S1 1');
-sprayMessage('B1 1');
 
 getPort();
