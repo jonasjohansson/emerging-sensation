@@ -1,6 +1,11 @@
 Shader "ViewBlocker" {
-	
+	 Properties {
+        _Fade ("Fade", Range(0,1) ) = 1
+    }
+
 	CGINCLUDE
+
+		fixed _Fade;
 
 		#include "UnityCG.cginc"
 					
@@ -20,7 +25,7 @@ Shader "ViewBlocker" {
 		
 		fixed4 frag( v2f i ) : COLOR {	
 			//return i.color; 
-			return fixed4(0,0,0,i.color.a);
+			return fixed4(0,0,0,i.color.a * _Fade);
 		}
 	
 	ENDCG
