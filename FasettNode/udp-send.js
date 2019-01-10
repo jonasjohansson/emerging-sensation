@@ -69,6 +69,7 @@ function connectPort(com) {
 		// console.log('data received: ' + data);
 		// console.log(`${id} ${data}`);
 		// console.log(`${data}`);
+		console.log(data);
 		sprayMessage(data);
 	});
 
