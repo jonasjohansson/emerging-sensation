@@ -6,12 +6,17 @@
  */
 
 #include<FastLED.h>
+#include "Particle.h"
+
+#define NUM_PARTICLES 200
 
 CRGB leds[3][300];
 
 int a1,a2,a3,a1l,a2l,a3l;
 int b1,b2,b3,b1l,b2l,b3l;
 int c1,c2,c3,c4,c1l,c2l,c3l,c4l;
+
+Particle particles[NUM_PARTICLES];
 
 void setup(){
   FastLED.setBrightness(128);
@@ -20,6 +25,11 @@ void setup(){
   FastLED.addLeds<NEOPIXEL,2>(leds[2],300);
   FastLED.clear();
   FastLED.show();
+  for (int i = 0; i < NUM_PARTICLES; i++){
+    Particle p;
+    p.init(0,0);
+    particles[i] = p;
+  }
 }
 
 void loop(){
