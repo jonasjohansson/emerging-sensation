@@ -66,10 +66,10 @@ function connectPort(com) {
 	port.pipe(parser);
 
 	parser.on('data', function(data) {
-		console.log('data received: ' + data);
+		// console.log('data received: ' + data);
 		// console.log(`${id} ${data}`);
 		// console.log(`${data}`);
-		sprayMessage(`${msg}`);
+		console.log(data);
 	});
 
 	port.on('open', () => {
