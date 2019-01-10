@@ -24,21 +24,21 @@ public class DistanceScale : MonoBehaviour {
         if (ShouldBeActive) { 
             Vector3 cameraPosition = Camera.main.transform.position;
             float distance = Vector3.Distance(transform.position, cameraPosition);
-
             Amount = Mathf.InverseLerp(_startBlend, _endBlend, distance);
-
         }
         else {
-            Amount = 1;
+            Amount = 0;
         }
+
         _material.SetFloat("_Fade", Amount);
         SetObjectsActive();
     }
 
     private void SetObjectsActive(){
         for (int i = 0; i< _disablers.Length; i++) {
-            _disablers[i].SetActive(Amount != 0);
+            _disablers[i].SetActive(Amount != 1);
         }
+        _target.gameObject.SetActive(Amount > 0);
     }
 
     private void OnDrawGizmosSelected() {

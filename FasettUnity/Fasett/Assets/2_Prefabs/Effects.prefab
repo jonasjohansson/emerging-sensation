@@ -7313,7 +7313,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _disablers:
-  - {fileID: 1470833150283388}
   - {fileID: 1381292927665978}
   _target: {fileID: 23573336451989856}
   _startBlend: 3
@@ -7642,14 +7641,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1546412983065904}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86a81f615df09b34cb0cc7f635dd5a62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _disablers:
-  - {fileID: 1936235971610560}
-  - {fileID: 1381292927665978}
+  - {fileID: 1288882797980374}
   _target: {fileID: 23525179154672638}
   _startBlend: 2
   _endBlend: 4

@@ -16,14 +16,14 @@ class Particle {
 };
 
 
-Particle::init(int x, int y){
+void Particle::init(int x, int y){
 //Particle::Particle(){
   this->x = this->oldX = this->originX = x;
   this->x = this->oldX = this->originY = y;
   return;
 }
 
-Particle::integrate(){
+void Particle::integrate(){
   int velocityX = (this->x - this->oldX) * DAMPING;
   int velocityY = (this->y - this->oldY) * DAMPING;
   this->oldX = this->x;
@@ -32,7 +32,7 @@ Particle::integrate(){
   this->y += velocityY;
 }
 
-Particle::attract(int x, int y){
+void Particle::attract(int x, int y){
   int dx = x - this->x;
   int dy = y = this->y;
   int distance = sqrt(dx * dx + dy * dy);
@@ -40,6 +40,6 @@ Particle::attract(int x, int y){
   this->y += dy / distance;
 }
 
-Particle::draw(){
+void Particle::draw(){
   // turn pixels on/off
 }
