@@ -215,7 +215,7 @@ namespace Fasett {
             Debug.Log($"[Effect Manager] Calibrating effect {effect.Name}.");
             // Turn on effect, deparent from user and let user manipulate with hands
             effect.ShowEffect();
-            effect.transform.SetParent(transform);
+            effect.transform.SetParent(effect.OriginalParent);
             effect.SetCalibrating(true);
             _calibrateNextEffect = false;
             TransformByHands transformByHands = effect.gameObject.AddComponent<TransformByHands>();

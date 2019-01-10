@@ -6,10 +6,12 @@ namespace Fasett {
     public class Effect : MonoBehaviour {
         [SerializeField] protected string _effectName;
         [SerializeField] protected GameObject _calibrationView;
+        public Transform OriginalParent { get; private set; }
         private float _latestValue;
         private float _oldValue;
 
         protected virtual void Awake() {
+            OriginalParent = transform.parent;
             _calibrationView.SetActive(false);
         }
 
