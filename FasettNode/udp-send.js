@@ -76,18 +76,18 @@ function connectPort(com) {
 		console.log('port open');
 	});
 
-	// port.on('readable', () => {
-	// 	// console.log('reading…');
-	// 	// console.log('Data:', port.read());
-	// 	var buffer = port.read();
-	// 	if (buffer !== null) {
-	// 		msg = buffer.toString('utf8');
-	// 		msg = msg.trim();
-	// 		// console.log(msg);
-	// 		// sendMessage(`${id} ${msg}`);
-	// 		sprayMessage(`${msg}`);
-	// 	}
-	// });
+	port.on('readable', () => {
+		console.log('reading…');
+		// console.log('Data:', port.read());
+		// var buffer = port.read();
+		// if (buffer !== null) {
+		// 	msg = buffer.toString('utf8');
+		// 	msg = msg.trim();
+		// 	// console.log(msg);
+		// 	// sendMessage(`${id} ${msg}`);
+		// 	sprayMessage(`${msg}`);
+		// }
+	});
 
 	port.on('close', function(err) {
 		console.log('Port closed!');
