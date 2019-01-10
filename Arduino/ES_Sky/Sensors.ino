@@ -5,18 +5,21 @@
 float readAdvanced(byte pin, float &val, float &last, float min, float max){
   float temp = analogRead(pin);
   //temp = map(temp,min,max,255,0);
-  temp = smooth(temp);
+  
+  int change = abs(temp - last);
+  //if (change < THRESH) return;
 
-  for (byte i = 0; i < N; i++) {
-    float v = i / N;
-    v = SMOOTHSTEP(v);
-    val = (last * v) + (temp * (1 - v));
+  if (change > THRESH){
+    for (byte i = 0; i < N; i++) {
+      float v = i / N;
+      v = SMOOTHSTEP(v);
+      val = (last * v) + (temp * (1 - v));
+    }
   }
-
+  
   s(pin,val);
-  
   last = val;
-  
+
   return val;
 }
 

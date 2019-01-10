@@ -8,7 +8,7 @@ int total = 0;
 int average = 0;
 bool first = true;
 
-int smooth(int val) {
+int smooth(float &val) {
 
   if (first){
     first = false;

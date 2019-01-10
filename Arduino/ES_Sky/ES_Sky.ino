@@ -15,8 +15,8 @@
 CRGB leds[NUM_STRIPS][NUM_LEDS];
 
 float a,b,c,d,e;
-float ax,bx,cx,dx,ex;
-float al,bl,cl,dl,el;
+float ax,bx,cx,dx;
+float al,bl,cl,dl;
 
 byte wingA[NUM_WINGS][2] = { {1,0}, {0,1}, {3,1}, {2,0} };
 byte wingB[NUM_WINGS][2] = { {3,0}, {2,1}, {5,1}, {4,0} };
@@ -43,9 +43,6 @@ void setup(){
 void loop(){
   a = readAdvanced(17,ax,al,200,500);
   b = readAdvanced(18,bx,bl,200,500);
-  c = readAdvanced(19,cx,cl,200,500);
-  d = readAdvanced(22,dx,dl,200,500);
-  e = readAdvanced(23,ex,el,200,500);
 
   delay(10);
 }
