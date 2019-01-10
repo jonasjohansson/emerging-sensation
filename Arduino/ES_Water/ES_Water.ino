@@ -14,9 +14,10 @@ int b1,b2,b3,b1l,b2l,b3l;
 int c1,c2,c3,c4,c1l,c2l,c3l,c4l;
 
 void setup(){
-  FastLED.addLeds<NEOPIXEL,8>(leds[0],222);
-  FastLED.addLeds<NEOPIXEL,10>(leds[1],213);
-  FastLED.addLeds<NEOPIXEL,12>(leds[2],300);
+  FastLED.setBrightness(128);
+  FastLED.addLeds<NEOPIXEL,0>(leds[0],222);
+  FastLED.addLeds<NEOPIXEL,1>(leds[1],213);
+  FastLED.addLeds<NEOPIXEL,2>(leds[2],300);
   FastLED.clear();
   FastLED.show();
 }
@@ -32,6 +33,18 @@ void loop(){
   readSimple(7,c2,c2l);
   readSimple(8,c3,c3l);
   readSimple(9,c4,c4l);
+
+  if (c4 == 1) {
+    c1 *= 0.5;
+    c2 *= 0.5;
+    c3 *= 0.5;
+  }
+
+  setColorRange(0,0,222,a1*255,a2*255,a3*255);
+  setColorRange(1,0,213,b1*255,b2*255,b3*255);
+  setColorRange(2,0,300,c1*255,c2*255,c3*255);
+  
+  FastLED.show();
   
   delay(10);
 }
