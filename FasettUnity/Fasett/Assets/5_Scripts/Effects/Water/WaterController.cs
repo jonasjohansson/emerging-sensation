@@ -50,7 +50,7 @@ public class WaterController : MonoBehaviour {
 
     [ContextMenu("Find in Children")]
     private void FindInChildren() {
-        _triggers = GetComponentsInChildren<WaterEffect>(true);
+        _triggers = GetComponentsInChildren<WaterEffect>(false);
         _organisms = GetComponentsInChildren<WaterOrganism>(true);
     }
 }

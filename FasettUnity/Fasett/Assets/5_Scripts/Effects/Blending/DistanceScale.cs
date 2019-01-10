@@ -14,19 +14,22 @@ public class DistanceScale : MonoBehaviour {
 
     private Material _material;
 
+    public static bool ShouldBeActive;
+
     private void Awake() {
         _material = _target.material;
     }
 
     void Update() {
-        Vector3 cameraPosition = Camera.main.transform.position;
-        float distance = Vector3.Distance(transform.position, cameraPosition);
+        if (ShouldBeActive) { 
+            Vector3 cameraPosition = Camera.main.transform.position;
+            float distance = Vector3.Distance(transform.position, cameraPosition);
 
-        Amount = Mathf.InverseLerp(_startBlend, _endBlend, distance);
+            Amount = Mathf.InverseLerp(_startBlend, _endBlend, distance);
 
-        _material.SetFloat("_Fade", Amount);
-        SetObjectsActive();
-
+            _material.SetFloat("_Fade", Amount);
+            SetObjectsActive();
+        }
     }
 
     private void SetObjectsActive(){
