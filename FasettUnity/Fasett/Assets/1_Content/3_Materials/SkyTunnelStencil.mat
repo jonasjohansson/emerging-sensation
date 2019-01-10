@@ -31,8 +31,8 @@ Material:
     - _StencilOpZFail: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
-    - _XPan: 0.3
+    - _XPan: 0.7
     - _YPan: -1.8
     m_Colors:
     - _Color: {r: 0.8962264, g: 0.16487186, b: 0.16487186, a: 0}
-    - _TintColor: {r: 0.26352492, g: 0.44146055, b: 0.4932646, a: 1}
+    - _TintColor: {r: 0.81258893, g: 1.3612604, b: 1.521, a: 1}
