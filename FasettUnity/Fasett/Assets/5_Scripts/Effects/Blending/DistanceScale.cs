@@ -29,7 +29,7 @@ public class DistanceScale : MonoBehaviour {
 
         }
         else {
-            Amount = 0;
+            Amount = 1;
         }
         _material.SetFloat("_Fade", Amount);
         SetObjectsActive();
