@@ -5,8 +5,8 @@ const server = dgram.createSocket('udp4');
 const PORT = 7003;
 const BROADCAST_ADDR = '255.255.255.255';
 const BAUDRATE = 152000;
-const DEBUG = false;
-const START = Date.now();
+// const DEBUG = false;
+// const START = Date.now();
 
 // const devices = [
 // 	{
@@ -43,14 +43,14 @@ async function getPorts() {
 	return SerialPort.list();
 }
 
-function setId(port) {
-	for (var key in devices) {
-		let device = devices[key];
-		if (device.serialNumber === port.serialNumber) {
-			port.id = device.id;
-		}
-	}
-}
+// function setId(port) {
+// 	for (var key in devices) {
+// 		let device = devices[key];
+// 		if (device.serialNumber === port.serialNumber) {
+// 			port.id = device.id;
+// 		}
+// 	}
+// }
 
 // function connectPort(com, id) {
 function connectPort(com) {
@@ -76,32 +76,34 @@ function connectPort(com) {
 		console.log('port open');
 	});
 
-	port.on('readable', () => {
-		// console.log('reading…');
-		// console.log('Data:', port.read());
-		var buffer = port.read();
-		if (buffer !== null) {
-			msg = buffer.toString('utf8');
-			msg = msg.trim();
-			// console.log(msg);
-			// sendMessage(`${id} ${msg}`);
-			sprayMessage(`${msg}`);
-		}
-	});
+	// port.on('readable', () => {
+	// 	// console.log('reading…');
+	// 	// console.log('Data:', port.read());
+	// 	var buffer = port.read();
+	// 	if (buffer !== null) {
+	// 		msg = buffer.toString('utf8');
+	// 		msg = msg.trim();
+	// 		// console.log(msg);
+	// 		// sendMessage(`${id} ${msg}`);
+	// 		sprayMessage(`${msg}`);
+	// 	}
+	// });
+
 	port.on('close', function(err) {
 		console.log('Port closed!');
 		console.log('Reconnecting…');
 		getPort();
 	});
+
 	port.on('error', function(err) {
 		console.log('Error: ', err.message);
 	});
 }
 
 sendMessage = message => {
-	console.log(message);
+	// console.log(message);
 	server.send(message, 0, message.length, PORT, BROADCAST_ADDR, function() {
-		// console.log(`Sent ${message}`);
+		console.log(`Sent ${message}`);
 	});
 };
 
