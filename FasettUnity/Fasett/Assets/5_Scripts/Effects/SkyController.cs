@@ -7,6 +7,10 @@ public class SkyController : MonoBehaviour {
     [SerializeField] private Transform[] _centerObjects;
     [SerializeField] private Effect[] _effects;
 
+    private void Awake() {
+        _effects = GetComponentsInChildren<Effect>(false);
+    }
+
     // Use this for initialization
     protected virtual void OnEnable () {
         StartCoroutine(CenterEverySeconds(3));

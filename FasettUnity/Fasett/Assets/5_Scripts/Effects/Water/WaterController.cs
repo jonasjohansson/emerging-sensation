@@ -7,6 +7,10 @@ public class WaterController : MonoBehaviour {
     [SerializeField] private WaterOrganism[] _organisms;
     [SerializeField] private Transform[] _otherCenter;
 
+    private void Awake() {
+        _triggers = GetComponentsInChildren<WaterEffect>(false);
+    }
+
     // Use this for initialization
     void OnEnable () {
         foreach (WaterOrganism organism in _organisms) {
@@ -50,7 +54,7 @@ public class WaterController : MonoBehaviour {
 
     [ContextMenu("Find in Children")]
     private void FindInChildren() {
-        _triggers = GetComponentsInChildren<WaterEffect>(false);
         _organisms = GetComponentsInChildren<WaterOrganism>(true);
+        _triggers = GetComponentsInChildren<WaterEffect>(false);
     }
 }

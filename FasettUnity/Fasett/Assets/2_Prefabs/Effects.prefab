@@ -26,7 +26,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1012415738418752
 GameObject:
   m_ObjectHideFlags: 1
@@ -591,7 +591,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1186714965234102
 GameObject:
   m_ObjectHideFlags: 1
@@ -675,7 +675,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1216553555075020
 GameObject:
   m_ObjectHideFlags: 1
@@ -722,7 +722,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1236418293618028
 GameObject:
   m_ObjectHideFlags: 1
@@ -842,7 +842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1271243755251114
 GameObject:
   m_ObjectHideFlags: 1
@@ -858,7 +858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1273254030427490
 GameObject:
   m_ObjectHideFlags: 1
@@ -889,7 +889,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1278927720197404
 GameObject:
   m_ObjectHideFlags: 1
@@ -1068,7 +1068,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1345975750426846
 GameObject:
   m_ObjectHideFlags: 1
@@ -1099,7 +1099,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1368611996430048
 GameObject:
   m_ObjectHideFlags: 1
@@ -1200,7 +1200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1383247006620430
 GameObject:
   m_ObjectHideFlags: 1
@@ -1248,7 +1248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1406871519005782
 GameObject:
   m_ObjectHideFlags: 1
@@ -1292,7 +1292,6 @@ GameObject:
   - component: {fileID: 4242460005068286}
   - component: {fileID: 23627223076276274}
   - component: {fileID: 102504266423557654}
-  - component: {fileID: 114957965583706202}
   m_Layer: 0
   m_Name: Label
   m_TagString: Untagged
@@ -1725,7 +1724,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1507294078143826
 GameObject:
   m_ObjectHideFlags: 1
@@ -1858,7 +1857,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1528700177311660
 GameObject:
   m_ObjectHideFlags: 1
@@ -1891,7 +1890,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1534512873484940
 GameObject:
   m_ObjectHideFlags: 1
@@ -2667,7 +2666,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1712184000746160
 GameObject:
   m_ObjectHideFlags: 1
@@ -2701,7 +2700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1726868431655488
 GameObject:
   m_ObjectHideFlags: 1
@@ -3284,7 +3283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1898940803036156
 GameObject:
   m_ObjectHideFlags: 1
@@ -3415,7 +3414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1924324242384552
 GameObject:
   m_ObjectHideFlags: 1
@@ -3869,7 +3868,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1710230128203830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6, y: 0, z: 0}
+  m_LocalPosition: {x: -0.2, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4595903361820850}
@@ -12215,7 +12214,7 @@ TrailRenderer:
     alignment: 0
     textureMode: 0
     generateLightingData: 0
-  m_MinVertexDistance: 0.05
+  m_MinVertexDistance: 0.01
   m_Autodestruct: 0
 --- !u!102 &102005723787924772
 TextMesh:
@@ -12537,7 +12536,7 @@ MonoBehaviour:
   _freeRadius: 1
   _focusRadius: 0.4
   _movementDurationMin: 2
-  _movementDurationMax: 4
+  _movementDurationMax: 6
   _movementCurve:
     serializedVersion: 2
     m_Curve:
@@ -13320,15 +13319,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggers:
   - {fileID: 114397793568890168}
-  - {fileID: 114996646794739404}
-  - {fileID: 114872152596142002}
-  - {fileID: 114489254729542370}
-  - {fileID: 114368704920816026}
-  - {fileID: 114192703447092772}
-  - {fileID: 114281368576472698}
-  - {fileID: 114426339485098548}
-  - {fileID: 114091272948472630}
-  - {fileID: 114378838627242658}
   _organisms:
   - {fileID: 114069561689391404}
   - {fileID: 114969073342934194}
@@ -13867,9 +13857,6 @@ MonoBehaviour:
   - {fileID: 4020562789005150}
   _effects:
   - {fileID: 114354472788793926}
-  - {fileID: 114436724583645718}
-  - {fileID: 114307941304455516}
-  - {fileID: 114655113308570464}
 --- !u!114 &114759251720194848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14272,18 +14259,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 102262213620381260}
---- !u!114 &114957965583706202
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1408071086933538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19a65a38f7d40cc4a836326379655333, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _text: {fileID: 102504266423557654}
 --- !u!114 &114969073342934194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14352,11 +14327,6 @@ MonoBehaviour:
   - {fileID: 4180764897482554}
   _effects:
   - {fileID: 114484002811231784}
-  - {fileID: 114042933896315124}
-  - {fileID: 114932111031018000}
-  - {fileID: 114626723695624316}
-  - {fileID: 114783563927870726}
-  - {fileID: 114266061762195172}
 --- !u!114 &114996646794739404
 MonoBehaviour:
   m_ObjectHideFlags: 1
