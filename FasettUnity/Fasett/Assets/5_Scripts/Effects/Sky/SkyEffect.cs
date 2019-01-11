@@ -22,7 +22,7 @@ namespace Fasett {
 
         public override void UpdateEffect(float value) {
             base.UpdateEffect(value);
-
+            value /= 255;
             _target.localScale = Vector3.Lerp(_startScale, _mostAffectedScale, value);
 
             _edgeMaterial.SetFloat("_EndOfTunnelGlow", value);

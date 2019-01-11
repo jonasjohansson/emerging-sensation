@@ -11,7 +11,8 @@ namespace Fasett {
         private void Update() {
             if (_effect) {
                 _effect.SetColorAsync(_color);
-                _effect.SetValueAsync(_value);
+                bool isSKyEffect = (_effect.GetType() == typeof(SkyEffect));
+                _effect.SetValueAsync(isSKyEffect ? _value * 255 : _value);
             }
         }
     }
