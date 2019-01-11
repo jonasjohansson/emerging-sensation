@@ -44,4 +44,9 @@ public class WaterEffect : Effect {
         }
     }
 
+    [ContextMenu("TestColor")]
+    private void TestColor() {
+        Color = Color.blue;
+    }
+
 }

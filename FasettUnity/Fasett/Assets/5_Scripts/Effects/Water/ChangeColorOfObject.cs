@@ -31,4 +31,9 @@ public class ChangeColorOfObject : MonoBehaviour {
         }
         _mesh.colors32 = _colors;
     }
+
+    [ContextMenu("Test")]
+    private void Test() {
+        SetColor(_trigger);
+    }
 }
