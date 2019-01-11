@@ -5,6 +5,7 @@ using Fasett;
 
 public class WaterEffect : Effect {
     public float PressAmount { private set; get; }
+    public Color Color { private set; get; }
 
     [SerializeField] private float _riseSpeed;
     [SerializeField] private float _fallSpeed;
@@ -19,6 +20,11 @@ public class WaterEffect : Effect {
 
     private void OnMouseUp() {
         _pressed = false;
+    }
+
+    public override void SetColorAsync(Color color) {
+        base.SetColorAsync(color);
+        Color = color;
     }
 
     public override void UpdateEffect(float value) {

@@ -319,6 +319,15 @@ namespace Fasett {
             }
         }
 
+        public void SetEffectColorAsync(string effectName, Color color) {
+            if (!_calibrating) {
+                foreach (Effect e in _effects) {
+                    if (e.Name == effectName) {
+                        e.SetColorAsync(color);
+                    }
+                }
+            }
+        }
         public void HideEffects() {
             foreach (Effect e in _effects) {
                 e.HideEffect();

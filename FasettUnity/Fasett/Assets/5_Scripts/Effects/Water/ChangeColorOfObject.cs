@@ -24,7 +24,8 @@ public class ChangeColorOfObject : MonoBehaviour {
     }
 
     private void SetColor(WaterEffect trigger) {
-        Color color = _gradient.Evaluate(trigger.PressAmount);
+        Color color = trigger.Color;
+        //_gradient.Evaluate(trigger.PressAmount);
         for (int i = 0; i<_colors.Length; i++) {
             _colors[i] = color;
         }

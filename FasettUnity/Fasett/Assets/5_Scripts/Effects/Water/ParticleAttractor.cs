@@ -11,6 +11,7 @@ public class ParticleAttractor : MonoBehaviour {
 
     [SerializeField] private WaterEffect _trigger;
 
+
     private void OnEnable() {
         _trigger.OnPressedChanged += AffectParticles;
     }
@@ -18,10 +19,11 @@ public class ParticleAttractor : MonoBehaviour {
     private void OnDisable() {
         _trigger.OnPressedChanged -= AffectParticles;
     }
+   
 
     private void AffectParticles(WaterEffect trigger) {
         Vector3 attractPoint = _particleSystem.transform.InverseTransformPoint(transform.position);
-        Color color = _gradient.Evaluate(trigger.PressAmount);
+        Color color = trigger.Color;
         float power = _movement.Evaluate(trigger.PressAmount);
 
         ParticleSystem.Particle[] particles = new ParticleSystem.Particle[_particleSystem.particleCount];
