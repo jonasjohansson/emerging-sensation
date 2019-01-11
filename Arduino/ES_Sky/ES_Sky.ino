@@ -14,7 +14,7 @@
 
 CRGB leds[NUM_STRIPS][NUM_LEDS];
 
-float a,b,c,d,e;
+float a,b,c,d;
 float ax,bx,cx,dx;
 float al,bl,cl,dl;
 
@@ -41,8 +41,10 @@ void setup(){
 }
 
 void loop(){
-  a = readAdvanced(17,ax,al,200,500);
-  b = readAdvanced(18,bx,bl,200,500);
+  //a = readAdvanced(17,ax,al,200,500);
+  //b = readAdvanced(18,bx,bl,200,500);
+  //c = readAdvanced(19,cx,cl,200,500);
+  d = readAdvanced(22,dx,dl,200,500);
 
   delay(10);
 }

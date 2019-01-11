@@ -1,9 +1,9 @@
-const dgram = require('dgram');
-const SerialPort = require('serialport');
-const server = dgram.createSocket('udp4');
+const dgram = require("dgram");
+const SerialPort = require("serialport");
+const server = dgram.createSocket("udp4");
 
 const PORT = 7003;
-const BROADCAST_ADDR = '255.255.255.255';
+const BROADCAST_ADDR = "255.255.255.255";
 const BAUDRATE = 152000;
 // const DEBUG = false;
 // const START = Date.now();
@@ -26,7 +26,7 @@ server.bind(function() {
 async function getPort() {
 	let ports = await getPorts();
 	console.log(ports);
-	ports = ports.filter(data => data.manufacturer === 'Teensyduino');
+	ports = ports.filter(data => data.manufacturer === "Teensyduino");
 	if (ports.length > 0) {
 		for (let port of ports) {
 			// setId(port);
@@ -39,7 +39,7 @@ async function getPort() {
 }
 
 async function getPorts() {
-	console.log('Scanning all ports…');
+	console.log("Scanning all ports…");
 	return SerialPort.list();
 }
 
@@ -54,7 +54,7 @@ async function getPorts() {
 
 // function connectPort(com, id) {
 function connectPort(com) {
-	console.log('Connecting to port:', com);
+	console.log("Connecting to port:", com);
 
 	let port = new SerialPort(com, {
 		baudRate: BAUDRATE,
@@ -65,16 +65,17 @@ function connectPort(com) {
 	let parser = new Readline();
 	port.pipe(parser);
 
-	parser.on('data', function(data) {
+	parser.on("data", function(data) {
 		// console.log('data received: ' + data);
 		// console.log(`${id} ${data}`);
 		// console.log(`${data}`);
 		console.log(data);
-		sprayMessage(data);
+		sendMessage(data);
+		//sprayMessage(data);
 	});
 
-	port.on('open', () => {
-		console.log('Port open… the world is yours!');
+	port.on("open", () => {
+		console.log("Port open… the world is yours!");
 	});
 
 	// port.on('readable', () => {
@@ -90,21 +91,21 @@ function connectPort(com) {
 	// }
 	// });
 
-	port.on('close', function(err) {
-		console.log('Port closed!');
-		console.log('Reconnecting…');
+	port.on("close", function(err) {
+		console.log("Port closed!");
+		console.log("Reconnecting…");
 		getPort();
 	});
 
-	port.on('error', function(err) {
-		console.log('Error: ', err.message);
+	port.on("error", function(err) {
+		console.log("Error: ", err.message);
 	});
 }
 
 function sendMessage(message) {
 	// console.log(message);
 	server.send(message, 0, message.length, PORT, BROADCAST_ADDR, function() {
-		console.log('Sent', message);
+		// console.log("Sent", message);
 	});
 }
 
@@ -114,6 +115,10 @@ function sprayMessage(message) {
 			sendMessage(message);
 		}, i * 20);
 	}
+}
+
+for (let i = 0; i < 6; i++) {
+	// sprayMessage(`B${i} 1`);
 }
 
 getPort();
