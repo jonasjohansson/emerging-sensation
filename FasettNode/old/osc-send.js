@@ -14,7 +14,7 @@ let val = 0;
 
 function sendMsg() {
 	setTimeout(() => {
-		val = (val == 0) ? 1 : 0;
+		val = val == 0 ? 1 : 0;
 
 		udpPort.send({
 			address: '/d0',
