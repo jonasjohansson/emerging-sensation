@@ -105,7 +105,7 @@ function connectPort(com) {
 function sendMessage(message) {
 	// console.log(message);
 	server.send(message, 0, message.length, PORT, BROADCAST_ADDR, function() {
-		console.log("Sent", message);
+		// console.log("Sent", message);
 	});
 }
 
