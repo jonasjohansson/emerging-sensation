@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WaterController : MonoBehaviour {
-    [SerializeField] private WaterEffect[]_triggers;
+    private WaterEffect[]_triggers;
     [SerializeField] private WaterOrganism[] _organisms;
     [SerializeField] private Transform[] _otherCenter;
 

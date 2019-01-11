@@ -5,7 +5,7 @@ using Fasett;
 
 public class BodyController : MonoBehaviour {
     [SerializeField] private Transform[] _centerObjects;
-    [SerializeField] private Effect[] _effects;
+    private Effect[] _effects;
 
     protected virtual void Awake() {
         _effects = GetComponentsInChildren<Effect>(false);
