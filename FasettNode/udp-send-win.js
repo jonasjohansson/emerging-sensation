@@ -1,4 +1,4 @@
-/*
+﻿/*
 
 - smarter reconnect with n devices available
 - more efficient lookup for device id
@@ -92,5 +92,6 @@ let val;
 setInterval(()=>{
 	val = (val == '0') ? '1' : '0';
 	const msg = new Buffer(val);
-	sendMessage('b2'+' '+msg);
+	sendMessage('B1'+' '+msg);
+	sendMessage('S1'+' '+msg);
 },2000);

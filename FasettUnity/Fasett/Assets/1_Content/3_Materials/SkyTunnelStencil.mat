@@ -24,6 +24,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Cutoff: 0.5
+    - _EndOfTunnelGlow: 0
     - _Stencil: 0
     - _StencilComp: 3
     - _StencilOp: 0
@@ -31,8 +32,9 @@ Material:
     - _StencilOpZFail: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
-    - _XPan: 0.3
+    - _XPan: 0.7
     - _YPan: -1.8
     m_Colors:
     - _Color: {r: 0.8962264, g: 0.16487186, b: 0.16487186, a: 0}
-    - _TintColor: {r: 0.26352492, g: 0.44146055, b: 0.4932646, a: 1}
+    - _EndOfTunnel: {r: 0, g: 0.8368757, b: 1.2509999, a: 1}
+    - _TintColor: {r: 1.6027397, g: 2.6849318, b: 3, a: 1}

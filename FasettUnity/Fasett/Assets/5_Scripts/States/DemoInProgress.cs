@@ -19,6 +19,8 @@ namespace Fasett {
         }
 
         public override void SetActive(bool active) {
+            DistanceScale.ShouldBeActive = active;
+
             if (active) {
                 _demoCounter = _demoDuration;
                 _running = true;

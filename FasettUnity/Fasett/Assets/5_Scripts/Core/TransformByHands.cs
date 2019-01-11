@@ -191,6 +191,9 @@ namespace Fasett {
         protected void OnDestroy() {
             transform.SetParent(_transformer.transform.parent);
             Destroy(_transformer);
+            if (_transformerGhost != null) {
+                Destroy(_transformerGhost.gameObject);
+            }
 
             InteractionManager.InteractionSourceDetected -= InteractionManager_InteractionSourceDetected;
             InteractionManager.InteractionSourceLost -= InteractionManager_InteractionSourceLost;

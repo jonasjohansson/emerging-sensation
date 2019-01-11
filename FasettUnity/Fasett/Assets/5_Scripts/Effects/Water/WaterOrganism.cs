@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WaterOrganism : MonoBehaviour {
-    [SerializeField] private List<WaterEffect> _triggers;
     [SerializeField] private float _cooldownTime;
     [SerializeField] private float _attractionSpeed;
+private TrailRenderer _trailRenderer;
 
     [SerializeField] private float _freeRadius;
     [SerializeField] private float _focusRadius;
@@ -14,21 +14,29 @@ public class WaterOrganism : MonoBehaviour {
     [SerializeField] private AnimationCurve _movementCurve;
     [SerializeField] private float _maxDistanceFromCenter;
 
+    private WaterEffect[] _triggers;
     private float _cooldown;
     private float _attraction;
     private WaterEffect _currentTrigger;
     private Vector3 _centerpoint;
 
-    // Use this for initialization
-    void OnEnable () {
-        foreach(var trigger in _triggers) {
+    public void Setup(WaterEffect[] triggers) {
+        _trailRenderer = GetComponentInChildren<TrailRenderer>();
+        _triggers = triggers;
+        foreach (var trigger in _triggers) {
             trigger.OnPressedChanged += TouchChanged;
         }
-        _centerpoint = GetCenterPoint();
+    }
+
+    public void SetCenterpoint(Vector3 centerpoint) {
+        _centerpoint = centerpoint;
+    }
+
+    void OnEnable () {
         StartCoroutine(RandomMovement());
 	}
 
-    private void OnDisable() {
+    public void End() {
         foreach(var trigger in _triggers) {
             trigger.OnPressedChanged -= TouchChanged;
         }
@@ -42,7 +50,10 @@ public class WaterOrganism : MonoBehaviour {
                     _currentTrigger = null;
                 }
             }
-            _attraction = Mathf.Clamp01(_attraction - Time.deltaTime);
+            _attraction = Mathf.Clamp01(_attraction + (_currentTrigger.PressAmount > 0.5f ? Time.deltaTime : - Time.deltaTime));
+        }
+        else {
+            _attraction = Mathf.Clamp01(_attraction +  -Time.deltaTime);
         }
     }
 
@@ -50,6 +61,13 @@ public class WaterOrganism : MonoBehaviour {
         if (trigger != _currentTrigger && trigger.PressAmount > _attraction && _cooldown <= 0) {
             _currentTrigger = trigger;
             _cooldown = _cooldownTime;
+
+            GradientColorKey[] keys = _trailRenderer.colorGradient.colorKeys;
+            keys[2].color = trigger.Color;
+            Gradient gradient = new Gradient();
+            gradient.SetKeys(keys, _trailRenderer.colorGradient.alphaKeys);
+
+            _trailRenderer.colorGradient = gradient;
         }
 
         if(trigger == _currentTrigger) {
@@ -64,7 +82,7 @@ public class WaterOrganism : MonoBehaviour {
     }
 
     private IEnumerator MoveTowardsTarget() {
-        float duration = UnityEngine.Random.RandomRange(_movementDurationMin, _movementDurationMax);
+        float duration = UnityEngine.Random.Range(_movementDurationMin, _movementDurationMax);
         Vector3 startPos = transform.position;
         Vector3 endPos = SetNewPosition();
 
@@ -77,7 +95,6 @@ public class WaterOrganism : MonoBehaviour {
     }
 
     private Vector3 SetNewPosition() {
-        _centerpoint = GetCenterPoint(); //Hack
         if (Vector3.Distance(transform.position, _centerpoint) > _maxDistanceFromCenter) {
             return _centerpoint + Random.insideUnitSphere * _freeRadius;
         }
@@ -88,23 +105,9 @@ public class WaterOrganism : MonoBehaviour {
         return _currentTrigger.transform.position + Random.insideUnitSphere * _focusRadius;
     }
 
-
-    private Vector3 GetCenterPoint() {
-        Vector3 sum = Vector3.zero;
-        if(_triggers == null || _triggers.Count == 0) {
-            return sum;
-        }
-
-        foreach(var trigger in _triggers) {
-            sum += trigger.transform.position;
-        }
-        return sum / _triggers.Count;
-    }
-
     private void OnDrawGizmosSelected() {
-        if(_centerpoint != Vector3.zero) {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(_centerpoint, _maxDistanceFromCenter);
-        }
+        Vector3 point = _centerpoint != Vector3.zero ? _centerpoint : transform.position;
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(point, _maxDistanceFromCenter);
     }
 }

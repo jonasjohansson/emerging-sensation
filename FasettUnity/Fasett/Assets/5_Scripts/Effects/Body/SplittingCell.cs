@@ -2,20 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SplittingCell : MonoBehaviour {
-    [SerializeField] private KeyCode _key;
+namespace Fasett { 
+    public class SplittingCell : Effect {
+        [SerializeField] private Animator _animator;
+        [SerializeField] private float _coolDown = 1;
 
-    private Animator _animator;
+        private float _coolDownTime;
 
-	// Use this for initialization
-	void Start () {
-        _animator = GetComponent<Animator>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetKeyDown(_key)) {
-            _animator.SetTrigger("Activate");
+        public override void UpdateEffect(float value) {
+            base.UpdateEffect(value);
+            if (_coolDownTime > 0) {
+                _coolDownTime -= Time.deltaTime;
+            }
+
+            if (value >= 0.5f && _coolDownTime <= 0) {
+                _animator.SetTrigger("Activate");
+                _coolDownTime = _coolDown;
+            }
+        }
+
+        protected override void Update() {
+            base.Update();
         }
     }
 }

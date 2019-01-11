@@ -36,6 +36,16 @@ namespace Fasett {
                     _core.EffectManager.SetEffectValueAsync(effectName, value);
                 }
             }
+            if (splitMessage.Length == 4) {
+                string effectName = splitMessage[0];
+                float r = 0;
+                float g = 0;
+                float b = 0;
+                if (float.TryParse(splitMessage[1], out r) && float.TryParse(splitMessage[2], out g) && float.TryParse(splitMessage[3], out b)) {
+                    Color color = new Color(r / 255, g / 255, b / 255);
+                    _core.EffectManager.SetEffectColorAsync(effectName, color);
+                }
+            }
             _message = message;
         }
 

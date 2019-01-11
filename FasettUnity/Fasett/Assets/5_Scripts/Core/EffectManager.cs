@@ -206,7 +206,7 @@ namespace Fasett {
             if (move) {
                 effect.transform.SetParent(Camera.main.transform);
                 effect.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2.0f;
-                effect.transform.rotation = Quaternion.identity;
+                effect.transform.localRotation = Quaternion.identity;
             }
             effect.HideEffect();
         }
@@ -215,7 +215,7 @@ namespace Fasett {
             Debug.Log($"[Effect Manager] Calibrating effect {effect.Name}.");
             // Turn on effect, deparent from user and let user manipulate with hands
             effect.ShowEffect();
-            effect.transform.SetParent(transform);
+            effect.transform.SetParent(effect.OriginalParent);
             effect.SetCalibrating(true);
             _calibrateNextEffect = false;
             TransformByHands transformByHands = effect.gameObject.AddComponent<TransformByHands>();
@@ -319,6 +319,15 @@ namespace Fasett {
             }
         }
 
+        public void SetEffectColorAsync(string effectName, Color color) {
+            if (!_calibrating) {
+                foreach (Effect e in _effects) {
+                    if (e.Name == effectName) {
+                        e.SetColorAsync(color);
+                    }
+                }
+            }
+        }
         public void HideEffects() {
             foreach (Effect e in _effects) {
                 e.HideEffect();

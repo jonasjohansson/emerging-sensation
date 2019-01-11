@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Fasett {
     public class SettingUpExhibition : AppState {
         [SerializeField] private EffectManager _effectManager;
-        [SerializeField] private SpatialMappingToggle _spatialMappingToggle;
         [SerializeField] private GameObject _setupInstructions;
 
         public override void SetActive(bool active) {
@@ -14,7 +13,6 @@ namespace Fasett {
                 UserInput.OnUserSaidCalibrateClosestEffect += CalibrateClosestEffect;
                 UserInput.OnUserSaidNextEffect += CalibrateNextEffect;
                 UserInput.OnUserSaidOK += CalibrateNextEffect;
-                UserInput.OnUserSaidWireframe += ToggleSpaceWireframe;
                 UserInput.OnUserSaidInformation += ToggleInformation;
                 UserInput.OnUserSaidDemoMode += SetUpUserForDemo;
                 _setupInstructions.SetActive(true);
@@ -24,7 +22,6 @@ namespace Fasett {
                 UserInput.OnUserSaidCalibrateClosestEffect -= CalibrateClosestEffect;
                 UserInput.OnUserSaidNextEffect -= CalibrateNextEffect;
                 UserInput.OnUserSaidOK -= CalibrateNextEffect;
-                UserInput.OnUserSaidWireframe -= ToggleSpaceWireframe;
                 UserInput.OnUserSaidInformation -= ToggleInformation;
                 UserInput.OnUserSaidDemoMode -= SetUpUserForDemo;
                 _setupInstructions.SetActive(false);
@@ -41,10 +38,6 @@ namespace Fasett {
 
         private void CalibrateNextEffect() {
             _effectManager.CalibrateNextEffect();
-        }
-
-        private void ToggleSpaceWireframe() {
-            _spatialMappingToggle.ToggleRendering();
         }
 
         private void ToggleInformation() {
