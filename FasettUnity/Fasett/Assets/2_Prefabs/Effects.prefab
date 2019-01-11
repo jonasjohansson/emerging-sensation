@@ -3673,7 +3673,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1007817628498394}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1110001, y: 0, z: 0.692}
+  m_LocalPosition: {x: 0.22699988, y: 0.486, z: -0.40399992}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4005098480275454}
@@ -3967,7 +3967,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1833569117217950}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1110001, y: 0, z: 0.692}
+  m_LocalPosition: {x: 0.265, y: 0, z: 0.21700001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4537366965317632}
@@ -4332,7 +4332,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1382751827766852}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1110001, y: 0, z: 0.692}
+  m_LocalPosition: {x: -0.2750001, y: 0, z: 0.21700001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4826141112328622}
@@ -4844,7 +4844,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1501189068887798}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1110001, y: 0, z: 0.692}
+  m_LocalPosition: {x: -0.21100008, y: 0.486, z: -0.39099997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4170635345257174}
@@ -5050,7 +5050,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1229067120828848}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1110001, y: 0, z: 0.692}
+  m_LocalPosition: {x: 0.29099995, y: 0, z: -0.38899997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4804483868811166}
@@ -5315,7 +5315,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1364040981903346}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1110001, y: 0, z: 0.692}
+  m_LocalPosition: {x: -0.21899998, y: 0.511, z: 0.139}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4672523784470426}
@@ -5399,7 +5399,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1922758089724004}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1110001, y: 0, z: 0.692}
+  m_LocalPosition: {x: -0.245, y: 0, z: -0.38399997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4190685053796908}
@@ -5664,7 +5664,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1185241076654138}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1110001, y: 0, z: 0.692}
+  m_LocalPosition: {x: -0.655, y: 0.249, z: -0.10499996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4944225827017362}
@@ -5748,7 +5748,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1271243755251114}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.111, y: 0, z: 0.692}
+  m_LocalPosition: {x: 0.259, y: 0.494, z: 0.217}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4841982130655118}
@@ -6112,7 +6112,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1896466065671806}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1110001, y: 0, z: 0.692}
+  m_LocalPosition: {x: 0.556, y: 0.511, z: -0.25999996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4035163413684352}
@@ -11647,7 +11647,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.5
+  _innerRadius: 0.3
   _outerRadius: 1
   _movement:
     serializedVersion: 2
@@ -11667,6 +11667,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _fullGlow: 1
+  _power: 1
   _trigger: {fileID: 114397793568890168}
 --- !u!114 &114042933896315124
 MonoBehaviour:
@@ -11732,8 +11734,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effectName: W9
   _calibrationView: {fileID: 1256481286592704}
-  _riseSpeed: 1
-  _fallSpeed: 3
+  _riseSpeed: 0.5
+  _fallSpeed: 2
+  _riseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.0019721985
+      value: 0.4940627
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _fallCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114112005259214856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11859,8 +11897,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effectName: W6
   _calibrationView: {fileID: 1236418293618028}
-  _riseSpeed: 1
-  _fallSpeed: 3
+  _riseSpeed: 0.5
+  _fallSpeed: 2
+  _riseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.0019721985
+      value: 0.4940627
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _fallCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114194594521620754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11970,8 +12044,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effectName: W7
   _calibrationView: {fileID: 1868325750057310}
-  _riseSpeed: 1
-  _fallSpeed: 3
+  _riseSpeed: 0.5
+  _fallSpeed: 2
+  _riseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.0019721985
+      value: 0.4940627
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _fallCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114281861735325944
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12067,8 +12177,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effectName: W5
   _calibrationView: {fileID: 1287845346153728}
-  _riseSpeed: 1
-  _fallSpeed: 3
+  _riseSpeed: 0.5
+  _fallSpeed: 2
+  _riseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.0019721985
+      value: 0.4940627
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _fallCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114378838627242658
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12082,8 +12228,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effectName: W0
   _calibrationView: {fileID: 1172203777833106}
-  _riseSpeed: 1
-  _fallSpeed: 3
+  _riseSpeed: 0.5
+  _fallSpeed: 2
+  _riseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.0019721985
+      value: 0.4940627
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _fallCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114388260410072910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12125,7 +12307,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.5
+  _innerRadius: 0.3
   _outerRadius: 1
   _movement:
     serializedVersion: 2
@@ -12145,6 +12327,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _fullGlow: 1
+  _power: 1
   _trigger: {fileID: 114426339485098548}
 --- !u!114 &114397793568890168
 MonoBehaviour:
@@ -12159,8 +12343,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effectName: W1
   _calibrationView: {fileID: 1014331519639072}
-  _riseSpeed: 1
-  _fallSpeed: 3
+  _riseSpeed: 0.5
+  _fallSpeed: 2
+  _riseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.0019721985
+      value: 0.4940627
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _fallCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114425816473186386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12210,8 +12430,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effectName: W8
   _calibrationView: {fileID: 1609488173103350}
-  _riseSpeed: 1
-  _fallSpeed: 3
+  _riseSpeed: 0.5
+  _fallSpeed: 2
+  _riseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.0019721985
+      value: 0.4940627
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _fallCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114447563808493280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12253,7 +12509,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.5
+  _innerRadius: 0.3
   _outerRadius: 1
   _movement:
     serializedVersion: 2
@@ -12273,6 +12529,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _fullGlow: 1
+  _power: 1
   _trigger: {fileID: 114368704920816026}
 --- !u!114 &114448598233122584
 MonoBehaviour:
@@ -12363,8 +12621,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effectName: W4
   _calibrationView: {fileID: 1908989039254960}
-  _riseSpeed: 1
-  _fallSpeed: 3
+  _riseSpeed: 0.5
+  _fallSpeed: 2
+  _riseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.0019721985
+      value: 0.4940627
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _fallCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114525805759131678
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12495,7 +12789,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.5
+  _innerRadius: 0.3
   _outerRadius: 1
   _movement:
     serializedVersion: 2
@@ -12515,6 +12809,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _fullGlow: 1
+  _power: 1
   _trigger: {fileID: 114281368576472698}
 --- !u!114 &114619756202407986
 MonoBehaviour:
@@ -12557,7 +12853,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.5
+  _innerRadius: 0.3
   _outerRadius: 1
   _movement:
     serializedVersion: 2
@@ -12577,6 +12873,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _fullGlow: 2
+  _power: 1
   _trigger: {fileID: 114091272948472630}
 --- !u!114 &114626723695624316
 MonoBehaviour:
@@ -12649,7 +12947,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.5
+  _innerRadius: 0.3
   _outerRadius: 1
   _movement:
     serializedVersion: 2
@@ -12669,6 +12967,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _fullGlow: 1
+  _power: 1
   _trigger: {fileID: 114872152596142002}
 --- !u!114 &114642209229674394
 MonoBehaviour:
@@ -12726,7 +13026,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.5
+  _innerRadius: 0.3
   _outerRadius: 1
   _movement:
     serializedVersion: 2
@@ -12746,6 +13046,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _fullGlow: 1
+  _power: 1
   _trigger: {fileID: 114489254729542370}
 --- !u!114 &114723547467724230
 MonoBehaviour:
@@ -12803,7 +13105,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 4
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.5
+  _innerRadius: 0.3
   _outerRadius: 1
   _movement:
     serializedVersion: 2
@@ -12823,6 +13125,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _fullGlow: 1
+  _power: 1
   _trigger: {fileID: 114996646794739404}
 --- !u!114 &114758704738511748
 MonoBehaviour:
@@ -12976,7 +13280,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.5
+  _innerRadius: 0.3
   _outerRadius: 1
   _movement:
     serializedVersion: 2
@@ -12996,6 +13300,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _fullGlow: 1
+  _power: 1
   _trigger: {fileID: 114378838627242658}
 --- !u!114 &114863220346686496
 MonoBehaviour:
@@ -13092,8 +13398,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effectName: W3
   _calibrationView: {fileID: 1186714965234102}
-  _riseSpeed: 1
-  _fallSpeed: 3
+  _riseSpeed: 0.5
+  _fallSpeed: 2
+  _riseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.0019721985
+      value: 0.4940627
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _fallCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114931179210196982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13135,7 +13477,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.5
+  _innerRadius: 0.3
   _outerRadius: 1
   _movement:
     serializedVersion: 2
@@ -13155,6 +13497,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _fullGlow: 1
+  _power: 1
   _trigger: {fileID: 114192703447092772}
 --- !u!114 &114932111031018000
 MonoBehaviour:
@@ -13291,8 +13635,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effectName: W2
   _calibrationView: {fileID: 1493879977462920}
-  _riseSpeed: 1
-  _fallSpeed: 3
+  _riseSpeed: 0.5
+  _fallSpeed: 2
+  _riseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.0019721985
+      value: 0.4940627
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  _fallCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!135 &135067364353193838
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -13641,7 +14021,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1440763733
+  randomSeed: 907850167
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -13731,7 +14111,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
