@@ -25,3 +25,12 @@ int WB_STEMS[WB_NUM_STEMS]= { 0,1,3 };
 int WB_BRANCHES[WB_NUM_BRANCHES] = { 4,6,8,9  };
 int WB_BUDS[WB_NUM_BUDS] = { 2,7,5 };
 int WB_TREE[WB_NUM_STEMS+WB_NUM_BRANCHES] = { 0,1,4,6,3,8,9 };
+
+void p(int val){
+  Serial.print(val);
+  Serial.print("  ");
+}
+
+void pl(){
+  Serial.println();
+}
