@@ -13,6 +13,8 @@ namespace Fasett {
                 spatialMappingRenderer.renderState = SpatialMappingRenderer.RenderState.None;
             else
                 spatialMappingRenderer.renderState = SpatialMappingRenderer.RenderState.Visualization;
+                spatialMappingRenderer.sphereRadius = 15;
+                spatialMappingRenderer.halfBoxExtents = new Vector3(20, 20, 20);
         }
     }
 }

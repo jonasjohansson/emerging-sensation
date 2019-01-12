@@ -73,7 +73,7 @@ namespace Fasett {
                     action = OnUserSaidDebug;
                     break;
                 case WIREFRAME_PHRASE:
-                    action = OnUserSaidDebug;
+                    action = OnUserSaidWireframe;
                     break;
             }
             if (action != null) {
