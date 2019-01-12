@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaterOrganism : MonoBehaviour {
     [SerializeField] private float _cooldownTime;
     [SerializeField] private float _attractionSpeed;
+private TrailRenderer _trailRenderer;
 
     [SerializeField] private float _freeRadius;
     [SerializeField] private float _focusRadius;
@@ -20,6 +21,7 @@ public class WaterOrganism : MonoBehaviour {
     private Vector3 _centerpoint;
 
     public void Setup(WaterEffect[] triggers) {
+        _trailRenderer = GetComponentInChildren<TrailRenderer>();
         _triggers = triggers;
         foreach (var trigger in _triggers) {
             trigger.OnPressedChanged += TouchChanged;
@@ -48,7 +50,10 @@ public class WaterOrganism : MonoBehaviour {
                     _currentTrigger = null;
                 }
             }
-            _attraction = Mathf.Clamp01(_attraction - Time.deltaTime);
+            _attraction = Mathf.Clamp01(_attraction + (_currentTrigger.PressAmount > 0.5f ? Time.deltaTime : - Time.deltaTime));
+        }
+        else {
+            _attraction = Mathf.Clamp01(_attraction +  -Time.deltaTime);
         }
     }
 
@@ -56,6 +61,13 @@ public class WaterOrganism : MonoBehaviour {
         if (trigger != _currentTrigger && trigger.PressAmount > _attraction && _cooldown <= 0) {
             _currentTrigger = trigger;
             _cooldown = _cooldownTime;
+
+            GradientColorKey[] keys = _trailRenderer.colorGradient.colorKeys;
+            keys[2].color = trigger.Color;
+            Gradient gradient = new Gradient();
+            gradient.SetKeys(keys, _trailRenderer.colorGradient.alphaKeys);
+
+            _trailRenderer.colorGradient = gradient;
         }
 
         if(trigger == _currentTrigger) {

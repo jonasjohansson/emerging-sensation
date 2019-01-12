@@ -206,7 +206,7 @@ namespace Fasett {
             if (move) {
                 effect.transform.SetParent(Camera.main.transform);
                 effect.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2.0f;
-                effect.transform.rotation = Quaternion.identity;
+                effect.transform.localRotation = Quaternion.identity;
             }
             effect.HideEffect();
         }
