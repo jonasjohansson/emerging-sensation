@@ -5,6 +5,8 @@ void readSimple(byte pin, int &val, int &last){
 
   if (val == last) return;
 
+  if (val == 1) newTarget(pin);
+  
   s(pin,val);
   //c(pin,val,random(0,255),random(0,255),random(0,255));
   
@@ -21,13 +23,4 @@ void s(byte pin, int val){
   Serial.print("W"+String(pin));
   Serial.print(' ');
   Serial.println(val);
-}
-
-void p(int val){
-  Serial.print(val);
-  Serial.print("  ");
-}
-
-void pl(){
-  Serial.println();
 }
