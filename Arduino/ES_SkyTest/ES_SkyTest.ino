@@ -37,26 +37,34 @@ void setup(){
   FastLED.addLeds<NEOPIXEL,7>(leds[6],NUM_LEDS);
   FastLED.addLeds<NEOPIXEL,8>(leds[7],NUM_LEDS);
   FastLED.clear();
-  FastLED.show();
 }
 
 void loop(){
-  //a = readAdvanced(17,ax,al,200,500);
-  //b = readAdvanced(18,bx,bl,200,500);
-  //c = readAdvanced(19,cx,cl,200,500);
-  d = readAdvanced(22,dx,dl,200,500);
-
-  for (int i = 0; i < NUM_STRIPS; i++){
-    fill_gradient(leds[0], NUM_LEDS, CHSV(100,255,255), CHSV(160,255,255), FORWARD_HUES);
-    fill_gradient(leds[1], NUM_LEDS, CHSV(90,255,255), CHSV(140,255,255), FORWARD_HUES);
-    fill_gradient(leds[2], NUM_LEDS, CHSV(110,255,255), CHSV(150,255,255), FORWARD_HUES);
-    fill_gradient(leds[3], NUM_LEDS, CHSV(110,255,255), CHSV(150,255,255), FORWARD_HUES);
-    fill_gradient(leds[4], NUM_LEDS, CHSV(110,255,255), CHSV(150,255,255), FORWARD_HUES);
-    fill_gradient(leds[5], NUM_LEDS, CHSV(110,255,255), CHSV(150,255,255), FORWARD_HUES);
-    fill_gradient(leds[6], NUM_LEDS, CHSV(110,255,255), CHSV(150,255,255), FORWARD_HUES);
-    fill_gradient(leds[7], NUM_LEDS, CHSV(110,255,255), CHSV(150,255,255), FORWARD_HUES);
+  for (int i = 0; i < 8; i++){
+    for (int j = 0; j < 144; j++){
+      leds[i][j] = CRGB::Red;
+    }
+  }
+  delay(1000);
+  FastLED.show();
+  for (int i = 0; i < 8; i++){
+    for (int j = 0; j < 144; j++){
+      leds[i][j] = CRGB::Blue;
+    }
+  }
+  delay(1000);
+  FastLED.show();
+  for (int i = 0; i < 8; i++){
+    for (int j = 0; j < 144; j++){
+      leds[i][j] = CRGB::Green;
+    }
+  }
+  delay(1000);
+  FastLED.show();
+  for (int i = 0; i < 8; i++){
+    for (int j = 0; j < 144; j++){
+      leds[i][j] = CRGB::White;
+    }
   }
   FastLED.show();
-  
-  delay(10);
 }
