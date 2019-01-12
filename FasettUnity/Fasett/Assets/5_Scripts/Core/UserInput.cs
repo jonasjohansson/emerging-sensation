@@ -18,7 +18,9 @@ namespace Fasett {
         public static Action OnUserSaidDemoMode;
         public static Action OnUserSaidOK;
         public static Action OnUserSaidInformation;
+
         public static Action OnUserSaidDebug;
+        public static Action OnUserSaidWireframe;
 
         private const string NEXT_EFFECT_PHRASE = "next effect";
         private const string CALIBRATE_ALL_EFFECTS_PHRASE = "calibrate all";
@@ -28,13 +30,14 @@ namespace Fasett {
         private const string OK_PHRASE = "ok";
         private const string INFORMATION_PHRASE = "information";
         private const string DEBUG_PHRASE = "debug";
+        private const string WIREFRAME_PHRASE = "wireframe";
 
         public void Setup(Core core) {
             recognizer = new GestureRecognizer();
             recognizer.Tapped += UserTapped;
             recognizer.StartCapturingGestures();
 
-            _keywordRecognizer = new KeywordRecognizer(new string[] { NEXT_EFFECT_PHRASE, CALIBRATE_ALL_EFFECTS_PHRASE, CALIBRATE_CLOSEST_EFFECT_PHRASE, EXHIBITION_SETUP_PHRASE, DEMO_MODE_PHRASE, OK_PHRASE, INFORMATION_PHRASE, DEBUG_PHRASE });
+            _keywordRecognizer = new KeywordRecognizer(new string[] { NEXT_EFFECT_PHRASE, CALIBRATE_ALL_EFFECTS_PHRASE, CALIBRATE_CLOSEST_EFFECT_PHRASE, EXHIBITION_SETUP_PHRASE, DEMO_MODE_PHRASE, OK_PHRASE, INFORMATION_PHRASE, DEBUG_PHRASE, WIREFRAME_PHRASE });
             _keywordRecognizer.OnPhraseRecognized += PhraseRecognized;
             _keywordRecognizer.Start();
         }
@@ -67,6 +70,9 @@ namespace Fasett {
                     action = OnUserSaidInformation;
                     break;
                 case DEBUG_PHRASE:
+                    action = OnUserSaidDebug;
+                    break;
+                case WIREFRAME_PHRASE:
                     action = OnUserSaidDebug;
                     break;
             }
