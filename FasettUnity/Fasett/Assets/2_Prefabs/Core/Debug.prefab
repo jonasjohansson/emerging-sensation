@@ -571,6 +571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 102162752897836236}
   _debugObjects: []
+  _spatialMappingToggle: {fileID: 0}
 --- !u!114 &114087156825384482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -620,6 +621,7 @@ MonoBehaviour:
   _debugObjects:
   - {fileID: 1875819747693890}
   - {fileID: 0}
+  _spatialMappingToggle: {fileID: 0}
 --- !u!114 &114470719086195328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -633,6 +635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 102099332365187778}
   _debugObjects: []
+  _spatialMappingToggle: {fileID: 0}
 --- !u!114 &114478209609798388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -646,6 +649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 102118038130313574}
   _debugObjects: []
+  _spatialMappingToggle: {fileID: 0}
 --- !u!114 &114693893297899186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -676,6 +680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 102967096126552410}
   _debugObjects: []
+  _spatialMappingToggle: {fileID: 0}
 --- !u!120 &120420249250985722
 LineRenderer:
   m_ObjectHideFlags: 1

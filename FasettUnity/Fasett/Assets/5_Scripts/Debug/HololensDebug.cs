@@ -10,6 +10,7 @@ namespace Fasett {
     public class HololensDebug : MonoBehaviour {
         [SerializeField] private TextMesh _text;
         [SerializeField] private GameObject[] _debugObjects;
+        [SerializeField] private SpatialMappingToggle _spatialMappingToggle;
 
         private bool _debugging = false;
 
@@ -19,9 +20,11 @@ namespace Fasett {
 
         private void OnEnable() {
             UserInput.OnUserSaidDebug += ToggleDebug;
+            UserInput.OnUserSaidWireframe += ShowWireFrame;
         }
         private void OnDisable() {
             UserInput.OnUserSaidDemoMode -= ToggleDebug;
+            UserInput.OnUserSaidWireframe += ShowWireFrame;
         }
 
         private void ToggleDebug() {
@@ -31,6 +34,10 @@ namespace Fasett {
                 go.SetActive(_debugging);
             }
         }
-    
+
+        private void ShowWireFrame() {
+            _spatialMappingToggle.ToggleRendering();
+        }
+
     }
 }
