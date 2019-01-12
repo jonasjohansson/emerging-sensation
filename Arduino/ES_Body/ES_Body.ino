@@ -4,8 +4,6 @@
 
 #include<FastLED.h>
 
-#include "blob.h"
-
 #define NUM_SENSORS 5
 #define NUM_STRIPS 26
 #define NUM_LEDS 289
@@ -21,7 +19,7 @@ uint8_t gHue = 0; // rotating "base color" used by many of the patterns
 int a, b, c, d, e;
 int al, bl, cl, dl, el;
 
-int blobData[5][4] = {
+const int blobData[5][4] = {
   {2, 206, 194, 12},
   {2, 237, 264, 14},
   {1, 100, 0, 10 },
@@ -29,7 +27,14 @@ int blobData[5][4] = {
   {1, 79, 0, 10}
 };
 
-#define BLOB_TIMEOUT 5000
+
+const int blobTimes[4] {
+  5000, // on
+  4000, // fadeout
+  4000, // black
+  2000 // fadein
+};
+
 /*
   { 79, 20, 2 },  // 6 small ball 2 inside
   { 99, 20, 2 },  // 7 small ball 3 inside
@@ -66,8 +71,8 @@ DEFINE_GRADIENT_PALETTE( redyellow1 ) {
 };
 
 DEFINE_GRADIENT_PALETTE( yellowwhite1 ) {
-  0,  130,  50, 0,
-  127,  80,  70, 20,
+  0,  130,  40, 0,
+  127,  80,  60, 20,
   255,  130,  50, 0
 };
 
@@ -125,47 +130,71 @@ class Tentacle {
     };
 
     void offEffect() {
+      this->fadeToBlackBy(1);
       for (int i = 0; i < len; i++) {
-        leds[this->pixels[0][i]] = ColorFromPalette(tentacledark, beat8( 7)+i*10, beatsin8( 7,0,60*this->brightness,0,i*28) );
-        leds[this->pixels[1][i]] = ColorFromPalette(tentacledark, beat8( 10)+127+i*10, beatsin8( 7,0,60*this->brightness,0,i*28+28) );
+        leds[pixels[0][i]] += ColorFromPalette(tentacledark, beat8( 7)+i*10, beatsin8( 7,0,60*this->brightness,0,i*28) );
+        leds[pixels[1][i]] += ColorFromPalette(tentacledark, beat8( 10)+127+i*10, beatsin8( 7,0,60*this->brightness,0,i*28+28) );
       }
+      renderStars();
     };
 
+    void renderStars() {
+      if(random(0,1000)>995) {
+        stars[random(0,1)][random(0,len)]=ColorFromPalette(redyellow, random(0,255),255);
+      }
+      
+      for(int i=0;i<len;i++) {
+        stars[0][i].fadeToBlackBy(1);
+        stars[1][i].fadeToBlackBy(1);
+        leds[pixels[0][i]]|=stars[0][i];
+        leds[pixels[1][i]]|=stars[1][i];
+      }
+    }
+    
     void lightning() {
-      this->fadeToBlackBy(20);
+      fadeToBlackBy(20);
       byte dothue = 230;
-      for( int i = 0; i < 4; i++) {
-        leds[this->pixels[0][beatsin16(i*5+10,0,this->len)]] |= CHSV(dothue, 255, 255);
-        leds[this->pixels[1][beatsin16(i*6+8,0,this->len)]] |= CHSV(dothue, 255, 255);
-        dothue += 16;
+      for( int i = 0; i < 5; i++) {
+        leds[pixels[0][beatsin16(i*3+10,0,this->len)]] |= CHSV(dothue, 255, 255);
+        leds[pixels[1][beatsin16(i*4+8,0,this->len)]] |= CHSV(dothue, 255, 255);
+        dothue += 8;
       }
     }
 
     void fadeToBlackBy(int by) {
       for (int i = 0; i < len; i++) {
-        leds[this->pixels[0][i]]=255*leds[this->pixels[0][i]]/(255-20);
-        leds[this->pixels[1][i]]=255*leds[this->pixels[0][i]]/(255-20);
+        leds[pixels[0][i]]=255*leds[this->pixels[0][i]]/(255-by);
+        leds[pixels[1][i]]=255*leds[this->pixels[0][i]]/(255-by);
       }
 
     }
     
     void show() {
-      (*this.*currentEffect)();
+      switch(state) {
+        case 0:
+          this->offEffect();
+          break;
+        case 1:
+          this->lightning();
+          break;
+      }
 
     }
 
     
     unsigned long endTime;
+    CRGB stars[2][9];
+    int state=0;
     int tempo;
     int type;
     int len;
     int id;
     float brightness;
-    void (Tentacle::*currentEffect)() =  &Tentacle::offEffect;
 
   private:
     int pixels[2][9];
 };
+
 
 class Blob {
   public:
@@ -179,48 +208,91 @@ class Blob {
       }
     };
     void test() {
-      leds[this->pixels[0][0]] = CRGB::Red;
-      leds[this->pixels[0][len - 1]] = CRGB::Green;
+      leds[pixels[0][0]] = CRGB::Red;
+      leds[pixels[0][len - 1]] = CRGB::Green;
       if (this->type == 2) {
-        leds[this->pixels[1][0]] = CRGB::Blue;
-        leds[this->pixels[1][len - 1]] = CRGB::Yellow;
+        leds[pixels[1][0]] = CRGB::Blue;
+        leds[pixels[1][len - 1]] = CRGB::Yellow;
 
       }
     };
 
-    void offEffect() {
+    void setAll( CRGB color ) {
       for (int i = 0; i < len; i++) {
-        leds[this->pixels[0][i]] = ColorFromPalette(redyellow, beatsin8( tempo, 0, 255), 255);
-        if (this->type == 2)
-          leds[this->pixels[1][i]] = ColorFromPalette(yellowwhite,  beatsin8( tempo - 12, 0, 255), 255);
+        leds[pixels[0][i]] = color;
+        leds[pixels[1][i]] = color;
+      }
+    }
+
+    void offEffect( byte fade) {
+      for (int i = 0; i < len; i++) {
+        leds[pixels[0][i]] = ColorFromPalette(redyellow, beatsin8( tempo, 0, 255), fade,LINEARBLEND);
+        if (type == 2)
+          leds[pixels[1][i]] = ColorFromPalette(yellowwhite,  beatsin8( tempo - 12, 0, 255), fade,LINEARBLEND);
       }
     };
 
-    void onEffect() {
+    void onEffect(byte fade) {
       for (int i = 0; i < len; i++) {
           int index = 192*beatsin8( tempo-10 , 0, 255)/255+cos8(255*(millis()/30+i)/len)/4;
-          leds[this->pixels[0][i]] = ColorFromPalette(redyellowmagenta, index,beatsin8( 35, 0, 255,0,40));
-        if (this->type == 2)
-          leds[this->pixels[1][i]] = ColorFromPalette(redyellowmagenta,index,beatsin8( 35, 0, 255,0,120));
+          leds[pixels[0][i]] = ColorFromPalette(redyellowmagenta, index,beatsin8( 85, 0, fade,0,40),LINEARBLEND);
+        if (type == 2)
+          leds[pixels[1][i]] = ColorFromPalette(redyellowmagenta,index,beatsin8( 85, 0, fade,0,120),LINEARBLEND);
           
-      }
-      if(millis() > this->endTime) {
-        this->node=false;
-        this->currentEffect=&Blob::offEffect;
       }
     };
     void show() {
-      (*this.*currentEffect)();
+      float fade;
+      switch(state) {
+        case 0:
+          this->offEffect(255);
+          break;
+        case 1:               // on
+          if(millis() > this->endTime) {
+            this->state++;
+            this->endTime=millis()+blobTimes[1];
+            break;
+          }
+          this->onEffect(255);
+          break;
+        case 2:               // fadeout
+          if(millis() > this->endTime) {
+            this->state++;
+            this->endTime=millis()+blobTimes[2];
+            break;
+          }
+          fade = (float)(this->endTime-millis())/blobTimes[1]*255;
+          this->onEffect((byte)fade);
+          break;
+        case 3:               // black
+          if(millis() > this->endTime) {
+            this->state++;
+            this->endTime=millis()+blobTimes[3];
+            break;
+          }
+          this->setAll(CRGB::Black);
+          break;
+        case 4:               // fadein
+          if(millis() > this->endTime) {
+            this->state=0;
+            break;
+          }
+          fade = (float)(this->endTime-millis())/blobTimes[3]*255;
+          Serial.println(fade);
+          this->offEffect((byte) 255-fade);
+          break;
 
-    }
+        
+      }
+
+    };
 
     unsigned long endTime;
+    int state=0;
     int tempo;
     int type;
     int len;
     int id;
-    bool node=false;
-    void (Blob::*currentEffect)() =  &Blob::offEffect;
 
   private:
     int pixels[2][16];
@@ -265,7 +337,6 @@ void setup() {
   }
 
   tentacleJumps[0][1][0] = 8;
-  tentacleJumps[0][1][1] = 6;
   tentacleJumps[0][2][0] = 8;
   tentacleJumps[0][2][1] = 3;
   tentacleJumps[0][3][0] = 8;
@@ -300,7 +371,6 @@ void setup() {
 }
 #define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 
-void (Blob::*currentEffects[5])() =  {&Blob::offEffect, &Blob::offEffect, &Blob::offEffect, &Blob::offEffect, &Blob::offEffect};
 
 /*
 EffectList = void (Blob::*currentEffect)() =  &Blob::offEffect;
@@ -311,21 +381,20 @@ void loop() {
   for(int i=0;i<NUM_SENSORS;i++) {
     sensorVals[i]=digitalRead(sensorPins[i]);
     if(sensorVals[i]) {
-      blobs[i].endTime = millis()+ BLOB_TIMEOUT;
-      blobs[i].node=true;
-      blobs[i].currentEffect = &Blob::onEffect;
+      blobs[i].endTime = millis()+ blobTimes[0];
+      blobs[i].state=1;
     }
+  }
+  for(int i=0;i<NUM_TENTACLES;i++) {
+    tentacles[i].state=0;
   }
   for(int i=0;i<NUM_BLOBS;i++) {
     for(int j=i+1;j<NUM_BLOBS;j++) {
-      for(int k=0;k<3;k++) {
-        if(blobs[i].node && blobs[j].node) {
+      if(blobs[i].state==1 && blobs[j].state==1) {
+        for(int k=0;k<3;k++) {
           if(tentacleJumps[i][j][k]<10) {
-            tentacles[tentacleJumps[i][j][k]].currentEffect = &Tentacle::lightning;
+            tentacles[tentacleJumps[i][j][k]].state=1;
           }
-        }
-        else {
-          tentacles[tentacleJumps[i][j][k]].currentEffect = &Tentacle::offEffect;
         }
       }
     }
@@ -333,14 +402,11 @@ void loop() {
   
   for(int i=0;i<NUM_BLOBS;i++)
     blobs[i].show();
-  for(int i=0;i<NUM_TENTACLES;i++)
+  for(int i=0;i<NUM_TENTACLES;i++) {
     tentacles[i].show();
-    
-//   (blobs[0].penis)();
-//    for(int i=0;i<5;i++)
-//        blobs[i].offEffect();
-//  for (int i = 0; i < 9; i++)
-//    tentacles[i].count();
+  }
+/*  for (int i = 0; i < 9; i++)
+    tentacles[i].count();*/
       FastLED.show();
       FastLED.delay(10);
 
