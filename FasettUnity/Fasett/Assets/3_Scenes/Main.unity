@@ -1346,6 +1346,7 @@ MonoBehaviour:
   _text: {fileID: 722845674}
   _debugObjects: []
   _spatialMappingToggle: {fileID: 0}
+  _disableBlockersInEditor: 0
 --- !u!23 &722845676
 MeshRenderer:
   m_ObjectHideFlags: 0
