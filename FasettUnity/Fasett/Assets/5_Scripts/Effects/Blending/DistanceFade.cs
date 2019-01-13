@@ -9,8 +9,6 @@ public class DistanceFade : MonoBehaviour {
     [SerializeField] private float _startBlend;
     [SerializeField] private float _endBlend;
 
-    [SerializeField] private bool _debugTesting;
-
     private float _visibility;
     private Material _material;
     private float _lastSentVisibility = -1;
@@ -23,7 +21,7 @@ public class DistanceFade : MonoBehaviour {
     }
 
     void Update() {
-        if (ShouldBeActive || _debugTesting) { 
+        if (ShouldBeActive) { 
             Vector3 cameraPosition = Camera.main.transform.position;
             float distance = Vector3.Distance(transform.position, cameraPosition);
             _visibility = Mathf.InverseLerp(_startBlend, _endBlend, distance);

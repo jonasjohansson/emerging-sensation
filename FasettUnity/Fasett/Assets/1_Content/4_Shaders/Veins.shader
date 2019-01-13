@@ -39,15 +39,16 @@ Shader "Shader Forge/Veins" {
             #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal 
             #pragma target 3.0
-            uniform float4 _TintColor;
+            uniform fixed4 _TintColor;
             uniform float _ScrollSpeed1;
-            uniform sampler2D _Main; uniform float4 _Main_ST;
-            uniform sampler2D _Ramp; uniform float4 _Ramp_ST;
-            uniform float _NormalPush;
-            uniform float _PulseSpeed;
-            uniform sampler2D _ColorRamp; uniform float4 _ColorRamp_ST;
-            uniform float _ColorShift;
-            uniform float _PulseEffect;
+            uniform sampler2D _Main; uniform fixed4 _Main_ST;
+            uniform sampler2D _Ramp; uniform fixed4 _Ramp_ST;
+            uniform fixed _NormalPush;
+            uniform fixed _PulseSpeed;
+            uniform sampler2D _ColorRamp; uniform fixed4 _ColorRamp_ST;
+            uniform fixed _ColorShift;
+            uniform fixed _PulseEffect;
+            
             struct VertexInput {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -55,62 +56,46 @@ Shader "Shader Forge/Veins" {
                 float2 texcoord1 : TEXCOORD1;
                 float4 vertexColor : COLOR;
             };
+            
             struct VertexOutput {
                 float4 pos : SV_POSITION;
                 float2 uv0 : TEXCOORD0;
                 float2 uv1 : TEXCOORD1;
-                float4 posWorld : TEXCOORD2;
-                float3 normalDir : TEXCOORD3;
-                float4 vertexColor : COLOR;
-                UNITY_FOG_COORDS(4)
+                float2 uv2 : TEXCOORD2;
+                float2 uv3 : TEXCOORD3;
+                float2 uv4 : TEXCOORD6;
             };
+            
             VertexOutput vert (VertexInput v) {
                 VertexOutput o = (VertexOutput)0;
                 o.uv0 = v.texcoord0;
-                o.uv1 = v.texcoord1;
-                o.vertexColor = v.vertexColor;
-                o.normalDir = UnityObjectToWorldNormal(v.normal);
-                float4 node_9790 = _Time;
-                float2 node_5464 = (o.uv1+float2((node_9790.g*_PulseSpeed),0.0));
-                float4 node_9942 = tex2Dlod(_Ramp,float4(TRANSFORM_TEX(node_5464, _Ramp),0.0,0));
-                float node_4209 = dot(node_9942.rgb,float3(0.3,0.59,0.11));
-                v.vertex.xyz += (node_4209*v.normal*_NormalPush);
-                o.posWorld = mul(unity_ObjectToWorld, v.vertex);
+                o.uv1 = v.texcoord1 +fixed2((_Time.g *_PulseSpeed),0.0);
+                
+                fixed scroll = _Time.g*_ScrollSpeed1;
+                o.uv2 = v.texcoord0 + fixed2(scroll,0);
+                o.uv3 = v.texcoord0 + fixed2(scroll*(-0.43),0);
+                o.uv4 = fixed2(v.vertexColor.r,0.0)+(_Time.g*_ColorShift)*fixed2(1,0);
+
+                float2 pulseUV = (o.uv1+fixed2((_Time.g*_PulseSpeed),0.0));
+                fixed pulse = tex2Dlod(_Ramp,fixed4(TRANSFORM_TEX(pulseUV, _Ramp),0.0,0)).r;
+                v.vertex.xyz += (pulse*v.normal*_NormalPush);
                 o.pos = UnityObjectToClipPos( v.vertex );
-                UNITY_TRANSFER_FOG(o,o.pos);
                 return o;
             }
+            
             float4 frag(VertexOutput i, float facing : VFACE) : COLOR {
-                float isFrontFace = ( facing >= 0 ? 1 : 0 );
-                float faceSign = ( facing >= 0 ? 1 : -1 );
-                i.normalDir = normalize(i.normalDir);
-                i.normalDir *= faceSign;
-                float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
-                float3 normalDirection = i.normalDir;
-////// Lighting:
-////// Emissive:
-                float4 node_4645 = _Time;
-                float node_8550 = 0.0;
-                float2 node_7871 = (i.uv0+float2((node_4645.g*_ScrollSpeed1),node_8550));
-                float4 node_7521 = tex2D(_Main,TRANSFORM_TEX(node_7871, _Main));
-                float2 node_6836 = (i.uv0+float2((node_4645.g*_ScrollSpeed1*(-0.43)),node_8550));
-                float4 node_6979 = tex2D(_Main,TRANSFORM_TEX(node_6836, _Main));
-                float3 node_9162 = (node_7521.rgb+node_6979.rgb);
-                float4 node_2309 = _Time;
-                float2 node_3274 = (float2(i.vertexColor.r,0.0)+(node_2309.g*_ColorShift)*float2(1,0));
-                float4 node_382 = tex2D(_ColorRamp,TRANSFORM_TEX(node_3274, _ColorRamp));
-                float4 node_9790 = _Time;
-                float2 node_5464 = (i.uv1+float2((node_9790.g*_PulseSpeed),0.0));
-                float4 node_9942 = tex2D(_Ramp,TRANSFORM_TEX(node_5464, _Ramp));
-                float node_4209 = dot(node_9942.rgb,float3(0.3,0.59,0.11));
-                float3 emissive = ((node_9162*node_382.rgb*_TintColor.rgb*2.0)+(_PulseEffect*(node_4209+0.0)*node_382.rgb*dot(node_9162,float3(0.3,0.59,0.11))));
-                float3 finalColor = emissive;
-                fixed4 finalRGBA = fixed4(finalColor,1);
-                UNITY_APPLY_FOG_COLOR(i.fogCoord, finalRGBA, fixed4(0,0,0,1));
-                return finalRGBA;
+                fixed vein1 = tex2D(_Main,TRANSFORM_TEX(i.uv2, _Main)).g;                
+                fixed vein2 = tex2D(_Main,TRANSFORM_TEX(i.uv3, _Main)).g;
+                fixed veins = vein1 + vein2;
+                                
+                fixed3 veinColor = tex2D(_ColorRamp,TRANSFORM_TEX(i.uv4, _ColorRamp)).rgb;
+
+                fixed pulse = tex2D(_Ramp,TRANSFORM_TEX(i.uv1, _Ramp)).r * veins * _PulseEffect;
+                
+                fixed3 emissive = (veinColor*_TintColor.rgb*2.0)+(pulse*veinColor);
+                return fixed4(emissive * veins,1);
             }
             ENDCG
         }
     }
-    CustomEditor "ShaderForgeMaterialInspector"
 }
