@@ -6,6 +6,7 @@ namespace Fasett {
     public class SplittingCell : Effect {
         [SerializeField] private Animator _animator;
         [SerializeField] private float _coolDown = 1;
+        [SerializeField] private float _coolDown = 1;
 
         private float _coolDownTime;
 

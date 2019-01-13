@@ -38,9 +38,10 @@ public class DistanceFade : MonoBehaviour {
     private void UpdateAmount(){
         _material.SetFloat("_Fade", _visibility);
         _target.gameObject.SetActive(_visibility > 0);
+
         if (OnVisibilityChanged != null) {
             if (_lastSentVisibility != _visibility) {
-                OnVisibilityChanged(_visibility);
+                OnVisibilityChanged(1 - _visibility); //Visibility is the amount of the blocker, We want to send the inverse visibility to the effects.
                 _lastSentVisibility = _visibility;
             }
         }
