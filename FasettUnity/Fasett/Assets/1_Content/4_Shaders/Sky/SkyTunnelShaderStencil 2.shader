@@ -1,4 +1,4 @@
-Shader "Fasett/Sky/SkyTunnelStencil1" {
+Shader "Fasett/Sky/SkyTunnelStencil3" {
     Properties {
         _MainTex ("MainTex", 2D) = "white" {}
         [HDR]_TintColor ("Color", Color) = (0.5,0.5,0.5,1)
@@ -24,7 +24,7 @@ Shader "Fasett/Sky/SkyTunnelStencil1" {
             ZWrite Off
             
             Stencil {
-                Ref 1
+                Ref 3
                 Comp Equal
                 ZFail Zero
             }

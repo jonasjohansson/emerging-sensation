@@ -1,11 +1,11 @@
-Shader "Fasett/Sky/Hole1" {
+Shader "Fasett/Sky/Hole3" {
     SubShader {
         Tags { "RenderType"="Opaque" "Queue"="Geometry+1"}
         ColorMask 0
             ZTest Always
         ZWrite off
         Stencil {
-            Ref 1
+            Ref 3
             Comp always
             Pass replace
         }
