@@ -69,9 +69,9 @@ function connectPort(com) {
 		// console.log('data received: ' + data);
 		// console.log(`${id} ${data}`);
 		// console.log(`${data}`);
-		console.log(data);
-		sendMessage(data);
-		//sprayMessage(data);
+		// console.log(data);
+		// sendMessage(data);
+		sprayMessage(data);
 	});
 
 	port.on("open", () => {
@@ -105,20 +105,16 @@ function connectPort(com) {
 function sendMessage(message) {
 	// console.log(message);
 	server.send(message, 0, message.length, PORT, BROADCAST_ADDR, function() {
-		// console.log("Sent", message);
+		console.log("Sent", message);
 	});
 }
 
 function sprayMessage(message) {
-	for (let i = 0; i < 10; i++) {
+	for (let i = 0; i < 20; i++) {
 		setTimeout(() => {
 			sendMessage(message);
 		}, i * 20);
 	}
-}
-
-for (let i = 0; i < 6; i++) {
-	// sprayMessage(`B${i} 1`);
 }
 
 getPort();

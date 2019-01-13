@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace Fasett {
         public string Name { get { return _effectName; } }
         [SerializeField] protected string _effectName;
 
-        [SerializeField] protected GameObject _calibrationView;
+        [SerializeField] protected CalibrationView _calibrationView;
         public Transform OriginalParent { get; private set; }
 
         private float _latestValue;
@@ -52,6 +53,9 @@ namespace Fasett {
             _latestColor = color;
         }
 
+        public virtual void SetVisibility(float visibility) {
+        }
+
         public void HideEffect() {
             Debug.Log("Hiding effect " + Name);
             gameObject.SetActive(false);
@@ -60,6 +64,11 @@ namespace Fasett {
         public void ShowEffect() {
             Debug.Log("Showing effect " + Name);
             gameObject.SetActive(true);
+        }
+
+        [ContextMenu("Setup")]
+        private void Setup() {
+            _calibrationView.name = "CalibrationView " + _effectName;
         }
     }
 }
