@@ -39,15 +39,15 @@ Shader "Shader Forge/Veins" {
             #pragma multi_compile_fog
             #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal 
             #pragma target 3.0
-            uniform float4 _TintColor;
+            uniform fixed4 _TintColor;
             uniform float _ScrollSpeed1;
-            uniform sampler2D _Main; uniform float4 _Main_ST;
-            uniform sampler2D _Ramp; uniform float4 _Ramp_ST;
-            uniform float _NormalPush;
-            uniform float _PulseSpeed;
-            uniform sampler2D _ColorRamp; uniform float4 _ColorRamp_ST;
-            uniform float _ColorShift;
-            uniform float _PulseEffect;
+            uniform sampler2D _Main; uniform fixed4 _Main_ST;
+            uniform sampler2D _Ramp; uniform fixed4 _Ramp_ST;
+            uniform fixed _NormalPush;
+            uniform fixed _PulseSpeed;
+            uniform sampler2D _ColorRamp; uniform fixed4 _ColorRamp_ST;
+            uniform fixed _ColorShift;
+            uniform fixed _PulseEffect;
             
             struct VertexInput {
                 float4 vertex : POSITION;
@@ -98,5 +98,4 @@ Shader "Shader Forge/Veins" {
             ENDCG
         }
     }
-    CustomEditor "ShaderForgeMaterialInspector"
 }
