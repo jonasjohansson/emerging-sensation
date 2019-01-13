@@ -70,8 +70,8 @@ function connectPort(com) {
 		// console.log(`${id} ${data}`);
 		// console.log(`${data}`);
 		console.log(data);
-		sendMessage(data);
-		//sprayMessage(data);
+		// sendMessage(data);
+		sprayMessage(data);
 	});
 
 	port.on("open", () => {
@@ -110,7 +110,7 @@ function sendMessage(message) {
 }
 
 function sprayMessage(message) {
-	for (let i = 0; i < 10; i++) {
+	for (let i = 0; i < 6; i++) {
 		setTimeout(() => {
 			sendMessage(message);
 		}, i * 20);
