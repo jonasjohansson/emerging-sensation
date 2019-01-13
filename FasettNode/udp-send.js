@@ -110,20 +110,11 @@ function sendMessage(message) {
 }
 
 function sprayMessage(message) {
-	for (let i = 0; i < 10; i++) {
+	for (let i = 0; i < 20; i++) {
 		setTimeout(() => {
 			sendMessage(message);
 		}, i * 20);
 	}
 }
-
-setInterval(function() {
-	for (let i = 0; i < 6; i++) {
-		sprayMessage(`B${i} 1`);
-	}
-	for (let i = 0; i < 6; i++) {
-		sprayMessage(`B${i} 0`);
-	}
-}, 1000);
 
 getPort();
