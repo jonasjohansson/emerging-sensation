@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 4298435921122678}
   - component: {fileID: 95823279445682136}
   m_Layer: 0
-  m_Name: SplittingCell
+  m_Name: SplittingCell B2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 4419363871530148}
   - component: {fileID: 95779145104246790}
   m_Layer: 0
-  m_Name: SplittingCell (4)
+  m_Name: SplittingCell B0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -847,7 +847,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4183531285409144}
   m_Layer: 0
-  m_Name: Content
+  m_Name: Content S1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1459,7 +1459,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4191662922002166}
   m_Layer: 0
-  m_Name: Content
+  m_Name: Content s3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1559,7 +1559,7 @@ GameObject:
   - component: {fileID: 4357247682539028}
   - component: {fileID: 95742246610981518}
   m_Layer: 0
-  m_Name: SplittingCell (3)
+  m_Name: SplittingCell B1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1658,7 +1658,7 @@ GameObject:
   - component: {fileID: 4166058802511956}
   - component: {fileID: 95160379687225342}
   m_Layer: 0
-  m_Name: SplittingCell (1)
+  m_Name: SplittingCell B3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2502,7 +2502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4439085473204222}
   m_Layer: 0
-  m_Name: Content
+  m_Name: Content S0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3080,7 +3080,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4066374329514356}
   m_Layer: 0
-  m_Name: Content
+  m_Name: Content S2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3295,7 +3295,7 @@ GameObject:
   - component: {fileID: 4975352048032562}
   - component: {fileID: 95102314024050774}
   m_Layer: 0
-  m_Name: SplittingCell (2)
+  m_Name: SplittingCell B4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6767,7 +6767,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1408334021208374}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -6835,7 +6835,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1605004804152242}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -7175,7 +7175,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1092430258017260}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -7585,7 +7585,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1806121304526644}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -7857,7 +7857,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1590738531912986}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8131,7 +8131,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1537817159798044}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8233,7 +8233,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1924324242384552}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8301,7 +8301,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1451844753788878}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8573,7 +8573,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1413674156870872}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -9799,7 +9799,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1250429169874028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -11734,6 +11734,7 @@ MonoBehaviour:
   _effectName: S1
   _calibrationView: {fileID: 114357779335549762}
   _target: {fileID: 4431760961727406}
+  _content: {fileID: 1280222437243684}
   _mostAffectedScale: {x: 0.3, y: 0.3, z: 0.5}
 --- !u!114 &114069561689391404
 MonoBehaviour:
@@ -11918,6 +11919,7 @@ MonoBehaviour:
   _effectName: S2
   _calibrationView: {fileID: 114611835501355630}
   _target: {fileID: 4079922115460028}
+  _content: {fileID: 1910464393359468}
   _mostAffectedScale: {x: 0.3, y: 0.3, z: 0.5}
 --- !u!114 &114178507341692010
 MonoBehaviour:
@@ -13000,6 +13002,7 @@ MonoBehaviour:
   _effectName: S0
   _calibrationView: {fileID: 114733230367875750}
   _target: {fileID: 4342024452541314}
+  _content: {fileID: 1707623983573378}
   _mostAffectedScale: {x: 0.3, y: 0.3, z: 0.5}
 --- !u!114 &114609477905526932
 MonoBehaviour:
@@ -13473,6 +13476,7 @@ MonoBehaviour:
   _effectName: S3
   _calibrationView: {fileID: 114293839920813242}
   _target: {fileID: 4036166865369812}
+  _content: {fileID: 1455763222785866}
   _mostAffectedScale: {x: 0.3, y: 0.3, z: 0.5}
 --- !u!114 &114840580009768704
 MonoBehaviour:
@@ -13955,7 +13959,7 @@ SphereCollider:
   m_GameObject: {fileID: 1250429169874028}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -13967,7 +13971,7 @@ SphereCollider:
   m_GameObject: {fileID: 1408334021208374}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -13991,7 +13995,7 @@ SphereCollider:
   m_GameObject: {fileID: 1590738531912986}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -14003,7 +14007,7 @@ SphereCollider:
   m_GameObject: {fileID: 1924324242384552}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -14075,7 +14079,7 @@ SphereCollider:
   m_GameObject: {fileID: 1605004804152242}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -14111,7 +14115,7 @@ SphereCollider:
   m_GameObject: {fileID: 1413674156870872}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -14123,7 +14127,7 @@ SphereCollider:
   m_GameObject: {fileID: 1537817159798044}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -14159,7 +14163,7 @@ SphereCollider:
   m_GameObject: {fileID: 1806121304526644}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -14207,7 +14211,7 @@ SphereCollider:
   m_GameObject: {fileID: 1451844753788878}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -14231,7 +14235,7 @@ SphereCollider:
   m_GameObject: {fileID: 1092430258017260}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
