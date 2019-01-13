@@ -118,7 +118,11 @@ function sprayMessage(message) {
 }
 
 for (let i = 0; i < 6; i++) {
-	// sprayMessage(`B${i} 1`);
+	sprayMessage(`B${i} 1`);
+}
+
+for (let i = 0; i < 6; i++) {
+	sprayMessage(`B${i} 0`);
 }
 
 getPort();
