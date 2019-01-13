@@ -27,6 +27,12 @@ namespace Fasett {
             UserInput.OnUserSaidWireframe += ShowWireFrame;
         }
 
+        private void Update() {
+            if (_debugging) {
+                _text.text = "Tracking: " + WorldManager.state.ToString();
+            }
+        }
+
         private void ToggleDebug() {
             _debugging = !_debugging;
             _text.text = _debugging ? "DEBUG" : "";
