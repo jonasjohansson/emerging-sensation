@@ -636,6 +636,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 1045568965352610}
   _spatialMappingToggle: {fileID: 114935402436095624}
+  _disableBlockersInEditor: 1
 --- !u!114 &114651853252281694
 MonoBehaviour:
   m_ObjectHideFlags: 1

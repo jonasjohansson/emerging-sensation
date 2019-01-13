@@ -12,10 +12,17 @@ namespace Fasett {
         [SerializeField] private GameObject[] _debugObjects;
         [SerializeField] private SpatialMappingToggle _spatialMappingToggle;
 
+        [SerializeField] private bool _disableBlockersInEditor;
+
         private bool _debugging = false;
 
         private void Awake() {
+            // this sets debugging to false at start
+            _debugging = true;
             ToggleDebug();
+            if (Application.isEditor && _disableBlockersInEditor) {
+                DistanceFade.ShouldBeActive = false;
+            }
         }
 
         private void OnEnable() {

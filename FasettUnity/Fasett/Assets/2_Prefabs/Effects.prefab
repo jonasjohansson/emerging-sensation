@@ -4426,7 +4426,7 @@ Transform:
   m_GameObject: {fileID: 1470833150283388}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children: []
   m_Father: {fileID: 4482886457943878}
   m_RootOrder: 0
@@ -12366,8 +12366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 23573336451989856}
   _startBlend: 4
-  _endBlend: 6
-  _debugTesting: 0
+  _endBlend: 7
 --- !u!114 &114281368576472698
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12959,9 +12958,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 23525179154672638}
-  _startBlend: 3
-  _endBlend: 5
-  _debugTesting: 0
+  _startBlend: 2
+  _endBlend: 4
 --- !u!114 &114450103701672642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14169,7 +14167,6 @@ MonoBehaviour:
   _target: {fileID: 23256021207547548}
   _startBlend: 2
   _endBlend: 5
-  _debugTesting: 0
 --- !u!114 &114980947848194724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15155,7 +15152,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 7
+      scalar: 8
       minScalar: 10
       maxCurve:
         serializedVersion: 2
