@@ -35,8 +35,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4537366965317632}
+  - component: {fileID: 114657597962333196}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView W1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -263,8 +264,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4594634379590646}
+  - component: {fileID: 114357779335549762}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView S1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -350,8 +352,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4326780361268026}
+  - component: {fileID: 114611835501355630}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView S2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -513,8 +516,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4758369178867174}
+  - component: {fileID: 114530585723806250}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView B1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -528,8 +532,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4826141112328622}
+  - component: {fileID: 114418089818886098}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView W0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -593,8 +598,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4190685053796908}
+  - component: {fileID: 114943879570581840}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView W3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -705,8 +711,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4672523784470426}
+  - component: {fileID: 114420335659221886}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView W6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -758,8 +765,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4944225827017362}
+  - component: {fileID: 114710802003990396}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView W9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -853,8 +861,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4035163413684352}
+  - component: {fileID: 114219475522247460}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView W5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1186,8 +1195,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4647994790570988}
+  - component: {fileID: 114287584778180364}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView B3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1394,8 +1404,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4844990308810144}
+  - component: {fileID: 114293839920813242}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView S3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1595,8 +1606,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4841982130655118}
+  - component: {fileID: 114536570275684028}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView W2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1693,8 +1705,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4813087153312586}
+  - component: {fileID: 114651210810572204}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView B2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1941,8 +1954,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4034115777150070}
+  - component: {fileID: 114388856431078978}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView BX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2126,8 +2140,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4005098480275454}
+  - component: {fileID: 114821438465441666}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView W8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2173,8 +2188,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4007631224363490}
+  - component: {fileID: 114609477905526932}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView B4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2616,8 +2632,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4212679778972674}
+  - component: {fileID: 114988377351523470}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView B0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2681,8 +2698,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4540195911044680}
+  - component: {fileID: 114733230367875750}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView S0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2848,8 +2866,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4170635345257174}
+  - component: {fileID: 114194284055576030}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView W7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3044,8 +3063,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4804483868811166}
+  - component: {fileID: 114178507341692010}
   m_Layer: 0
-  m_Name: CalibrationView
+  m_Name: CalibrationView W4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4252,7 +4272,7 @@ Transform:
   m_GameObject: {fileID: 1470833150283388}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 4482886457943878}
   m_RootOrder: 0
@@ -5652,7 +5672,7 @@ Transform:
   m_GameObject: {fileID: 1383703337924358}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 4180764897482554}
   m_RootOrder: 0
@@ -7189,7 +7209,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1383703337924358}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8009,7 +8029,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1936235971610560}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8383,7 +8403,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1470833150283388}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -11697,7 +11717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: B2
-  _calibrationView: {fileID: 1512834036445324}
+  _calibrationView: {fileID: 114651210810572204}
   _animator: {fileID: 95823279445682136}
   _coolDown: 1
 --- !u!114 &114058140706854112
@@ -11711,8 +11731,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cebc3509548dd4dc4a7b7ff37538562e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _effectName: S0
-  _calibrationView: {fileID: 1092196565444582}
+  _effectName: S1
+  _calibrationView: {fileID: 114357779335549762}
   _target: {fileID: 4431760961727406}
   _mostAffectedScale: {x: 0.3, y: 0.3, z: 0.5}
 --- !u!114 &114069561689391404
@@ -11763,7 +11783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: W9
-  _calibrationView: {fileID: 1256481286592704}
+  _calibrationView: {fileID: 114710802003990396}
   _riseSpeed: 0.5
   _fallSpeed: 2
   _riseCurve:
@@ -11895,10 +11915,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cebc3509548dd4dc4a7b7ff37538562e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _effectName: S0
-  _calibrationView: {fileID: 1100689398635270}
+  _effectName: S2
+  _calibrationView: {fileID: 114611835501355630}
   _target: {fileID: 4079922115460028}
   _mostAffectedScale: {x: 0.3, y: 0.3, z: 0.5}
+--- !u!114 &114178507341692010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1908989039254960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1908989039254960}
+  _text: {fileID: 102565272983120212}
 --- !u!114 &114192703447092772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11911,7 +11944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: W6
-  _calibrationView: {fileID: 1236418293618028}
+  _calibrationView: {fileID: 114420335659221886}
   _riseSpeed: 0.5
   _fallSpeed: 2
   _riseCurve:
@@ -11950,6 +11983,19 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114194284055576030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1868325750057310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1868325750057310}
+  _text: {fileID: 102756113617397088}
 --- !u!114 &114194594521620754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11962,6 +12008,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rotation: {x: 25, y: 25, z: 25}
+--- !u!114 &114219475522247460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1287845346153728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1287845346153728}
+  _text: {fileID: 102557455020735674}
 --- !u!114 &114234597056286756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12041,7 +12100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: B0
-  _calibrationView: {fileID: 1762645790356484}
+  _calibrationView: {fileID: 114988377351523470}
   _animator: {fileID: 95779145104246790}
   _coolDown: 1
 --- !u!114 &114273831472187136
@@ -12055,12 +12114,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a81f615df09b34cb0cc7f635dd5a62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _disablers:
-  - {fileID: 1381292927665978}
   _target: {fileID: 23573336451989856}
-  _startBlend: 3
-  _endBlend: 4
-  Amount: 0
+  _startBlend: 4
+  _endBlend: 6
+  _debugTesting: 0
 --- !u!114 &114281368576472698
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12073,7 +12130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: W7
-  _calibrationView: {fileID: 1868325750057310}
+  _calibrationView: {fileID: 114194284055576030}
   _riseSpeed: 0.5
   _fallSpeed: 2
   _riseCurve:
@@ -12153,6 +12210,32 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _trigger: {fileID: 114872152596142002}
+--- !u!114 &114287584778180364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1406871519005782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1406871519005782}
+  _text: {fileID: 102594626595185598}
+--- !u!114 &114293839920813242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1428647807310352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1428647807310352}
+  _text: {fileID: 102395882995439652}
 --- !u!114 &114308263630279236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12194,6 +12277,19 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _trigger: {fileID: 114281368576472698}
+--- !u!114 &114357779335549762
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1092196565444582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1092196565444582}
+  _text: {fileID: 102026957828094810}
 --- !u!114 &114368704920816026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12206,7 +12302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: W5
-  _calibrationView: {fileID: 1287845346153728}
+  _calibrationView: {fileID: 114219475522247460}
   _riseSpeed: 0.5
   _fallSpeed: 2
   _riseCurve:
@@ -12257,7 +12353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: W0
-  _calibrationView: {fileID: 1172203777833106}
+  _calibrationView: {fileID: 114418089818886098}
   _riseSpeed: 0.5
   _fallSpeed: 2
   _riseCurve:
@@ -12360,6 +12456,19 @@ MonoBehaviour:
   _fullGlow: 1
   _power: 1
   _trigger: {fileID: 114426339485098548}
+--- !u!114 &114388856431078978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1550926680367606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1550926680367606}
+  _text: {fileID: 0}
 --- !u!114 &114397793568890168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12372,7 +12481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: W1
-  _calibrationView: {fileID: 1014331519639072}
+  _calibrationView: {fileID: 114657597962333196}
   _riseSpeed: 0.5
   _fallSpeed: 2
   _riseCurve:
@@ -12411,6 +12520,32 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114418089818886098
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1172203777833106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1172203777833106}
+  _text: {fileID: 102846251707089728}
+--- !u!114 &114420335659221886
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1236418293618028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1236418293618028}
+  _text: {fileID: 102276732578994626}
 --- !u!114 &114425816473186386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12459,7 +12594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: W8
-  _calibrationView: {fileID: 1609488173103350}
+  _calibrationView: {fileID: 114821438465441666}
   _riseSpeed: 0.5
   _fallSpeed: 2
   _riseCurve:
@@ -12573,12 +12708,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a81f615df09b34cb0cc7f635dd5a62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _disablers:
-  - {fileID: 1216553555075020}
   _target: {fileID: 23525179154672638}
   _startBlend: 3
-  _endBlend: 4.5
-  Amount: 0
+  _endBlend: 5
+  _debugTesting: 0
 --- !u!114 &114478199616498006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12590,14 +12723,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e043e039831b4db6b497354b7f3ebe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _distanceFade: {fileID: 114273831472187136}
+  _updateInterval: 3
   _organisms:
   - {fileID: 114069561689391404}
   - {fileID: 114969073342934194}
   - {fileID: 114525805759131678}
   - {fileID: 114425816473186386}
-  _otherCenter:
-  - {fileID: 4482886457943878}
-  - {fileID: 4828022202215286}
+  _particles: {fileID: 198087644410510268}
 --- !u!114 &114484002811231784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12610,7 +12743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: BX
-  _calibrationView: {fileID: 1550926680367606}
+  _calibrationView: {fileID: 114388856431078978}
 --- !u!114 &114487109795424612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12635,7 +12768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: W4
-  _calibrationView: {fileID: 1908989039254960}
+  _calibrationView: {fileID: 114178507341692010}
   _riseSpeed: 0.5
   _fallSpeed: 2
   _riseCurve:
@@ -12710,6 +12843,32 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _maxDistanceFromCenter: 3.5
+--- !u!114 &114530585723806250
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1141226559355720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1141226559355720}
+  _text: {fileID: 102569214480195326}
+--- !u!114 &114536570275684028
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493879977462920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1493879977462920}
+  _text: {fileID: 102359025768029882}
 --- !u!114 &114544320285224146
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12839,9 +12998,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: S0
-  _calibrationView: {fileID: 1797818799453522}
+  _calibrationView: {fileID: 114733230367875750}
   _target: {fileID: 4342024452541314}
   _mostAffectedScale: {x: 0.3, y: 0.3, z: 0.5}
+--- !u!114 &114609477905526932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1625314173971684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1625314173971684}
+  _text: {fileID: 102262213620381260}
+--- !u!114 &114611835501355630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1100689398635270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1100689398635270}
+  _text: {fileID: 102987936988999922}
 --- !u!114 &114619756202407986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12918,7 +13103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: B4
-  _calibrationView: {fileID: 1625314173971684}
+  _calibrationView: {fileID: 114609477905526932}
   _animator: {fileID: 95102314024050774}
   _coolDown: 1
 --- !u!114 &114639810418324014
@@ -13000,6 +13185,45 @@ MonoBehaviour:
   _startBlend: 0.121
   _endBlend: 0.776
   InFrontOf: 0
+--- !u!114 &114651210810572204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1512834036445324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1512834036445324}
+  _text: {fileID: 102061805569883344}
+--- !u!114 &114657597962333196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1014331519639072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1014331519639072}
+  _text: {fileID: 102568957109871260}
+--- !u!114 &114710802003990396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1256481286592704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1256481286592704}
+  _text: {fileID: 102783260518892810}
 --- !u!114 &114723444954502290
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13064,6 +13288,19 @@ MonoBehaviour:
   _fullGlow: 1
   _power: 1
   _trigger: {fileID: 114489254729542370}
+--- !u!114 &114733230367875750
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1797818799453522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1797818799453522}
+  _text: {fileID: 102338662269579132}
 --- !u!114 &114756995789859762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13139,8 +13376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099276bae3d2b124f8b413d11f592eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _centerObjects:
-  - {fileID: 4020562789005150}
+  _distanceFade: {fileID: 114448598233122584}
+  _updateInterval: 3
 --- !u!114 &114759251720194848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13165,7 +13402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: B1
-  _calibrationView: {fileID: 1141226559355720}
+  _calibrationView: {fileID: 114530585723806250}
   _animator: {fileID: 95742246610981518}
   _coolDown: 1
 --- !u!114 &114796360139406760
@@ -13209,6 +13446,19 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _trigger: {fileID: 114368704920816026}
+--- !u!114 &114821438465441666
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1609488173103350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1609488173103350}
+  _text: {fileID: 102786871480127262}
 --- !u!114 &114839784805145592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13220,8 +13470,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cebc3509548dd4dc4a7b7ff37538562e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _effectName: S0
-  _calibrationView: {fileID: 1428647807310352}
+  _effectName: S3
+  _calibrationView: {fileID: 114293839920813242}
   _target: {fileID: 4036166865369812}
   _mostAffectedScale: {x: 0.3, y: 0.3, z: 0.5}
 --- !u!114 &114840580009768704
@@ -13382,7 +13632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: W3
-  _calibrationView: {fileID: 1186714965234102}
+  _calibrationView: {fileID: 114943879570581840}
   _riseSpeed: 0.5
   _fallSpeed: 2
   _riseCurve:
@@ -13497,9 +13747,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: B3
-  _calibrationView: {fileID: 1406871519005782}
+  _calibrationView: {fileID: 114287584778180364}
   _animator: {fileID: 95160379687225342}
   _coolDown: 1
+--- !u!114 &114943879570581840
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1186714965234102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1186714965234102}
+  _text: {fileID: 102615561434142948}
 --- !u!114 &114949347226097830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13603,12 +13866,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a81f615df09b34cb0cc7f635dd5a62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _disablers:
-  - {fileID: 1288882797980374}
   _target: {fileID: 23256021207547548}
   _startBlend: 2
-  _endBlend: 4
-  Amount: 0
+  _endBlend: 5
+  _debugTesting: 0
 --- !u!114 &114980947848194724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13620,8 +13881,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87cbdc27c4024bd58ec4b1774728115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _centerObjects:
-  - {fileID: 4180764897482554}
+  _distanceFade: {fileID: 114979103540527792}
+  _updateInterval: 3
+--- !u!114 &114988377351523470
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1762645790356484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a6dcce2b5ea834cab7d8569237ba21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calibrationView: {fileID: 1762645790356484}
+  _text: {fileID: 102429908099304038}
 --- !u!114 &114996646794739404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13634,7 +13908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectName: W2
-  _calibrationView: {fileID: 1493879977462920}
+  _calibrationView: {fileID: 114536570275684028}
   _riseSpeed: 0.5
   _fallSpeed: 2
   _riseCurve:

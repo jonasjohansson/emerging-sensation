@@ -19,7 +19,7 @@ namespace Fasett {
         }
 
         public override void SetActive(bool active) {
-            DistanceScale.ShouldBeActive = active;
+            DistanceFade.ShouldBeActive = active;
 
             if (active) {
                 _demoCounter = _demoDuration;
