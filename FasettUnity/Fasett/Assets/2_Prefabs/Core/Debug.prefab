@@ -274,8 +274,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1512259038986906}
-  m_LocalRotation: {x: -0.07246525, y: -0.8392656, z: -0.11554878, w: 0.52633697}
-  m_LocalPosition: {x: -0.4308192, y: -0.28119162, z: 1.9876126}
+  m_LocalRotation: {x: 0.05130975, y: 0.87552804, z: 0.09540511, w: -0.47086713}
+  m_LocalPosition: {x: -0.40556604, y: -0.092975445, z: 2.732005}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 4699747459615374}
@@ -301,8 +301,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730388979051478}
-  m_LocalRotation: {x: -0.06686102, y: 0.79632866, z: 0.08956779, w: 0.59444743}
-  m_LocalPosition: {x: 0.46556538, y: -0.30689645, z: 2.0579305}
+  m_LocalRotation: {x: -0.050192732, y: 0.83199334, z: 0.076313764, w: 0.5472148}
+  m_LocalPosition: {x: 0.45005015, y: -0.111162506, z: 2.805871}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 4825412620717334}
@@ -328,8 +328,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1614113008310318}
-  m_LocalRotation: {x: -0, y: 0.9598687, z: 0.28044984, w: 0}
-  m_LocalPosition: {x: 0, y: -0.14067599, z: 1.7854028}
+  m_LocalRotation: {x: -0, y: 0.98217404, z: 0.18797381, w: 0}
+  m_LocalPosition: {x: 0, y: -0.009911142, z: 2.5417812}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 4321246429195162}
@@ -341,8 +341,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1074250186996358}
-  m_LocalRotation: {x: -0, y: 0.99163014, z: 0.12911144, w: 0}
-  m_LocalPosition: {x: 0, y: -0.28875825, z: 1.7152042}
+  m_LocalRotation: {x: -0, y: 0.9953517, z: 0.0963075, w: 0}
+  m_LocalPosition: {x: 0, y: -0.1058329, z: 2.510971}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 4030695819679412}
@@ -634,6 +634,7 @@ MonoBehaviour:
   _debugObjects:
   - {fileID: 1875819747693890}
   - {fileID: 0}
+  - {fileID: 1045568965352610}
   _spatialMappingToggle: {fileID: 114935402436095624}
 --- !u!114 &114651853252281694
 MonoBehaviour:
@@ -721,12 +722,12 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: -0.526, z: 2.196}
+  - {x: 0, y: -0.31, z: 3}
   - {x: -4.54, y: 1, z: 0}
   - {x: -4.54, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.03
+    widthMultiplier: 0.01
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -810,12 +811,12 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: -0.526, z: 2.196}
+  - {x: 0, y: -0.31, z: 3}
   - {x: 0, y: 1, z: -3.15}
   - {x: 0, y: 0, z: -3.15}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.03
+    widthMultiplier: 0.01
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -899,12 +900,12 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: -0.526, z: 2.196}
+  - {x: 0, y: -0.31, z: 3}
   - {x: 5.9649997, y: 1, z: 0.427}
   - {x: 5.9649997, y: 0, z: 0.427}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.03
+    widthMultiplier: 0.01
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -988,12 +989,12 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: -0.526, z: 2.196}
+  - {x: 0, y: -0.31, z: 3}
   - {x: 0, y: 1, z: 0}
   - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.03
+    widthMultiplier: 0.01
     widthCurve:
       serializedVersion: 2
       m_Curve:
