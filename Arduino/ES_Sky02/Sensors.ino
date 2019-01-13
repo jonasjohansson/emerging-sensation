@@ -25,6 +25,7 @@ float readAdvanced(byte index, float &val, float &last, float min, float max){
 }
 
 void s(byte pin, int val){
+   if (pin == 1) pin = 0;
   Serial.print("S"+String(pin));
   Serial.print(' ');
   Serial.println(val);
