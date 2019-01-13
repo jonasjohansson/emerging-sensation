@@ -3738,7 +3738,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1710230128203830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0, z: 0}
+  m_LocalPosition: {x: 0.1, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4595903361820850}
@@ -4099,7 +4099,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1446978538337708}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0, z: 0}
+  m_LocalPosition: {x: 0.1, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4971469124069752}
@@ -5631,7 +5631,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1412415610048104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0, z: 0}
+  m_LocalPosition: {x: 0.1, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4409255625845858}
@@ -5825,7 +5825,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1406990069735288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0, z: 0}
+  m_LocalPosition: {x: 0.1, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4034662460141900}
@@ -11177,7 +11177,7 @@ TrailRenderer:
     alignment: 0
     textureMode: 0
     generateLightingData: 0
-  m_MinVertexDistance: 0.05
+  m_MinVertexDistance: 0.01
   m_Autodestruct: 0
 --- !u!96 &96171190703655022
 TrailRenderer:
@@ -11264,7 +11264,7 @@ TrailRenderer:
     alignment: 0
     textureMode: 0
     generateLightingData: 0
-  m_MinVertexDistance: 0.05
+  m_MinVertexDistance: 0.01
   m_Autodestruct: 0
 --- !u!96 &96322255266827700
 TrailRenderer:
@@ -11351,7 +11351,7 @@ TrailRenderer:
     alignment: 0
     textureMode: 0
     generateLightingData: 0
-  m_MinVertexDistance: 0.05
+  m_MinVertexDistance: 0.01
   m_Autodestruct: 0
 --- !u!96 &96675215025954916
 TrailRenderer:
@@ -11998,7 +11998,7 @@ MonoBehaviour:
   _cooldownTime: 3
   _attractionSpeed: 2
   _freeRadius: 1
-  _focusRadius: 0.4
+  _focusRadius: 0.1
   _movementDurationMin: 2
   _movementDurationMax: 6
   _movementCurve:
@@ -12809,7 +12809,7 @@ MonoBehaviour:
   _cooldownTime: 3
   _attractionSpeed: 2
   _freeRadius: 1
-  _focusRadius: 0.4
+  _focusRadius: 0.1
   _movementDurationMin: 2
   _movementDurationMax: 4
   _movementCurve:
@@ -13081,7 +13081,7 @@ MonoBehaviour:
   _cooldownTime: 3
   _attractionSpeed: 2
   _freeRadius: 1
-  _focusRadius: 0.4
+  _focusRadius: 0.1
   _movementDurationMin: 2
   _movementDurationMax: 4
   _movementCurve:
@@ -14116,7 +14116,7 @@ MonoBehaviour:
   _cooldownTime: 3
   _attractionSpeed: 2
   _freeRadius: 1
-  _focusRadius: 0.4
+  _focusRadius: 0.1
   _movementDurationMin: 2
   _movementDurationMax: 4
   _movementCurve:
