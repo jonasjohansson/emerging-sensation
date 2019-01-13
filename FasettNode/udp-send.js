@@ -117,12 +117,13 @@ function sprayMessage(message) {
 	}
 }
 
-for (let i = 0; i < 6; i++) {
-	sprayMessage(`B${i} 1`);
-}
-
-for (let i = 0; i < 6; i++) {
-	sprayMessage(`B${i} 0`);
-}
+setInterval(function() {
+	for (let i = 0; i < 6; i++) {
+		sprayMessage(`B${i} 1`);
+	}
+	for (let i = 0; i < 6; i++) {
+		sprayMessage(`B${i} 0`);
+	}
+}, 1000);
 
 getPort();
