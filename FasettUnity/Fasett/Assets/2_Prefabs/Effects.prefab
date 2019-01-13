@@ -57,7 +57,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1021726539552464
 GameObject:
   m_ObjectHideFlags: 1
@@ -880,6 +880,23 @@ GameObject:
   - component: {fileID: 4183531285409144}
   m_Layer: 0
   m_Name: Content S1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1286018159693548
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4328372393042484}
+  - component: {fileID: 23807298424046394}
+  - component: {fileID: 102325647550318412}
+  m_Layer: 0
+  m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2278,7 +2295,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1633132026443516
 GameObject:
   m_ObjectHideFlags: 1
@@ -2310,7 +2327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1639750988762474
 GameObject:
   m_ObjectHideFlags: 1
@@ -2831,7 +2848,7 @@ GameObject:
   - component: {fileID: 23219379678595374}
   - component: {fileID: 102429908099304038}
   m_Layer: 0
-  m_Name: Label
+  m_Name: BodyLebel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3081,7 +3098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1900566274644140
 GameObject:
   m_ObjectHideFlags: 1
@@ -4273,6 +4290,7 @@ Transform:
   m_LocalScale: {x: 1.08, y: 1.08, z: 1.08}
   m_Children:
   - {fileID: 4140221326898702}
+  - {fileID: 4999394971536536}
   m_Father: {fileID: 4034115777150070}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4369,7 +4387,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4882224268989874}
-  - {fileID: 4999394971536536}
+  - {fileID: 4328372393042484}
   m_Father: {fileID: 4795995845701276}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4708,6 +4726,19 @@ Transform:
   m_Father: {fileID: 4929192994680650}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 30, y: -65, z: -45}
+--- !u!4 &4328372393042484
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1286018159693548}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.193, z: 0}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_Children: []
+  m_Father: {fileID: 4212679778972674}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4335190396906744
 Transform:
   m_ObjectHideFlags: 1
@@ -6495,10 +6526,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1830361684251736}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.193, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalPosition: {x: 0, y: 0.3829, z: -0.0555}
+  m_LocalScale: {x: 0.009259258, y: 0.009259258, z: 0.009259258}
   m_Children: []
-  m_Father: {fileID: 4212679778972674}
+  m_Father: {fileID: 4195504871734404}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23006470665352470
@@ -6855,9 +6886,9 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 251812dac640f734ea1ef4272cd605d9, type: 2}
+  - {fileID: 2100000, guid: 532bb8e62633242d0bb07a20ff460174, type: 2}
   - {fileID: 2100000, guid: 735ddfd21a192c94a9407237f0cef65e, type: 2}
-  - {fileID: 2100000, guid: 1bd415470b45d3948bc24fcf44a0a52f, type: 2}
+  - {fileID: 2100000, guid: 88583d3c0e3954cd88a45b64d5b37649, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7469,9 +7500,9 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 251812dac640f734ea1ef4272cd605d9, type: 2}
+  - {fileID: 2100000, guid: 0f94b614aa7e0410a9811a01284eb78d, type: 2}
   - {fileID: 2100000, guid: 735ddfd21a192c94a9407237f0cef65e, type: 2}
-  - {fileID: 2100000, guid: 1bd415470b45d3948bc24fcf44a0a52f, type: 2}
+  - {fileID: 2100000, guid: d037aac4f525c46208cc2f0de1a8ade9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8117,9 +8148,9 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 251812dac640f734ea1ef4272cd605d9, type: 2}
+  - {fileID: 2100000, guid: 8ce054899d05842248beb5bf95ed5346, type: 2}
   - {fileID: 2100000, guid: 735ddfd21a192c94a9407237f0cef65e, type: 2}
-  - {fileID: 2100000, guid: 1bd415470b45d3948bc24fcf44a0a52f, type: 2}
+  - {fileID: 2100000, guid: 5f8cdaedb6c8f4ecba02a3c091c2cf28, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8969,9 +9000,9 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 251812dac640f734ea1ef4272cd605d9, type: 2}
+  - {fileID: 2100000, guid: db9443729d8a24330aab2004880806c8, type: 2}
   - {fileID: 2100000, guid: 735ddfd21a192c94a9407237f0cef65e, type: 2}
-  - {fileID: 2100000, guid: 1bd415470b45d3948bc24fcf44a0a52f, type: 2}
+  - {fileID: 2100000, guid: 7c812de3d977146f5932df02ab055e39, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9516,6 +9547,40 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 93cc27652586819479c6cb71aaaf5289, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!23 &23807298424046394
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1286018159693548}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11459,6 +11524,27 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 3120562175
+--- !u!102 &102325647550318412
+TextMesh:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1286018159693548}
+  m_Text: B0
+  m_OffsetZ: 0
+  m_CharacterSize: 1
+  m_LineSpacing: 1
+  m_Anchor: 1
+  m_Alignment: 1
+  m_TabSize: 4
+  m_FontSize: 36
+  m_FontStyle: 0
+  m_RichText: 1
+  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Color:
+    serializedVersion: 2
+    rgba: 3120562175
 --- !u!102 &102338662269579132
 TextMesh:
   serializedVersion: 3
@@ -11529,7 +11615,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1830361684251736}
-  m_Text: B0
+  m_Text: Body Inside
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -11832,8 +11918,8 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.3
-  _outerRadius: 1
+  _innerRadius: 0.07
+  _outerRadius: 1.32
   _movement:
     serializedVersion: 2
     m_Curve:
@@ -11852,7 +11938,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _fullGlow: 1
+  _fullGlow: 2
   _power: 1
   _trigger: {fileID: 114397793568890168}
 --- !u!114 &114042300821841520
@@ -12597,8 +12683,8 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.3
-  _outerRadius: 1
+  _innerRadius: 0.07
+  _outerRadius: 1.32
   _movement:
     serializedVersion: 2
     m_Curve:
@@ -12617,7 +12703,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _fullGlow: 1
+  _fullGlow: 2
   _power: 1
   _trigger: {fileID: 114426339485098548}
 --- !u!114 &114388856431078978
@@ -12632,7 +12718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _calibrationView: {fileID: 1550926680367606}
-  _text: {fileID: 0}
+  _text: {fileID: 102429908099304038}
 --- !u!114 &114397793568890168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12838,8 +12924,8 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.3
-  _outerRadius: 1
+  _innerRadius: 0.07
+  _outerRadius: 1.32
   _movement:
     serializedVersion: 2
     m_Curve:
@@ -12858,7 +12944,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _fullGlow: 1
+  _fullGlow: 2
   _power: 1
   _trigger: {fileID: 114368704920816026}
 --- !u!114 &114448598233122584
@@ -13151,8 +13237,8 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.3
-  _outerRadius: 1
+  _innerRadius: 0.07
+  _outerRadius: 1.32
   _movement:
     serializedVersion: 2
     m_Curve:
@@ -13171,7 +13257,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _fullGlow: 1
+  _fullGlow: 2
   _power: 1
   _trigger: {fileID: 114281368576472698}
 --- !u!114 &114577649091626700
@@ -13269,8 +13355,8 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.3
-  _outerRadius: 1
+  _innerRadius: 0.07
+  _outerRadius: 1.32
   _movement:
     serializedVersion: 2
     m_Curve:
@@ -13348,8 +13434,8 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.3
-  _outerRadius: 1
+  _innerRadius: 0.07
+  _outerRadius: 1.32
   _movement:
     serializedVersion: 2
     m_Curve:
@@ -13368,7 +13454,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _fullGlow: 1
+  _fullGlow: 2
   _power: 1
   _trigger: {fileID: 114872152596142002}
 --- !u!114 &114642209229674394
@@ -13466,8 +13552,8 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.3
-  _outerRadius: 1
+  _innerRadius: 0.07
+  _outerRadius: 1.32
   _movement:
     serializedVersion: 2
     m_Curve:
@@ -13486,7 +13572,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _fullGlow: 1
+  _fullGlow: 2
   _power: 1
   _trigger: {fileID: 114489254729542370}
 --- !u!114 &114733230367875750
@@ -13555,8 +13641,8 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 4
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.3
-  _outerRadius: 1
+  _innerRadius: 0.07
+  _outerRadius: 1.32
   _movement:
     serializedVersion: 2
     m_Curve:
@@ -13575,7 +13661,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _fullGlow: 1
+  _fullGlow: 2
   _power: 1
   _trigger: {fileID: 114996646794739404}
 --- !u!114 &114758704738511748
@@ -13729,8 +13815,8 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.3
-  _outerRadius: 1
+  _innerRadius: 0.07
+  _outerRadius: 1.32
   _movement:
     serializedVersion: 2
     m_Curve:
@@ -13749,7 +13835,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _fullGlow: 1
+  _fullGlow: 2
   _power: 1
   _trigger: {fileID: 114378838627242658}
 --- !u!114 &114863220346686496
@@ -13926,8 +14012,8 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.3
-  _outerRadius: 1
+  _innerRadius: 0.07
+  _outerRadius: 1.32
   _movement:
     serializedVersion: 2
     m_Curve:
@@ -13946,7 +14032,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _fullGlow: 1
+  _fullGlow: 2
   _power: 1
   _trigger: {fileID: 114192703447092772}
 --- !u!114 &114932111031018000
@@ -14109,7 +14195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _calibrationView: {fileID: 1762645790356484}
-  _text: {fileID: 102429908099304038}
+  _text: {fileID: 102325647550318412}
 --- !u!114 &114996646794739404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14509,7 +14595,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 907850167
+  randomSeed: 556684689
   InitialModule:
     serializedVersion: 3
     enabled: 1

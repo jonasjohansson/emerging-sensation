@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: SkyTunnelBlocker 2
-  m_Shader: {fileID: 4800000, guid: 54c4733cee6f02f479466cde6485c5c5, type: 3}
+  m_Shader: {fileID: 4800000, guid: a65068cc9a4f648a5bf80b2982d56e3a, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
