@@ -8,97 +8,54 @@
 #include<FastLED.h>
 #include "global.h"
 
+#define NUM_SENSORS 10
 #define WA_NUM_LEDS 222
 #define WB_NUM_LEDS 213
 #define WC_NUM_LEDS 300
-#define PARTICLES_COUNT 40
+#define PARTICLES_COUNT 80
 
-CRGB waLeds[WA_NUM_LEDS];
-CRGB wbLeds[WB_NUM_LEDS];
-CRGB wcLeds[WC_NUM_LEDS];
+CRGB leds[3][WC_NUM_LEDS];
 
 #include "particle.h"
-
-int b1, b2, b3, b1l, b2l, b3l;
-int target;
-int hue = 0;
-int currentPaletteIndex = 0;
+#include "Palettes.h"
 
 Particle particles[PARTICLES_COUNT];
 
+int sensor[NUM_SENSORS];
+int targets[3];
+int target;
+
 void setup() {
-	FastLED.addLeds<NEOPIXEL, 3>(waLeds, WA_NUM_LEDS);
-	FastLED.addLeds<NEOPIXEL, 4>(wbLeds, WB_NUM_LEDS);
-	FastLED.addLeds<NEOPIXEL, 2>(wcLeds, WC_NUM_LEDS);
+	FastLED.addLeds<NEOPIXEL, 3>(leds[0], WA_NUM_LEDS);
+	FastLED.addLeds<NEOPIXEL, 4>(leds[1], WB_NUM_LEDS);
+	FastLED.addLeds<NEOPIXEL, 2>(leds[2], WC_NUM_LEDS);
 	FastLED.clear();
-	createParticles(PARTICLES_COUNT);
+	createParticles(PARTICLES_COUNT/3);
 }
 
 void loop() {
-	readSimple(3, b1, b1l);
-	readSimple(4, b2, b2l);
-	readSimple(5, b3, b3l);
-	waterB();
+  for (byte i = 0; i < NUM_SENSORS; i++) {
+    readSimple(i, sensor[i]);
+  }
+  waterB();
+ 
+  FastLED.show();
 }
 
 void waterB(){
 	
-	int hue = sin8(hue++);
-	// Serial.println(hue);
+  for (int i = 0; i < WB_NUM_LEDS; i++){
+      int index = (i) * 150 / 144
+                  + sin8( (i) + millis() / 1000 ) * 0.25
+                  + cos8( (i) * 12 + (millis() / 5 + cos8(millis() / 5000)) ) * 0.125;
+      int fade = cos8(millis() / (i));
+      CRGB color = ColorFromPalette(myPal, index, fade, LINEARBLEND);
+     	leds[1][i] = color;
 
- // for (byte i = 0; i < WB_NUM_STEMS; i++){
- //   int index = WB_STEMS[i];
- //   int start = WB_MAP[index][0];
- //   int end = start+WB_MAP[index][1];
- //   for (byte j = start; j < end; j++){
- //     wbLeds[j] = CRGB::Red;
- //   }
- // }
- 
- // for (byte i = 0; i < WB_NUM_BRANCHES; i++){
- //   int index = WB_BRANCHES[i];
- //   int start = WB_MAP[index][0];
- //   int end = start+WB_MAP[index][1];
- //   for (byte j = start; j < end; j++){
- //     wbLeds[j] = CRGB::Green;
- //   }
- // }
- 
- // for (byte i = 0; i < WB_NUM_STEMS+WB_NUM_BRANCHES; i++){
- //   int index = WB_TREE[i];
- //   int start = WB_MAP[index][0];
- //   int end = start+WB_MAP[index][1];
- //   for (byte j = start; j < end; j++){       
- //   }
- // }
-	
-  uint8_t starthue = beatsin8(5, 0, 255);
-  uint8_t endhue = beatsin8(7, 0, 255);
-  starthue = map(starthue,0,255,128,164);
-  endhue = map(endhue,0,255,128,192);
-
-  if (starthue < endhue) {
-    fill_gradient(waLeds, WB_NUM_LEDS, CHSV(starthue,255,128), CHSV(endhue,255,128), FORWARD_HUES);
-    fill_gradient(wbLeds, WB_NUM_LEDS, CHSV(starthue,255,128), CHSV(endhue,255,128), FORWARD_HUES);
-    fill_gradient(wcLeds, WB_NUM_LEDS, CHSV(starthue,255,128), CHSV(endhue,255,128), FORWARD_HUES);
-	} else {
-    fill_gradient(waLeds, WB_NUM_LEDS, CHSV(starthue,255,128), CHSV(endhue,255,128), BACKWARD_HUES);
-    fill_gradient(wbLeds, WB_NUM_LEDS, CHSV(starthue,255,128), CHSV(endhue,255,128), BACKWARD_HUES);
-    fill_gradient(wcLeds, WB_NUM_LEDS, CHSV(starthue,255,128), CHSV(endhue,255,128), BACKWARD_HUES);
   }
 
-	for (byte i = 0; i < WB_NUM_BUDS; i++){
-	  int index = WB_BUDS[i];
-	  int start = WB_MAP[index][0];
-	  int end = start+WB_MAP[index][1];
-	  for (byte j = start; j < end; j++){
-	    wbLeds[j] = OceanColors_p[0];
-	    // wbLeds[j] = OceanColors_p[currentPaletteIndex];
-	  }
-	}
-	
 	for (int i = 0; i < PARTICLES_COUNT; i++) {
-		if (b1 or b2 or b3){
+		if (sensor[2] or sensor[3] or sensor[4]){
 			particles[i].pTarget = target;
 		} else {
 			particles[i].flutter();
@@ -111,27 +68,33 @@ void waterB(){
 }
 
 void newTarget(int pin){
-	int index;
-	switch (pin){
-		case 3:
-			index = WB_BUDS[0];
-		break;
-		case 4:
-			index = WB_BUDS[1];
-		break;
-		case 5:
-			index = WB_BUDS[2];
-		break;
-	}
-	target = WB_MAP[index][0];
-	currentPaletteIndex = random(16);
+	// Serial.println(pin);
+	// target[0] = WA_MAP[WA_BUDS[pin]];
+	// target[2] = WC_MAP[WC_BUDS[pin]];
+	target = WB_MAP[WB_BUDS[0]][0];
+	// currentPaletteIndex = random(16);
 }
 
 void createParticles(int count){
+
+	for (int i = 0; i < count; i++) {
+		Particle p;
+		int rand = random(WA_NUM_LEDS);
+		p.create(i,rand,0,WA_NUM_LEDS);
+		particles[i] = p;
+	}
+
 	for (int i = 0; i < count; i++) {
 		Particle p;
 		int rand = random(WB_NUM_LEDS);
-		p.create(i,rand,WB_NUM_LEDS);
-		particles[i] = p;
+		p.create(count+i,rand,1,WB_NUM_LEDS);
+		particles[count+i] = p;
+	}
+	
+	for (int i = 0; i < count; i++) {
+		Particle p;
+		int rand = random(WC_NUM_LEDS);
+		p.create((2*count)+i,rand,2,WC_NUM_LEDS);
+		particles[(2*count)+i] = p;
 	}
 }

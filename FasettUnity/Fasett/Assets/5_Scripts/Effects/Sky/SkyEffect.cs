@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Fasett {
     public class SkyEffect : Effect {
         [SerializeField] private Transform _target;
+        [SerializeField] private GameObject _content;
         [SerializeField] private Vector3 _mostAffectedScale;
 
         private Vector3 _startScale;
@@ -28,6 +29,12 @@ namespace Fasett {
             _edgeMaterial.SetFloat("_EndOfTunnelGlow", value);
             _holeMaterial.SetFloat("_EndOfTunnelGlow", value);
 
+        }
+
+        public override void SetVisibility(float visibility) {
+            base.SetVisibility(visibility);
+            _content.SetActive(visibility > 0);
+        
         }
     }
 }

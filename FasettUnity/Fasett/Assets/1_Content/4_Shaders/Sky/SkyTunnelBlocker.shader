@@ -1,4 +1,4 @@
-Shader "HolePrepare" {
+Shader "Fasett/Sky/Hole1" {
     SubShader {
         Tags { "RenderType"="Opaque" "Queue"="Geometry+1"}
         ColorMask 0
@@ -36,15 +36,5 @@ Shader "HolePrepare" {
             #pragma fragment frag
             ENDCG
         }
-		/*
-        Pass {
-            Cull Back
-            ZTest Greater
-        
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            ENDCG
-        }*/
     } 
 }

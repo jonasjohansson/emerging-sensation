@@ -5,12 +5,12 @@ void setColorRange(byte index, int startIndex, int endIndex, byte r, byte g, byt
   FastLED.show();
 }
 
-void colorise(byte wing[][2], CRGB c){
+void colorise(byte wing[][2], CRGB col){
   uint8_t o = 0;
   for (byte i = 0; i < 4; i++){
     byte x = wing[i][0];
     byte y = wing[i][1];
-    if (i == 3) o = -32;
+    // if (i == 3) o = -32;
     uint8_t start = NUM_LEDS_PER_SIDE * y;
     uint8_t end = NUM_LEDS_PER_SIDE * (y + 1);
     for (byte j = 0; j < 12; j++) {
@@ -20,9 +20,9 @@ void colorise(byte wing[][2], CRGB c){
       a += o;
       b += o;
       c += o;
-      leds[x][a] = c;
-      leds[x][b] = c;
-      leds[x][c] = c;
+      leds[x][a] = col;
+      leds[x][b] = col;
+      leds[x][c] = col;
       FastLED.show();
     }
   }

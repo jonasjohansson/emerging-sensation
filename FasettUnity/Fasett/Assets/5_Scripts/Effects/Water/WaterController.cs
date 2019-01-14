@@ -2,59 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterController : MonoBehaviour {
-    private WaterEffect[]_triggers;
-    [SerializeField] private WaterOrganism[] _organisms;
-    [SerializeField] private Transform[] _otherCenter;
+namespace Fasett {
 
-    private void Awake() {
-        _triggers = GetComponentsInChildren<WaterEffect>(false);
-    }
+    public class WaterController : EffectController {
+        [SerializeField] private WaterOrganism[] _organisms;
+        [SerializeField] private ParticleSystem _particles;
 
-    // Use this for initialization
-    void OnEnable () {
-        foreach (WaterOrganism organism in _organisms) {
-            organism.Setup(_triggers);
-        }
-
-        StartCoroutine(CenterEverySeconds(3));
-    }
-
-    private void OnDisable() {
-        foreach (WaterOrganism organism in _organisms) {
-            organism.End();
-        }
-    }
-
-
-    private IEnumerator CenterEverySeconds(int seconds) { 
-        while (true) {
-            Vector3 center = GetCenterPoint();
-            foreach (Transform trans in _otherCenter) {
-                trans.position = center;
+        protected override void OnEnable() {
+            base.OnEnable();
+            _organisms = GetComponentsInChildren<WaterOrganism>(false);
+            foreach (WaterOrganism organism in _organisms) {
+                organism.Setup(_effects);
             }
+        }
+
+        protected override void VisibilityChanged(float visibility) {
+            base.VisibilityChanged(visibility);
+            for (int i = 0; i < _organisms.Length; i++) {
+                _organisms[i].gameObject.SetActive(visibility > 0);
+            }
+            _particles.gameObject.SetActive(visibility > 0);
+        }
+
+        private void OnDisable() {
+            foreach (WaterOrganism organism in _organisms) {
+                organism.End();
+            }
+        }
+
+        protected override void CenterObjects(Vector3 center) {
+            base.CenterObjects(center);
             foreach (WaterOrganism organism in _organisms) {
                 organism.SetCenterpoint(center);
             }
-            yield return new WaitForSeconds(seconds);
+            _particles.transform.position = center;
         }
-    }
-
-    private Vector3 GetCenterPoint() {
-        Vector3 sum = Vector3.zero;
-        if(_triggers == null || _triggers.Length == 0) {
-            return sum;
-        }
-
-        foreach(var trigger in _triggers) {
-            sum += trigger.transform.position;
-        }
-        return sum / _triggers.Length;
-    }
-
-    [ContextMenu("Find in Children")]
-    private void FindInChildren() {
-        _organisms = GetComponentsInChildren<WaterOrganism>(true);
-        _triggers = GetComponentsInChildren<WaterEffect>(false);
     }
 }

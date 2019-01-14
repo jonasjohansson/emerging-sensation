@@ -83,6 +83,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
+    - _Wobble: 0.5
     - _ZWrite: 1
     - _node_9008: 0.35
     m_Colors:

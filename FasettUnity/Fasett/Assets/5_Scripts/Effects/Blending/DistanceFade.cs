@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class DistanceScale : MonoBehaviour {
-    [SerializeField] private GameObject[] _disablers;
-
+public class DistanceFade : MonoBehaviour {
     [SerializeField] private Renderer _target;
 
     [SerializeField] private float _startBlend;
     [SerializeField] private float _endBlend;
 
-    [SerializeField] public float Amount;
-
+    private float _visibility;
     private Material _material;
+    private float _lastSentVisibility = -1;
+    public Action<float> OnVisibilityChanged;
 
     public static bool ShouldBeActive;
 
@@ -24,21 +24,25 @@ public class DistanceScale : MonoBehaviour {
         if (ShouldBeActive) { 
             Vector3 cameraPosition = Camera.main.transform.position;
             float distance = Vector3.Distance(transform.position, cameraPosition);
-            Amount = Mathf.InverseLerp(_startBlend, _endBlend, distance);
+            _visibility = Mathf.InverseLerp(_startBlend, _endBlend, distance);
         }
         else {
-            Amount = 0;
+            _visibility = 0;
         }
 
-        _material.SetFloat("_Fade", Amount);
-        SetObjectsActive();
+        UpdateAmount();
     }
 
-    private void SetObjectsActive(){
-        for (int i = 0; i< _disablers.Length; i++) {
-            _disablers[i].SetActive(Amount != 1);
+    private void UpdateAmount(){
+        _material.SetFloat("_Fade", _visibility);
+        _target.gameObject.SetActive(_visibility > 0);
+
+        if (OnVisibilityChanged != null) {
+            if (_lastSentVisibility != _visibility) {
+                OnVisibilityChanged(1 - _visibility); //Visibility is the amount of the blocker, We want to send the inverse visibility to the effects.
+                _lastSentVisibility = _visibility;
+            }
         }
-        _target.gameObject.SetActive(Amount > 0);
     }
 
     private void OnDrawGizmosSelected() {

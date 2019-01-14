@@ -12,10 +12,17 @@ namespace Fasett {
         [SerializeField] private GameObject[] _debugObjects;
         [SerializeField] private SpatialMappingToggle _spatialMappingToggle;
 
+        [SerializeField] private bool _disableBlockersInEditor;
+
         private bool _debugging = false;
 
         private void Awake() {
+            // this sets debugging to false at start
+            _debugging = true;
             ToggleDebug();
+            if (Application.isEditor && _disableBlockersInEditor) {
+                DistanceFade.ShouldBeActive = false;
+            }
         }
 
         private void OnEnable() {
@@ -25,6 +32,12 @@ namespace Fasett {
         private void OnDisable() {
             UserInput.OnUserSaidDemoMode -= ToggleDebug;
             UserInput.OnUserSaidWireframe += ShowWireFrame;
+        }
+
+        private void Update() {
+            if (_debugging) {
+                _text.text = "Tracking: " + WorldManager.state.ToString();
+            }
         }
 
         private void ToggleDebug() {
