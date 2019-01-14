@@ -12,11 +12,12 @@
 #define WA_NUM_LEDS 222
 #define WB_NUM_LEDS 213
 #define WC_NUM_LEDS 300
-#define PARTICLES_COUNT 120
+#define PARTICLES_COUNT 80
 
 CRGB leds[3][WC_NUM_LEDS];
 
 #include "particle.h"
+#include "Palettes.h"
 
 Particle particles[PARTICLES_COUNT];
 
@@ -43,6 +44,16 @@ void loop() {
 
 void waterB(){
 	
+  for (int i = 0; i < WB_NUM_LEDS; i++){
+      int index = (i) * 150 / 144
+                  + sin8( (i) + millis() / 1000 ) * 0.25
+                  + cos8( (i) * 12 + (millis() / 5 + cos8(millis() / 5000)) ) * 0.125;
+      int fade = cos8(millis() / (i));
+      CRGB color = ColorFromPalette(myPal, index, fade, LINEARBLEND);
+     	leds[1][i] = color;
+
+  }
+
 	for (int i = 0; i < PARTICLES_COUNT; i++) {
 		if (sensor[2] or sensor[3] or sensor[4]){
 			particles[i].pTarget = target;

@@ -2,7 +2,7 @@
 
 #define ease8InOutCubic(x) == 3(x^i) - 2(x^3)
 // #define SMOOTHERSTEP(x) ((x) * (x) * (x) * (x * (x * 6 - 15) + 10))
-#define N 10.0
+#define N 7.0
 
 class Particle {
 	private:
@@ -71,7 +71,6 @@ void Particle::flutter(){
 	if (this->currentMillis - this->previousMillis > this->flutterInterval){
 		this->previousMillis = this->currentMillis;
 		this->pTarget = random(this->length+32);
-		Serial.println("FLUTTER!");
 	}
 }
 
