@@ -16,8 +16,9 @@ class Particle {
 		int pLast;
 		int pOrigin;
 		int pTarget;
+		int ledIndex;
 		CRGB color;
-		void create(int id, int p, int len);
+		void create(int id, int p, int ledIndex, int len);
 		void integrate();
 		void attract();
 		void draw();
@@ -26,12 +27,15 @@ class Particle {
 		void setColor();
 };
 
-void Particle::create(int id, int p, int len){
+void Particle::create(int id, int p, int ledIndex, int len){
 	this->id = id;
 	this->p = p;
 	this->pLast = p;
 	this->pOrigin = p;
 	this->pTarget = p;
+	this->ledIndex = ledIndex;
+	this->currentMillis = 0;
+	this->previousMillis = 0;
 	this->color = CRGB::Blue;
 	this->flutterInterval = random(4000,6000);
 	this->length = len;
@@ -58,8 +62,8 @@ void Particle::setColor(){
 }
 
 void Particle::draw(){
-	wbLeds[this->pLast] += blend(wbLeds[this->pLast],CRGB::Black,127); 
-	wbLeds[this->p] += blend(wbLeds[this->p],this->color,255); 
+	leds[this->ledIndex][this->pLast] += nblend(leds[this->ledIndex][this->pLast],CRGB::Black,255); 
+	leds[this->ledIndex][this->p] += blend(leds[this->ledIndex][this->p],this->color,255); 
 }
 
 void Particle::flutter(){
@@ -67,6 +71,7 @@ void Particle::flutter(){
 	if (this->currentMillis - this->previousMillis > this->flutterInterval){
 		this->previousMillis = this->currentMillis;
 		this->pTarget = random(this->length+32);
+		Serial.println("FLUTTER!");
 	}
 }
 

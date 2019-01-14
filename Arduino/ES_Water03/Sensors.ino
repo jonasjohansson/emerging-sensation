@@ -1,16 +1,14 @@
-void readSimple(byte pin, int &val, int &last){
-  val = analogRead(pin);
-  
-  val = (val > 512) ? 1 : 0;
+void readSimple(byte pin, int &val){
+  int newVal = analogRead(pin);
 
-  if (val == last) return;
+  newVal = (newVal > 512) ? 1 : 0;
 
-  // if (val == 1) newTarget(pin);
+  if (newVal != val){
+    s(pin,newVal);
+    if (newVal == 1) newTarget(pin);
+  }
   
-  s(pin,val);
-  //c(pin,val,random(0,255),random(0,255),random(0,255));
-  
-  last = val;
+  val = newVal;
 }
 
 // void c(byte pin, byte val, byte r, byte g, byte b){
