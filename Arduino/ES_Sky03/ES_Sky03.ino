@@ -6,6 +6,7 @@
 */
 
 #include<FastLED.h>
+#include "Palettes.h"
 
 #define NUM_SENSORS 4
 #define NUM_STRIPS 8
@@ -15,17 +16,9 @@
 
 CRGB leds[NUM_STRIPS][NUM_LEDS];
 CRGB col;
-CRGBPalette16 skyPalette;
 
 float speed;
 
-DEFINE_GRADIENT_PALETTE(skyPalette1) {
-  0,		0,  	0, 		0,
-  32, 	192,  	64, 	192,
-  64,  	192,  140, 	255,
-  128,  92,  80, 	255,
-  255,  192,  44, 	255
-};
 
 int skyMap[4][4][2][2] = {
   { // top
@@ -73,8 +66,6 @@ void setup() {
   FastLED.addLeds<NEOPIXEL, 8>(leds[7], NUM_LEDS);
   FastLED.clear();
   FastLED.show();
-
-  skyPalette = skyPalette1;
 
   for (byte i = 0; i < 4; i++) {
     for (byte k = 0; k < 4; k++) {
@@ -136,8 +127,14 @@ void loop() {
   speed = 0;
   for (byte i = 0; i < NUM_SENSORS; i++) {
     readAdvanced(i, sensor[i], sensorLast[i], 200, 500);
-    speed += sensor[i] / 1024;
+    speed += sensor[i] / 255;
   }
+
+  // sensor[0] = 0;
+  // sensor[1] = 255;
+  // sensor[2] = 0;
+  // sensor[3] = 0;
+  // speed = 1;
 
   skyFull();
   skyHoles();
@@ -149,29 +146,38 @@ void setPixel(int y, int x, int p, CRGB color) {
 }
 
 void skyFull() {
+  // Serial.println("Speed: "+String(speed));
   for (byte y = 0; y < 4; y++) {
     for (byte x = 0; x < 8; x++) {
       for (byte p = 0; p < 36; p++) {
         int index = (y * 36 + p) * 150 / 144
-                    + cos8( (y * 36 + p) + millis() / (20 * speed) ) * 1 / 2
-                    + cos8( (y * 36 + p) * 12 + (millis() / 5 + cos8(millis() / 5000)) ) / 4;
+                    + sin8( (y * 36 + p) + millis() / 1000 ) * 0.25
+                    + cos8( (y * 36 + p) * 12 + (millis() / 5 + cos8(millis() / 5000)) ) * 0.125;
         int fade = cos8(millis() / (y * 36 + p));
-        setPixel(y, x, p, ColorFromPalette(skyPalette, index, 255, LINEARBLEND));
+        CRGB color = ColorFromPalette(myPal, index, fade, LINEARBLEND);
+        // if (speed >= 1){
+        //   index = (y * 36 + p) * 150 / 144
+        //           + sin8( (y * 36 + p) + millis() / 1000 ) * 0.25
+        //           + cos8( (y * 36 + p) * 12 + (millis() / 5 + cos8(millis() / 5000)) ) * 0.125;
+        //   color += ColorFromPalette(ravePal, index, fade, LINEARBLEND);
+        // }
+        setPixel(y, x, p, color);
       }
     }
   }
 }
 
 void skyHoles() {
-
   for (int x = 0; x < 8; x++) {
   	int sensorIndex = floor(x/2);
-
-  	Serial.println(sensorIndex);
-  	int fade = 255-sensor[sensorIndex];
     for (int y = 0; y < 2; y++) {
       for (int p = 0; p < 36; p++) {
-        CRGB color = nblend(leds[skyMap2[y][x][p][0]][skyMap2[y][x][p][1]], CRGB::Red, fade);
+        CRGB color = nblend(leds[skyMap2[y][x][p][0]][skyMap2[y][x][p][1]], CRGB::Black, 255-sensor[sensorIndex]);
+        int index = (y * 36 + p) * 150 / 144
+                    + sin8( (y * 36 + p) + millis() / 10 ) * 0.25
+                    + cos8( (y * 36 + p) * 12 + (millis() / 5 + cos8(millis() / 5000)) ) * 0.125;
+        int fade = cos8(millis() / (y * 36 + p));
+        color += ColorFromPalette(ravePal, index, 255-sensor[sensorIndex], LINEARBLEND);
         setPixel(y,x,p,color);
       }
     }
