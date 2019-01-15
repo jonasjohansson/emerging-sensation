@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width,user-scalable=no">
+</head>
+<body style="background:black;">
+	<canvas id="display" width="1" height="1">
+
+	<script>
+
+		var DAMPING = 0.299;
+		var swarm = true;
+
+		function Particle(x, y) {
+			this.originX = x;
+			this.originY = y;
+			this.x = this.oldX = x;
+			this.y = this.oldY = y;
+		}
+
+		Particle.prototype.integrate = function() {
+			var velocityX = (this.x - this.oldX) * DAMPING;
+			// var velocityY = (this.y - this.oldY) * DAMPING;
+			this.oldX = this.x;
+			// this.oldY = this.y;
+			this.x += velocityX;
+			// this.y += velocityY;
+		};
+
+		Particle.prototype.attract = function(x, y) {
+			var dx = x - this.x;
+			var dy = y - this.y;
+			var distance = Math.sqrt(dx * dx);
+			this.x += dx / distance;
+			// this.y += dy / distance;
+		};
+
+		Particle.prototype.draw = function() {
+			ctx.strokeStyle = '#eb6123';
+			ctx.lineWidth = 2;
+			ctx.beginPath();
+			ctx.moveTo(this.oldX, 1);
+			ctx.lineTo(this.x, 1);
+			ctx.stroke();
+		};
+
+		var display = document.getElementById('display');
+		var ctx = display.getContext('2d');
+		var particles = [];
+		var width = display.width = window.innerWidth;
+		var height = display.height = window.innerHeight;
+		var mouse = { x: width * 0.5, y: height * 0.5 };
+
+		for (var i = 0; i < 200; i++) {
+			particles[i] = new Particle(Math.random() * width, Math.random() * height);
+		}
+
+		display.addEventListener('mousemove', onMousemove);
+		display.addEventListener('click', onMouseclick);
+
+		function onMousemove(e) {
+			mouse.x = e.clientX;
+			mouse.y = e.clientY;
+		}
+
+		function onMouseclick(e) {
+			swarm = (swarm === true) ? false : true;
+		}
+
+		requestAnimationFrame(frame);
+
+		function frame() {
+			console.log(swarm)
+			requestAnimationFrame(frame);
+			ctx.clearRect(0, 0, width, height);
+			for (var i = 0; i < particles.length; i++) {
+				if (swarm){
+					particles[i].attract(mouse.x, mouse.y);
+				} else {
+					particles[i].attract(particles[i].originX, particles[i].originY);
+				}
+				particles[i].integrate();
+				particles[i].draw();
+			}
+		}
+
+	</script>
+</body>
+</html>
