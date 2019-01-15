@@ -14,8 +14,9 @@ void readAdvanced(byte index, float &val, float &oldVal, float min, float max){
   }
 
   //if (abs(newVal - oldVal) > THRESH){
+  if (newVal != oldVal){
     s(index,val);
-  //}
+  }
 
   oldVal = val;
 }
