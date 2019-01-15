@@ -23,9 +23,12 @@ namespace Fasett {
         private bool _calibrating;
         private bool _calibrateNextEffect;
         private bool _loadingCalibration;
+        private bool _exportingCalibration;
 
         private Action<bool> _setupCompleteCallback;
         private Action<string> _updateLoadingMessageCallback;
+
+        [SerializeField] private TextMesh _calibrationFinishedMessage;
 
         protected void Awake() {
             _effects = GetComponentsInChildren<Effect>(false);
@@ -33,7 +36,7 @@ namespace Fasett {
 
         public bool IsCalibrating {
             get {
-                return _calibrating || _loadingCalibration;
+                return _calibrating || _loadingCalibration || _exportingCalibration;
             }
         }
 
@@ -62,6 +65,19 @@ namespace Fasett {
 #else
             Invoke("LoadedFromEditor", 5.0f);
 #endif
+        }
+
+        public void ExportCalibration() {
+            if (!_exportingCalibration) {
+                StartCoroutine(ExportCalibrationCoroutine());
+            }
+        }
+
+        private IEnumerator ExportCalibrationCoroutine() {
+            _exportingCalibration = true;
+            AnchorAllEffects();
+            yield return new WaitForSeconds(2);
+            ConcludeCalibration();
         }
 
         private void LoadedFromEditor() {
@@ -171,10 +187,7 @@ namespace Fasett {
             foreach (Effect e in _effects) {
                 yield return CalibrateEffectCoroutine(e);
             }
-            // All effects positioned, wait a little to allow all anchors to register, then serialize the world anchor transfer batch
-            AnchorAllEffects();
-            yield return new WaitForSeconds(1);
-            ConcludeCalibration();
+            _calibrating = false;
         }
 
         private IEnumerator CalibrateClosestEffectCoroutine() {
@@ -191,9 +204,7 @@ namespace Fasett {
             }
             PrepareEffectForCalibration(closest, false);
             yield return CalibrateEffectCoroutine(closest);
-            AnchorAllEffects();
-            yield return new WaitForSeconds(1);
-            ConcludeCalibration();
+            _calibrating = false;
         }
 
         private void PrepareEffectForCalibration(Effect effect, bool move = true) {
@@ -248,6 +259,8 @@ namespace Fasett {
         }
 
         private void ConcludeCalibration() {
+            Debug.Log("[Effect Manager] Exporting transfer batch...");
+            _calibrationFinishedMessage.text += "\nExporting transfer batch...";
 #if !UNITY_EDITOR
             WorldAnchorTransferBatch.ExportAsync(_worldAnchorTransferBatch, TransferBatchExportDataAvailable, TransferBatchExportSerializationCompleted);
 #endif
@@ -266,18 +279,23 @@ namespace Fasett {
         }
 
         private void AnchorAllEffects() {
+            Debug.Log("[Effect Manager] Anchoring all effects");
+            _calibrationFinishedMessage.gameObject.SetActive(true);
+            _calibrationFinishedMessage.text = "Anchoring all effects...";
             foreach (Effect effect in _effects) {
                 WorldAnchor anchor = effect.gameObject.GetComponent<WorldAnchor>();
                 if (anchor ==  null) {
                     anchor = effect.gameObject.AddComponent<WorldAnchor>();
                 }
                 anchor.OnTrackingChanged += Anchor_OnTrackingChanged;
+                Debug.Log("[Effect Manager] Anchoring " + effect.Name);
             }
         }
 
         private void Anchor_OnTrackingChanged(WorldAnchor worldAnchor, bool located) {
             // World anchor registered, add it to the transfer batch
             _worldAnchorTransferBatch.AddWorldAnchor(worldAnchor.GetComponent<Effect>().Name, worldAnchor);
+            Debug.Log("[Effect Manager] Added " + worldAnchor.GetComponent<Effect>().Name + " to transfer batch");
             worldAnchor.OnTrackingChanged -= Anchor_OnTrackingChanged;
         }
 
@@ -287,9 +305,11 @@ namespace Fasett {
         }
 
         private void TransferBatchExportSerializationCompleted(SerializationCompletionReason serializationCompletionReason) {
+            _calibrationFinishedMessage.text += "\nTransfer batch export completed, result: " + serializationCompletionReason;
             Debug.Log("[Effect Manager] WorldAnchorTransferBatch data serialization completed. Result: " + serializationCompletionReason);
             byte[] completeData = _worldAnchorTransferBatchData.ToArray();
             Debug.Log("[Effect Manager] Saving data to file, total size in kb: " + completeData.Length / 1024);
+            _calibrationFinishedMessage.text += "\nSaving data to file, total size in kb: " + completeData.Length / 1024;
 #if !UNITY_EDITOR
             CreateTransferBatchFile(completeData);
 #endif
@@ -301,11 +321,14 @@ namespace Fasett {
             IBuffer buffer = data.AsBuffer();
             await Windows.Storage.FileIO.WriteBufferAsync(transferBatchFile, buffer);
             // Transfer batch file created, upload it to Azure
+            _calibrationFinishedMessage.text += "/nSave complete, uploading to Azure...";
             _azureFileHandler.UploadFile(_transferBatchFileName, _storageFolder.Path, _azureShareName, _azureFolderName, UploadCompleted);
         }
 
         private void UploadCompleted() {
             Debug.Log("[Effect Manager] Azure upload completed.");
+            _calibrationFinishedMessage.gameObject.SetActive(false);
+            _exportingCalibration = false;
         }
 #endif
 

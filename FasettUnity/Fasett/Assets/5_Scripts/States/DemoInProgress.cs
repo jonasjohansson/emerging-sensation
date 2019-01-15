@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Fasett {
     public class DemoInProgress : AppState {
         [SerializeField] private EffectManager _effectManager;
-        private float _demoDuration = 900; // 15 minutes
+        private float _demoDuration = 600; // 15 minutes
         private float _demoCounter;
         private bool _running;
 
@@ -20,7 +20,6 @@ namespace Fasett {
 
         public override void SetActive(bool active) {
             DistanceFade.ShouldBeActive = active;
-
             if (active) {
                 _demoCounter = _demoDuration;
                 _running = true;

@@ -15,6 +15,7 @@ namespace Fasett {
                 UserInput.OnUserSaidOK += CalibrateNextEffect;
                 UserInput.OnUserSaidInformation += ToggleInformation;
                 UserInput.OnUserSaidDemoMode += SetUpUserForDemo;
+                UserInput.OnUserSaidExportCalibration += ExportCalibration;
                 _setupInstructions.SetActive(true);
             }
             else {
@@ -24,6 +25,7 @@ namespace Fasett {
                 UserInput.OnUserSaidOK -= CalibrateNextEffect;
                 UserInput.OnUserSaidInformation -= ToggleInformation;
                 UserInput.OnUserSaidDemoMode -= SetUpUserForDemo;
+                UserInput.OnUserSaidExportCalibration -= ExportCalibration;
                 _setupInstructions.SetActive(false);
             }
         }
@@ -42,6 +44,10 @@ namespace Fasett {
 
         private void ToggleInformation() {
             _setupInstructions.SetActive(!_setupInstructions.activeSelf);
+        }
+
+        private void ExportCalibration() {
+            _effectManager.ExportCalibration();
         }
 
         private void SetUpUserForDemo() {

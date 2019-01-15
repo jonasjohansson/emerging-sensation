@@ -9,12 +9,17 @@ namespace Fasett {
         [SerializeField] private float _innerRadius;
         [SerializeField] private float _outerRadius;
         [SerializeField] private AnimationCurve _movement;
+        [SerializeField] private AnimationCurve _pullPower;
         [SerializeField] private float _fullGlow = 1;
         [SerializeField] private float _power = 1;
         
         [SerializeField] private WaterEffect _trigger;
-        
-        
+
+        /*
+        private List<Vector3> From = new List<Vector3>();
+        private List<Vector3> To = new List<Vector3>();
+        */
+
         private void OnEnable() {
             _trigger.OnPressedChanged += AffectParticles;
         }
@@ -31,15 +36,24 @@ namespace Fasett {
             
             ParticleSystem.Particle[] particles = new ParticleSystem.Particle[_particleSystem.particleCount];
             _particleSystem.GetParticles(particles);
+            /*
+            From.Clear();
+            To.Clear();
+            */
             for (int i = 0; i< particles.Length; i++) {
                 Vector3 dir = particles[i].position - attractPoint;
                 if (dir.magnitude < _outerRadius) {
-                    float distance = Mathf.Clamp01(Mathf.InverseLerp(_innerRadius, _outerRadius, dir.magnitude));
+                    float distance = Mathf.Clamp01(Mathf.InverseLerp(-_innerRadius, _outerRadius, dir.magnitude));
                     Vector3 targetPos = particles[i].position - dir.normalized * distance;
-                    float pull = power * distance * Time.deltaTime * _power;
+                    float pull = _pullPower.Evaluate(distance) * Time.deltaTime * _power;
                     
                     particles[i].position = Vector3.Lerp(particles[i].position, targetPos, pull);
                     particles[i].color = Color.Lerp(particles[i].color, color, pull);
+
+                    /*
+                    From.Add(_particleSystem.transform.TransformPoint(particles[i].position));
+                    To.Add(_particleSystem.transform.TransformPoint(targetPos));
+                    */                   
                 }
             }
             _particleSystem.SetParticles(particles, particles.Length);
@@ -50,6 +64,13 @@ namespace Fasett {
             Gizmos.DrawWireSphere(transform.position, _innerRadius);
             Gizmos.color = _gradient == null ? Color.black : _gradient.Evaluate(1);
             Gizmos.DrawWireSphere(transform.position, _outerRadius);
+
+            Gizmos.color = Color.blue;
+            /*
+            for (int i = 0; i<From.Count; i++) {
+                Gizmos.DrawLine(From[i], To[i]);
+            }
+            */
         }
     }
     
