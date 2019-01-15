@@ -8,11 +8,21 @@ namespace Fasett {
         [SerializeField] private GameObject _content;
         [SerializeField] private Vector3 _mostAffectedScale;
 
+        [SerializeField] private AudioSource _baseLoopAudioSource;
+        [SerializeField] private AudioSource _maxedLoopAudioSource;
+        private float _maxedSourceStartVolume;
+
         private Vector3 _startScale;
         private Material _holeMaterial;
         private Material _edgeMaterial;
         
         protected override void Awake() {
+            int effectNumber = int.Parse(Name[1].ToString());
+            _baseLoopAudioSource.time = (_baseLoopAudioSource.clip.length / 4) * effectNumber;
+            _maxedLoopAudioSource.time = (_maxedLoopAudioSource.clip.length / 4) * effectNumber;
+            _maxedSourceStartVolume = _maxedLoopAudioSource.volume;
+            _maxedLoopAudioSource.volume = 0;
+
             _startScale = _target.localScale;
             Renderer renderer = _target.GetComponent<Renderer>();
             _edgeMaterial = renderer.materials[0];
@@ -24,6 +34,8 @@ namespace Fasett {
         public override void UpdateEffect(float value) {
             base.UpdateEffect(value);
             value /= 255;
+
+            _maxedLoopAudioSource.volume = _maxedSourceStartVolume * value;
             _target.localScale = Vector3.Lerp(_startScale, _mostAffectedScale, value);
 
             _edgeMaterial.SetFloat("_EndOfTunnelGlow", value);

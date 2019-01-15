@@ -9,9 +9,3 @@ void readSimple(byte pin, int &val, int &last){
   
   last = val;
 }
-
-void s(byte pin, int val){
-  Serial.print("B"+String(pin));
-  Serial.print(' ');
-  Serial.println(val);
-}
