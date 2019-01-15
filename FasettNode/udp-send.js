@@ -5,6 +5,19 @@ const server = dgram.createSocket("udp4");
 const PORT = 7003;
 const BROADCAST_ADDR = "255.255.255.255";
 const BAUDRATE = 152000;
+// const DEBUG = false;
+// const START = Date.now();
+
+// const devices = [
+// 	{
+// 		serialNumber: '2211820',
+// 		id: 'a'
+// 	},
+// 	{
+// 		serialNumber: '4655120',
+// 		id: 'b'
+// 	}
+// ];
 
 server.bind(function() {
 	server.setBroadcast(true);
@@ -65,6 +78,19 @@ function connectPort(com) {
 		console.log("Port open… the world is yours!");
 	});
 
+	// port.on('readable', () => {
+	// console.log('reading…');
+	// console.log('Data:', port.read());
+	// var buffer = port.read();
+	// if (buffer !== null) {
+	// 	msg = buffer.toString('utf8');
+	// 	msg = msg.trim();
+	// 	// console.log(msg);
+	// 	// sendMessage(`${id} ${msg}`);
+	// 	sprayMessage(`${msg}`);
+	// }
+	// });
+
 	port.on("close", function(err) {
 		console.log("Port closed!");
 		console.log("Reconnecting…");
@@ -77,17 +103,22 @@ function connectPort(com) {
 }
 
 function sendMessage(message) {
+	// console.log(message);
 	server.send(message, 0, message.length, PORT, BROADCAST_ADDR, function() {
 		console.log("Sent", message);
 	});
 }
 
 function sprayMessage(message) {
-	// for (let i = 0; i < 3; i++) {
+	// for (let i = 0; i < 10; i++) {
 	// setTimeout(() => {
 	sendMessage(message);
-	// }, i * 10);
+	// }, i * 20);
 	// }
 }
+
+// for (let i = 0; i < 10; i++) {
+// 	sprayMessage(`W${i} 255 0 0`);
+// }
 
 getPort();
