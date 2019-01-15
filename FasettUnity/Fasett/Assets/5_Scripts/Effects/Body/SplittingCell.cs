@@ -11,9 +11,6 @@ namespace Fasett {
 
         public override void UpdateEffect(float value) {
             base.UpdateEffect(value);
-            if (_coolDownTime > 0) {
-                _coolDownTime -= Time.deltaTime;
-            }
 
             if (value >= 0.5f && _coolDownTime <= 0) {
                 _animator.SetTrigger("Activate");
@@ -28,6 +25,9 @@ namespace Fasett {
 
         protected override void Update() {
             base.Update();
+            if (_coolDownTime > 0) {
+                _coolDownTime -= Time.deltaTime;
+            }
         }
     }
 }
