@@ -8,7 +8,6 @@ namespace Fasett {
         [SerializeField] private GameObject _content;
         [SerializeField] private Vector3 _mostAffectedScale;
 
-        [SerializeField] private AudioSource _baseLoopAudioSource;
         [SerializeField] private AudioSource _maxedLoopAudioSource;
         private float _maxedSourceStartVolume;
 
@@ -23,7 +22,6 @@ namespace Fasett {
         
         protected override void Awake() {
             int effectNumber = int.Parse(Name[1].ToString());
-            _baseLoopAudioSource.time = (_baseLoopAudioSource.clip.length / 4) * effectNumber;
             _maxedLoopAudioSource.time = (_maxedLoopAudioSource.clip.length / 4) * effectNumber;
             _maxedSourceStartVolume = _maxedLoopAudioSource.volume;
             _maxedLoopAudioSource.volume = 0;
