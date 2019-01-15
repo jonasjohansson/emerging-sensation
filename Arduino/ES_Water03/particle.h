@@ -42,13 +42,13 @@ void Particle::create(int p, int index, int len){
 }
 
 void Particle::attract(){
+   this->last = this->p;
   // this->p = lerp8by8(this->p, this->target, 8);
    for (byte i = 0; i < N; i++) {
      float v = i / N;
      v = SMOOTHSTEP(v);
      this->p = ( this->last * v) + (this->target * (1 - v));
    }
-  this->last = this->p;
 }
 
 void Particle::draw(){
@@ -62,7 +62,7 @@ void Particle::draw(){
 		int index = sin8( (millis() / 1000 )) * 0.25
 	        + cos8( millis() / 5 + cos8(millis() / 5000)) * 0.125;
 		int fade = cos8(millis() / 200);
-        leds[this->index][this->p] = ColorFromPalette(this->palette, index, fade, LINEARBLEND); 
+        leds[this->index][this->p] += ColorFromPalette(this->palette, index, fade, LINEARBLEND); 
     }
 }
 
