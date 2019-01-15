@@ -38,7 +38,7 @@ namespace Fasett {
 
         public override void UpdateEffect(float value) {
             base.UpdateEffect(value);
-            _rawValue = value / 255;
+            _rawValue = 1 - value / 255;
         }
 
         protected override void Update() {

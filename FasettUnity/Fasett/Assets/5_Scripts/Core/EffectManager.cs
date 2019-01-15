@@ -260,7 +260,7 @@ namespace Fasett {
 
         private void ConcludeCalibration() {
             Debug.Log("[Effect Manager] Exporting transfer batch...");
-            _calibrationFinishedMessage.text += "/nExporting transfer batch...";
+            _calibrationFinishedMessage.text += "\nExporting transfer batch...";
 #if !UNITY_EDITOR
             WorldAnchorTransferBatch.ExportAsync(_worldAnchorTransferBatch, TransferBatchExportDataAvailable, TransferBatchExportSerializationCompleted);
 #endif
@@ -305,11 +305,11 @@ namespace Fasett {
         }
 
         private void TransferBatchExportSerializationCompleted(SerializationCompletionReason serializationCompletionReason) {
-            _calibrationFinishedMessage.text += "/nTransfer batch export completed, result: " + serializationCompletionReason;
+            _calibrationFinishedMessage.text += "\nTransfer batch export completed, result: " + serializationCompletionReason;
             Debug.Log("[Effect Manager] WorldAnchorTransferBatch data serialization completed. Result: " + serializationCompletionReason);
             byte[] completeData = _worldAnchorTransferBatchData.ToArray();
             Debug.Log("[Effect Manager] Saving data to file, total size in kb: " + completeData.Length / 1024);
-            _calibrationFinishedMessage.text += "/nSaving data to file, total size in kb: " + completeData.Length / 1024;
+            _calibrationFinishedMessage.text += "\nSaving data to file, total size in kb: " + completeData.Length / 1024;
 #if !UNITY_EDITOR
             CreateTransferBatchFile(completeData);
 #endif

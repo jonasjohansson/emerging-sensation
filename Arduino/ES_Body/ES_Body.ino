@@ -4,6 +4,8 @@
 
 #include<FastLED.h>
 
+#define DEBUG 0
+
 #define NUM_SENSORS 5
 #define NUM_STRIPS 26
 #define NUM_LEDS 289
@@ -168,11 +170,13 @@ class Tentacle {
     }
     
     void lightning(int fade) {
+      debug("tentacle lightning",1);
+
       fadeToBlackBy(20);
       byte index = 0+(len-5)*15;
       for( int i = 0; i < 4; i++) {
-        leds[pixels[0][beatsin16(i*3+len,0,len)]] |= ColorFromPalette(lightningcolor,index, fade);
-        leds[pixels[1][beatsin16(i*4+len,0,len)]] |= ColorFromPalette(lightningcolor,index, fade);
+        leds[pixels[0][beatsin16(i*3+len,0,len-1)]] |= ColorFromPalette(lightningcolor,index, fade);
+        leds[pixels[1][beatsin16(i*4+len,0,len-1)]] |= ColorFromPalette(lightningcolor,index, fade);
         index += 35;
       }
     }
@@ -186,6 +190,11 @@ class Tentacle {
     }
     
     void show() {
+      debug("tentacle ",0);
+      debug(id,0);
+      debug(" state ",0);
+      debug(state,1);
+
       switch(state) {
         case 0:
           this->offEffect();
@@ -267,6 +276,11 @@ class Blob {
     };
     void show() {
       float fade;
+      debug("blob ",0);
+      debug(id,0);
+      debug(" state ",0);
+      debug(state,1);
+
       switch(state) {
         case 0:
           this->offEffect(255);
@@ -413,6 +427,8 @@ void loop() {
     }
   }
   for(int i=0;i<NUM_TENTACLES;i++) {
+    debug("tentacle count: ",0);
+    debug(i,1);
     if(tentacles[i].state==1) {
       tentacles[i].state=2;
       tentacles[i].endTime=millis()+ TENTACLE_FADE;
@@ -421,6 +437,12 @@ void loop() {
   for(int i=0;i<NUM_BLOBS;i++) {
     for(int j=i+1;j<NUM_BLOBS;j++) {
       if(blobs[i].state==1 && blobs[j].state==1) {
+        debug("tentacleJump ",0);
+        debug(i,0);
+        debug(" ",0);
+        debug(j,0);
+        debug(" triggered",1);
+
         for(int k=0;k<3;k++) {
           if(tentacleJumps[i][j][k]<10) {
             tentacles[tentacleJumps[i][j][k]].state=1;
@@ -435,24 +457,23 @@ void loop() {
   for(int i=0;i<NUM_TENTACLES;i++) {
     tentacles[i].show();
   }
-/*  for (int i = 0; i < 9; i++)
-    tentacles[i].count();*/
-      FastLED.show();
-      FastLED.delay(10);
+  
+  FastLED.show();
+  FastLED.delay(10);
                                // unomment this for photo op
-/*
-  EVERY_N_SECONDS (11) {
-    FastLED.delay(10000);
-  }
-  */
 
   
-  EVERY_N_MILLISECONDS( 20 ) {
-    gHue++;  // slowly cycle the "base color" through the rainbow
-  }
-
 }
 
 void hello() {
 
+}
+
+void debug(String message,bool ln) {
+  if(DEBUG) {
+    if(ln)
+      Serial.println(message);
+    else
+      Serial.print(message);
+  }
 }
