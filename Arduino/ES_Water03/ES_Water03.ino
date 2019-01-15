@@ -25,6 +25,10 @@ void setup() {
 
 void loop() {
 
+	// checkParts();
+
+	// return;
+
 	// for each sensor
 	int pin = 0;
 	for (int i = 0; i < NUM_STRIPS; i++) {
@@ -50,26 +54,6 @@ void loop() {
 			// index = gamma8[index];
 			CRGB color = ColorFromPalette(bg_p, index, 255, LINEARBLEND);
 			leds[i][j] = color;
-		}
-
-		// get the bud palette
-		CRGBPalette16 bud_p( buds_p[i] );
-
-		// for each bud
-		for (int j = 0; j < BUDS_PER_STRIP[i]; j++){
-			int p = BUDS[i][j];
-			for (int k = 0; k < 15; k++){
-				int index = sin8( (millis() / 1000 ) * 0.25
-			        + cos8( millis() / 50 + cos8(millis() / 5000)) ) * 0.125;
-				// int fade = cos8(millis() / 10);
-				// CRGB color = ColorFromPalette(bud_p, index, fade, LINEARBLEND);
-				// leds[i][p+k] = nblend(leds[i][p+k],ColorFromPalette(bud_p,index,255,LINEARBLEND),255);
-				leds[i][p+k] += nblend(leds[i][p+k],budCols[i],224);
-				// if (sensorTotal > 0){
-				// 	fade = sin8(millis() / 15);
-				// 	leds[i][p+k] += nblend(leds[i][p+k],ColorFromPalette(bud_p,0,fade,LINEARBLEND),fade);
-				// }
-			}
 		}
 
 		int sensorTotal = 0;
@@ -98,6 +82,26 @@ void loop() {
 			particles[i][j].attract();
 			particles[i][j].draw();
 		}
+
+		// get the bud palette
+		CRGBPalette16 bud_p( buds_p[i] );
+
+		// for each bud
+		for (int j = 0; j < BUDS_PER_STRIP[i]; j++){
+			int p = BUDS[i][j];
+			for (int k = 0; k < 15; k++){
+				int index = sin8( (millis() / 1000 ) * 0.25
+			        + cos8( millis() / 50 + cos8(millis() / 5000)) ) * 0.125;
+				// int fade = cos8(millis() / 10);
+				// CRGB color = ColorFromPalette(bud_p, index, fade, LINEARBLEND);
+				// leds[i][p+k] = nblend(leds[i][p+k],ColorFromPalette(bud_p,index,255,LINEARBLEND),255);
+				leds[i][p+k] += nblend(leds[i][p+k],budCols[i],224);
+				// if (sensorTotal > 0){
+				// 	fade = sin8(millis() / 15);
+				// 	leds[i][p+k] += nblend(leds[i][p+k],ColorFromPalette(bud_p,0,fade,LINEARBLEND),fade);
+				// }
+			}
+		}
 	}
 
 	FastLED.show();
@@ -125,16 +129,26 @@ void createParticles(){
 }
 
 void checkParts(){
-	for (int i = 111; i < 126; i++){
-		leds[0][i] = CRGB::White;
+	// for (int i = 0; i < 300; i++){
+	// 	Serial.println(i);
+	// 	leds[2][i] = CRGB::White;
+	// 	FastLED.show();
+	// 	FastLED.delay(100);
+	// }
+	for (int i = 24; i < 24+15; i++){
+		leds[2][i] = CRGB::White;
 		FastLED.delay(100);
 	}
-	for (int i = 48; i < 63; i++){
-		leds[0][i] = CRGB::White;
+	for (int i = 63; i < 63+15; i++){
+		leds[2][i] = CRGB::White;
 		FastLED.delay(100);
 	}
-	for (int i = 150; i < 165; i++){
-		leds[0][i] = CRGB::White;
+	for (int i = 150; i < 150+15; i++){
+		leds[2][i] = CRGB::White;
+		FastLED.delay(100);
+	}
+	for (int i = 213; i < 213+15; i++){
+		leds[2][i] = CRGB::White;
 		FastLED.delay(100);
 	}
 }
