@@ -11,10 +11,16 @@ namespace Fasett {
             if (active) {
                 _demoEndedInstructions.SetActive(true);
                 _effectManager.HideEffects();
+                UserInput.OnUserSaidDemoMode += SetUpUserForDemo;
             }
             else {
                 _demoEndedInstructions.SetActive(false);
+                UserInput.OnUserSaidDemoMode -= SetUpUserForDemo;
             }
+        }
+
+        private void SetUpUserForDemo() {
+            _stateManager.SetState<SettingUpUserForDemo>();
         }
     }
 }
