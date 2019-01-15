@@ -68,7 +68,7 @@ namespace Fasett {
         }
 
         public void ExportCalibration() {
-            if (!_exportingCalibration) {
+            if (!IsCalibrating) {
                 StartCoroutine(ExportCalibrationCoroutine());
             }
         }
@@ -251,7 +251,6 @@ namespace Fasett {
                 effect.UpdateEffect(Mathf.Clamp01(effectValue));
                 yield return 0;
             }
-            // Positioning done, fix in place and apply a world anchor 
             effect.SetCalibrating(false);
             effect.UpdateEffect(0);
             Destroy(transformByHands);
@@ -283,11 +282,12 @@ namespace Fasett {
             _calibrationFinishedMessage.gameObject.SetActive(true);
             _calibrationFinishedMessage.text = "Anchoring all effects...";
             foreach (Effect effect in _effects) {
-                WorldAnchor anchor = effect.gameObject.GetComponent<WorldAnchor>();
-                if (anchor ==  null) {
-                    anchor = effect.gameObject.AddComponent<WorldAnchor>();
+                WorldAnchor oldAnchor = effect.gameObject.GetComponent<WorldAnchor>();
+                if (oldAnchor !=  null) {
+                    DestroyImmediate(oldAnchor);
                 }
-                anchor.OnTrackingChanged += Anchor_OnTrackingChanged;
+                WorldAnchor newAnchor = effect.gameObject.AddComponent<WorldAnchor>();
+                newAnchor.OnTrackingChanged += Anchor_OnTrackingChanged;
                 Debug.Log("[Effect Manager] Anchoring " + effect.Name);
             }
         }
@@ -321,7 +321,7 @@ namespace Fasett {
             IBuffer buffer = data.AsBuffer();
             await Windows.Storage.FileIO.WriteBufferAsync(transferBatchFile, buffer);
             // Transfer batch file created, upload it to Azure
-            _calibrationFinishedMessage.text += "/nSave complete, uploading to Azure...";
+            _calibrationFinishedMessage.text += "\nSave complete, uploading to Azure...";
             _azureFileHandler.UploadFile(_transferBatchFileName, _storageFolder.Path, _azureShareName, _azureFolderName, UploadCompleted);
         }
 
