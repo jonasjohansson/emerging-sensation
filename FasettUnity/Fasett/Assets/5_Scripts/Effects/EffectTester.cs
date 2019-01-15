@@ -16,9 +16,12 @@ namespace Fasett {
                 bool isBodyEffect = (_effect.GetType() == typeof(SplittingCell));
 
                 if (isSKyEffect) { 
-                    _effect.SetValueAsync(isSKyEffect ? _value * 255 : _value);
+                    _effect.SetValueAsync(_value * 255);
                 } else if (isBodyEffect) { 
-                    _effect.SetValueAsync(isBodyEffect ? _value * 4 : _value);
+                    _effect.SetValueAsync(_value * 4);
+                }
+                else {
+                    _effect.SetValueAsync(_value);
                 }
 
             }

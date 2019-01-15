@@ -1,63 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
-using Fasett;
 
-public class WaterEffect : Effect {
-    public float PressAmount { private set; get; }
-    public Color Color { private set; get; }
+namespace Fasett { 
+    public class WaterEffect : Effect {
+        [SerializeField] private RandomSound _audioEffect;
 
-    [SerializeField] private float _riseSpeed;
-    [SerializeField] private float _fallSpeed;
+        public float PressAmount { private set; get; }
+        public Color Color { private set; get; }
+        
+        [SerializeField] private AnimationCurve _affectedCurve;
+        [SerializeField] private float _duration;
+        
+        public Action<WaterEffect> OnPressedChanged;
+        public Action<WaterEffect> OnTriggered;
 
-    [SerializeField] private AnimationCurve _riseCurve;
-    [SerializeField] private AnimationCurve _fallCurve;
+        private float _coolDownTime;
 
-    private bool _pressed;
-    private float _currentPress;
-
-    public Action<WaterEffect> OnPressedChanged;
-
-    private void OnMouseDrag() {
-        _pressed = true;
-    }
-
-    private void OnMouseUp() {
-        _pressed = false;
-    }
-
-    public override void SetColorAsync(Color color) {
-        base.SetColorAsync(color);
-        Color = color;
-    }
-
-    public override void UpdateEffect(float value) {
-        base.UpdateEffect(value);
-        _pressed = value > 0.5f;
-    }
-
-    protected override void Update() {
-        base.Update();
-    
-        if (_currentPress > 0 || _pressed) {
-            if (_pressed) { 
-                _currentPress = Mathf.Clamp01(_currentPress + Time.deltaTime /_riseSpeed);
-                PressAmount = _riseCurve.Evaluate(_currentPress); 
-            }
-            else {
-                _currentPress = Mathf.Clamp01(_currentPress + Time.deltaTime / -_fallSpeed);
-                PressAmount = _fallCurve.Evaluate(_currentPress);
-            }
-
-            if (OnPressedChanged != null) {
-                OnPressedChanged(this);
+        public override void SetColorAsync(Color color) {
+            base.SetColorAsync(color);
+            Color = color;
+        }
+        
+        public override void UpdateEffect(float value) {
+            base.UpdateEffect(value);
+            if (value >= 0.5f && _coolDownTime <= 0) {
+                _coolDownTime = _duration;
+                if (OnTriggered != null) {
+                    OnTriggered(this);
+                }
             }
         }
-    }
+        
+        protected override void Update() {
+            base.Update();
+            if (_coolDownTime > 0) {
+                _coolDownTime -= Time.deltaTime;
+            }
+        }
 
-    [ContextMenu("TestColor")]
-    private void TestColor() {
-        Color = Color.blue;
-    }
+        public void Activate() {
+            StopAllCoroutines();
+            StartCoroutine(PressedFlow());
+        }
 
+        private IEnumerator PressedFlow() {
+            _audioEffect.Play();
+
+            float time = 0;
+            while (time < 1) {
+                time = Mathf.Clamp01(time + Time.deltaTime / _duration);
+                PressAmount = _affectedCurve.Evaluate(time);
+                if (OnPressedChanged != null) {
+                    OnPressedChanged(this);
+                }
+                yield return 0;
+            }
+        }
+
+        [ContextMenu("TestColor")]
+        private void TestColor() {
+            Color = Color.blue;
+        }
+        
+    }
 }
