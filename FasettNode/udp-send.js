@@ -83,11 +83,11 @@ function sendMessage(message) {
 }
 
 function sprayMessage(message) {
-	for (let i = 0; i < 3; i++) {
-		setTimeout(() => {
-			sendMessage(message);
-		}, i * 10);
-	}
+	// for (let i = 0; i < 3; i++) {
+	// setTimeout(() => {
+	sendMessage(message);
+	// }, i * 10);
+	// }
 }
 
 getPort();
