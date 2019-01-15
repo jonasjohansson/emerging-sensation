@@ -1,4 +1,6 @@
 #include<FastLED.h>
+
+#include "math.h"
 #include "global.h"
 #include "palettes.h"
 
@@ -40,12 +42,34 @@ void loop() {
 
 		// background
 		for (int j = 0; j < LEDS_PER_STRIP[i]; j++){
-			int index = cos8( j + millis() / (60/disco[i]) );
+			// int index = cos8( j + millis() / (60/disco[i]) );
+			int index = cos8( j + millis() / 60 );
 			// (i * j) * 72 / 144
 				// + sin8( (i + j) + millis() / 100 ) * 0.25
                     // + cos8( (i * 36 + j) * 12 + (millis() / 5 + cos8(millis() / 5000)) ) * 0.125;
+			// index = gamma8[index];
 			CRGB color = ColorFromPalette(bg_p, index, 255, LINEARBLEND);
 			leds[i][j] = color;
+		}
+
+		// get the bud palette
+		CRGBPalette16 bud_p( buds_p[i] );
+
+		// for each bud
+		for (int j = 0; j < BUDS_PER_STRIP[i]; j++){
+			int p = BUDS[i][j];
+			for (int k = 0; k < 15; k++){
+				int index = sin8( (millis() / 1000 ) * 0.25
+			        + cos8( millis() / 50 + cos8(millis() / 5000)) ) * 0.125;
+				// int fade = cos8(millis() / 10);
+				// CRGB color = ColorFromPalette(bud_p, index, fade, LINEARBLEND);
+				// leds[i][p+k] = nblend(leds[i][p+k],ColorFromPalette(bud_p,index,255,LINEARBLEND),255);
+				leds[i][p+k] += nblend(leds[i][p+k],budCols[i],224);
+				// if (sensorTotal > 0){
+				// 	fade = sin8(millis() / 15);
+				// 	leds[i][p+k] += nblend(leds[i][p+k],ColorFromPalette(bud_p,0,fade,LINEARBLEND),fade);
+				// }
+			}
 		}
 
 		int sensorTotal = 0;
@@ -66,37 +90,13 @@ void loop() {
 			if (sensorTotal != 0){
 				particles[i][j].target = targetValues[i];
 				particles[i][j].attracts = true;
-				if (sensorTotal >= 2){
-					disco[i] = 20;
-				} else {
-					disco[i] = 0;
-				}
 			} else {
-				// particles[i][j].target = particles[i][j].origin;
+				particles[i][j].target = particles[i][j].origin;
 				particles[i][j].flutter();
 				particles[i][j].attracts = false;
 			}
 			particles[i][j].attract();
 			particles[i][j].draw();
-		}
-
-		// get the bud palette
-		CRGBPalette16 bud_p( buds_p[i] );
-
-		// for each bud
-		for (int j = 0; j < BUDS_PER_STRIP[i]; j++){
-			int p = BUDS[i][j];
-			for (int k = 0; k < 15; k++){
-				int index = sin8( (millis() / 1000 ) * 0.25
-			        + cos8( millis() / 50 + cos8(millis() / 5000)) ) * 0.125;
-				int fade = 128 + cos8(millis() / 2000)*0.5;
-				CRGB color = ColorFromPalette(bud_p, index, fade, LINEARBLEND);
-				leds[i][p+k] = blend(leds[i][p+k],ColorFromPalette(bud_p,index,255,LINEARBLEND),127);
-				// if (sensorTotal > 0){
-				// 	fade = sin8(millis() / 15);
-				// 	leds[i][p+k] += nblend(leds[i][p+k],ColorFromPalette(bud_p,0,fade,LINEARBLEND),fade);
-				// }
-			}
 		}
 	}
 
@@ -121,5 +121,20 @@ void createParticles(){
 			p.create(r,i,LEDS_PER_STRIP[i]);
 			particles[i][j] = p;
 		}
+	}
+}
+
+void checkParts(){
+	for (int i = 111; i < 126; i++){
+		leds[0][i] = CRGB::White;
+		FastLED.delay(100);
+	}
+	for (int i = 48; i < 63; i++){
+		leds[0][i] = CRGB::White;
+		FastLED.delay(100);
+	}
+	for (int i = 150; i < 165; i++){
+		leds[0][i] = CRGB::White;
+		FastLED.delay(100);
 	}
 }
