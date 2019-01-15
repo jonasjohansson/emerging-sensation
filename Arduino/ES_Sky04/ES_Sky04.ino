@@ -252,7 +252,7 @@ void loop() {
   unsigned long frameLength = thisFrame-lastFrame;
   sensorTot=0;
   for (byte i = 0; i < NUM_SENSORS; i++) {
-    readAdvanced(i, sensor[i], sensorLast[i], 250, 500);
+    readAdvanced(i, sensor[i], sensorLast[i], 200, 500);
     timer += frameLength/8 + frameLength/NUM_SENSORS * (255-sensor[i]) / 127;
     sensorTot+=sensor[1];
   }
