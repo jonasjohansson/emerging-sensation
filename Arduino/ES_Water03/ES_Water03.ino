@@ -72,7 +72,8 @@ void loop() {
 			
 			// if any sensor is touched
 			if (sensorTotal != 0){
-				particles[i][j].target = targetValues[i];
+				particles[i][j].target = targetValues[i]+(random(-1,1)*7);
+				// Serial.println(particles[i][j].target);
 				particles[i][j].attracts = true;
 			} else {
 				particles[i][j].target = particles[i][j].origin;
