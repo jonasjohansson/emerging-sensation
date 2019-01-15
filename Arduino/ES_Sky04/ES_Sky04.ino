@@ -260,7 +260,6 @@ void loop() {
   raveFade=constrain(raveFade-frameLength/2,0,1023);
   if(sensor[0]<120 && sensor[1]<120 && sensor[2]<120 && sensor[3]<120) {
     raveFade = constrain(raveFade + frameLength * (480-sensorTot)/200,0,1023);
-    Serial.println("adding");
   }
 
   skyFull();

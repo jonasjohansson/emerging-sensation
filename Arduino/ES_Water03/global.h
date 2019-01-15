@@ -1,14 +1,14 @@
 /*
    https://github.com/FastLED/FastLED/wiki/Pixel-reference
    A: 222 (6x25 + 1x27 + 3x15)
-   B: 213 (7x24 + 3x15)
+   B: 213 (7x24 + 3x uu15)
    C: 300 (10x24 + 4x15)
 */
 
 #define NUM_SENSORS 10
 #define NUM_LEDS 300
 #define NUM_STRIPS 3
-#define NUM_PARTICLES 40
+#define NUM_PARTICLES 60
 
 #define WA_NUM_PARTS 10
 #define WB_NUM_PARTS 10
@@ -62,7 +62,7 @@ int WC_MAP[WC_NUM_PARTS][2] = {
 
 int BUDS_PER_STRIP[NUM_STRIPS] = { 3, 3, 4 };
 int BUDS[NUM_STRIPS][4] = {
-  { 48, 15, 111 },
-  { 48, 15, 111 },
+  { 48, 111, 150 },
+  { 48, 150, 111 },
   { 48, 63, 150, 213 }
 };
