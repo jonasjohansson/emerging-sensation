@@ -45,8 +45,8 @@ int WB_MAP[WB_NUM_PARTS][2] = {
 
 int WC_MAP[WC_NUM_PARTS][2] = {
   {0, 24},    // 0, stem 1
-  {24, 24},   // 1, stem 2
-  {48, 15},   // 2, bud 1
+  {24, 15},   // 1, stem 2
+  {39, 24},   // 2, bud 1
   {63, 15},   // 3, stem 3
   {87, 24},   // 4, branch 1
   {111, 24},  // 5, bud2
@@ -63,6 +63,6 @@ int WC_MAP[WC_NUM_PARTS][2] = {
 int BUDS_PER_STRIP[NUM_STRIPS] = { 3, 3, 4 };
 int BUDS[NUM_STRIPS][4] = {
   { 48, 111, 150 },
-  { 48, 150, 111 },
-  { 48, 63, 150, 213 }
+  { 48, 111, 150 },
+  { 24, 63, 150, 213 }
 };
