@@ -18,7 +18,6 @@ class Particle {
 		int fade;
 		CRGBPalette16 palette;
 		bool attracts;
-		bool disco;
 		CRGB color;
 		void create(int p, int index, int len);
 		void integrate();
@@ -34,7 +33,6 @@ void Particle::create(int p, int index, int len){
 	this->index = index;
 	this->target = p;
 	this->attracts = false;
-	this->disco = false;
 	this->currentMillis = 0;
 	this->previousMillis = 0;
 	this->color = CRGB::White;
@@ -65,12 +63,6 @@ void Particle::draw(){
 	        + cos8( millis() / 5 + cos8(millis() / 5000)) * 0.125;
 		int fade = cos8(millis() / 200);
         leds[this->index][this->p] += ColorFromPalette(this->palette, index, fade, LINEARBLEND); 
-    }
-	if (this->disco){
-		int index = sin8( (millis() / 1000 )) * 0.25
-	        + cos8( millis() / 5 + cos8(millis() / 5000)) * 0.125;
-		int fade = cos8(millis() / 20);
-        leds[this->index][this->p] = ColorFromPalette(this->palette, index, fade, LINEARBLEND); 
     }
 }
 
