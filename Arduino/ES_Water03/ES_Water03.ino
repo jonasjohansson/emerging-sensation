@@ -1,137 +1,119 @@
-/*
-	 https://github.com/FastLED/FastLED/wiki/Pixel-reference
-	 A: 222 (6x25 + 1x27 + 3x15)
-	 B: 213 (7x24 + 3x15)
-	 C: 300 (10x24 + 4x15)
-*/
-
 #include<FastLED.h>
 #include "global.h"
+#include "palettes.h"
 
-#define WA_NUM_LEDS 222
-#define WB_NUM_LEDS 213
-#define WC_NUM_LEDS 300
-#define PARTICLES_COUNT 40
-
-CRGB waLeds[WA_NUM_LEDS];
-CRGB wbLeds[WB_NUM_LEDS];
-CRGB wcLeds[WC_NUM_LEDS];
+CRGB leds[3][NUM_LEDS];
 
 #include "particle.h"
 
-int b1, b2, b3, b1l, b2l, b3l;
-int target;
-int hue = 0;
-int currentPaletteIndex = 0;
+Particle particles[NUM_STRIPS][NUM_PARTICLES];
 
-Particle particles[PARTICLES_COUNT];
+int sensorValues[NUM_STRIPS][NUM_SENSORS];
+int targetValues[NUM_STRIPS];
 
 void setup() {
-	FastLED.addLeds<NEOPIXEL, 3>(waLeds, WA_NUM_LEDS);
-	FastLED.addLeds<NEOPIXEL, 4>(wbLeds, WB_NUM_LEDS);
-	FastLED.addLeds<NEOPIXEL, 2>(wcLeds, WC_NUM_LEDS);
+	FastLED.setBrightness(192);
+	FastLED.addLeds<NEOPIXEL, 3>(leds[0], LEDS_PER_STRIP[0]);
+	FastLED.addLeds<NEOPIXEL, 4>(leds[1], LEDS_PER_STRIP[1]);
+	FastLED.addLeds<NEOPIXEL, 2>(leds[2], LEDS_PER_STRIP[2]);
 	FastLED.clear();
-	createParticles(PARTICLES_COUNT);
+	createParticles();
 }
 
 void loop() {
-	readSimple(3, b1, b1l);
-	readSimple(4, b2, b2l);
-	readSimple(5, b3, b3l);
-	waterB();
-}
 
-void waterB(){
-	
-	int hue = sin8(hue++);
-	// Serial.println(hue);
-
- // for (byte i = 0; i < WB_NUM_STEMS; i++){
- //   int index = WB_STEMS[i];
- //   int start = WB_MAP[index][0];
- //   int end = start+WB_MAP[index][1];
- //   for (byte j = start; j < end; j++){
- //     wbLeds[j] = CRGB::Red;
- //   }
- // }
- 
- // for (byte i = 0; i < WB_NUM_BRANCHES; i++){
- //   int index = WB_BRANCHES[i];
- //   int start = WB_MAP[index][0];
- //   int end = start+WB_MAP[index][1];
- //   for (byte j = start; j < end; j++){
- //     wbLeds[j] = CRGB::Green;
- //   }
- // }
- 
- // for (byte i = 0; i < WB_NUM_STEMS+WB_NUM_BRANCHES; i++){
- //   int index = WB_TREE[i];
- //   int start = WB_MAP[index][0];
- //   int end = start+WB_MAP[index][1];
- //   for (byte j = start; j < end; j++){       
- //   }
- // }
-	
-  uint8_t starthue = beatsin8(5, 0, 255);
-  uint8_t endhue = beatsin8(7, 0, 255);
-  starthue = map(starthue,0,255,128,164);
-  endhue = map(endhue,0,255,128,192);
-
-  if (starthue < endhue) {
-    fill_gradient(waLeds, WB_NUM_LEDS, CHSV(starthue,255,128), CHSV(endhue,255,128), FORWARD_HUES);
-    fill_gradient(wbLeds, WB_NUM_LEDS, CHSV(starthue,255,128), CHSV(endhue,255,128), FORWARD_HUES);
-    fill_gradient(wcLeds, WB_NUM_LEDS, CHSV(starthue,255,128), CHSV(endhue,255,128), FORWARD_HUES);
-	} else {
-    fill_gradient(waLeds, WB_NUM_LEDS, CHSV(starthue,255,128), CHSV(endhue,255,128), BACKWARD_HUES);
-    fill_gradient(wbLeds, WB_NUM_LEDS, CHSV(starthue,255,128), CHSV(endhue,255,128), BACKWARD_HUES);
-    fill_gradient(wcLeds, WB_NUM_LEDS, CHSV(starthue,255,128), CHSV(endhue,255,128), BACKWARD_HUES);
-  }
-
-	for (byte i = 0; i < WB_NUM_BUDS; i++){
-	  int index = WB_BUDS[i];
-	  int start = WB_MAP[index][0];
-	  int end = start+WB_MAP[index][1];
-	  for (byte j = start; j < end; j++){
-	    wbLeds[j] = OceanColors_p[0];
-	    // wbLeds[j] = OceanColors_p[currentPaletteIndex];
-	  }
-	}
-	
-	for (int i = 0; i < PARTICLES_COUNT; i++) {
-		if (b1 or b2 or b3){
-			particles[i].pTarget = target;
-		} else {
-			particles[i].flutter();
+	// for each sensor
+	int pin = 0;
+	for (int i = 0; i < NUM_STRIPS; i++) {
+		for (int j = 0; j < SENSORS_PER_STRIP[i]; j++){
+			readSimple(pin, sensorValues[i][j]);
+			pin++;
 		}
-		particles[i].attract();
-		particles[i].draw();
+	}
+
+	// for each strip
+	for (int i = 0; i < NUM_STRIPS; i++){
+		
+		// get the strip palette
+		CRGBPalette16 bg_p( backgrounds_p[i] );
+
+		// background
+		for (int j = 0; j < LEDS_PER_STRIP[i]; j++){
+			int index = cos8( j + millis() / 60 );
+			// (i * j) * 72 / 144
+				// + sin8( (i + j) + millis() / 100 ) * 0.25
+                    // + cos8( (i * 36 + j) * 12 + (millis() / 5 + cos8(millis() / 5000)) ) * 0.125;
+			CRGB color = ColorFromPalette(bg_p, index, 255, LINEARBLEND);
+			leds[i][j] = color;
+		}
+
+		int sensorTotal = 0;
+		// for each particle
+		for (int j = 0; j < NUM_PARTICLES; j++) {
+
+			// for each sensor
+			for (int k = 0; k < SENSORS_PER_STRIP[i]; k++){
+
+				// if the sensor value 
+				if (sensorValues[i][k] == 1){
+					// targetValues[i][k] = BUDS[i][k];
+				}
+				sensorTotal += sensorValues[i][k];
+			}
+			
+			// if any sensor is touched
+			if (sensorTotal != 0){
+				particles[i][j].target = targetValues[i];
+				particles[i][j].attracts = true;
+			} else {
+				// particles[i][j].target = particles[i][j].origin;
+				particles[i][j].flutter();
+				particles[i][j].attracts = false;
+			}
+			particles[i][j].attract();
+			particles[i][j].draw();
+		}
+
+		// get the bud palette
+		CRGBPalette16 bud_p( buds_p[i] );
+
+		// for each bud
+		for (int j = 0; j < BUDS_PER_STRIP[i]; j++){
+			int p = BUDS[i][j];
+			for (int k = 0; k < 15; k++){
+				int index = sin8( (millis() / 1000 ) * 0.25
+			        + cos8( millis() / 50 + cos8(millis() / 5000)) ) * 0.125;
+				int fade = 128 + cos8(millis() / 2000)*0.5;
+				CRGB color = ColorFromPalette(bud_p, index, fade, LINEARBLEND);
+				leds[i][p+k] = blend(leds[i][p+k],ColorFromPalette(bud_p,index,255,LINEARBLEND),255);
+				// if (sensorTotal > 0){
+				// 	fade = sin8(millis() / 15);
+				// 	leds[i][p+k] += nblend(leds[i][p+k],ColorFromPalette(bud_p,0,fade,LINEARBLEND),fade);
+				// }
+			}
+		}
 	}
 
 	FastLED.show();
 }
 
 void newTarget(int pin){
-	int index;
-	switch (pin){
-		case 3:
-			index = WB_BUDS[0];
-		break;
-		case 4:
-			index = WB_BUDS[1];
-		break;
-		case 5:
-			index = WB_BUDS[2];
-		break;
+	if (pin < 3){
+		targetValues[0] = BUDS[0][pin]+7;
+	} else if (pin < 6){
+		targetValues[1] = BUDS[1][pin-3]+7;
+	} else if (pin < 10){
+		targetValues[2] = BUDS[2][pin-6]+7;
 	}
-	target = WB_MAP[index][0];
-	currentPaletteIndex = random(16);
 }
 
-void createParticles(int count){
-	for (int i = 0; i < count; i++) {
-		Particle p;
-		int rand = random(WB_NUM_LEDS);
-		p.create(i,rand,WB_NUM_LEDS);
-		particles[i] = p;
+void createParticles(){
+	for (int i = 0; i < NUM_STRIPS; i++){
+		for (int j = 0; j < NUM_PARTICLES; j++){
+			Particle p;
+			int r = random(LEDS_PER_STRIP[i]);
+			p.create(r,i,LEDS_PER_STRIP[i]);
+			particles[i][j] = p;
+		}
 	}
 }

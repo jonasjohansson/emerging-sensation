@@ -1,19 +1,20 @@
-void readSimple(byte pin, int &val, int &last){
-  val = analogRead(pin);
-  
-  val = (val > 512) ? 1 : 0;
+void readSimple(byte pin, int &val){
+  int newVal = analogRead(pin);
 
-  if (val == last) return;
+  newVal = (newVal > 512) ? 1 : 0;
 
-  if (val == 1) newTarget(pin);
+  if (newVal != val){
+    s(pin,newVal);
+    if (newVal == 1) {
+      c(pin,random(255),random(255),random(255));
+      newTarget(pin);
+    }
+    val = newVal;
+  }
   
-  s(pin,val);
-  //c(pin,val,random(0,255),random(0,255),random(0,255));
-  
-  last = val;
 }
 
-void c(byte pin, byte val, byte r, byte g, byte b){
+void c(byte pin, byte r, byte g, byte b){
   Serial.print("W"+String(pin));
   Serial.print(' ');
   Serial.println(String(r)+' '+String(g)+' '+String(b));

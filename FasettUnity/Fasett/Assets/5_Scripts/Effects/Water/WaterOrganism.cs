@@ -16,17 +16,18 @@ namespace Fasett {
         [SerializeField] private AnimationCurve _movementCurve;
         [SerializeField] private float _maxDistanceFromCenter;
 
-        private WaterEffect[] _triggers;
+        private WaterEffect[] _waterEffects;
         private float _cooldown;
         private float _attraction;
         private WaterEffect _currentTrigger;
         private Vector3 _centerpoint;
 
-        public void Setup(Effect[] triggers) {
+        public void Setup(Effect[] effects) {
             _trailRenderer = GetComponentInChildren<TrailRenderer>();
-            _triggers = (WaterEffect[]) triggers;
-            foreach (var trigger in _triggers) {
-                trigger.OnPressedChanged += TouchChanged;
+            _waterEffects = new WaterEffect[effects.Length];
+            for (int i = 0; i<effects.Length; i++) {
+                _waterEffects[i] = (WaterEffect)effects[i];
+                _waterEffects[i].OnPressedChanged += TouchChanged;
             }
         }
 
@@ -39,20 +40,20 @@ namespace Fasett {
 	    }
 
         public void End() {
-            foreach(var trigger in _triggers) {
+            foreach(var trigger in _waterEffects) {
                 trigger.OnPressedChanged -= TouchChanged;
             }
         }
 
         private void Update() {
-            if(_currentTrigger) {
-                if(_cooldown > 0) {
+            if(_currentTrigger != null) {
+                _attraction = Mathf.Clamp01(_attraction + (_currentTrigger.PressAmount > 0.5f ? Time.deltaTime : -Time.deltaTime));
+                if (_cooldown > 0) {
                     _cooldown -= Time.deltaTime;
                     if(_cooldown <= 0) {
                         _currentTrigger = null;
                     }
                 }
-                _attraction = Mathf.Clamp01(_attraction + (_currentTrigger.PressAmount > 0.5f ? Time.deltaTime : - Time.deltaTime));
             }
             else {
                 _attraction = Mathf.Clamp01(_attraction +  -Time.deltaTime);

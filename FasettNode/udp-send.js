@@ -110,11 +110,15 @@ function sendMessage(message) {
 }
 
 function sprayMessage(message) {
-	for (let i = 0; i < 20; i++) {
+	for (let i = 0; i < 10; i++) {
 		setTimeout(() => {
 			sendMessage(message);
 		}, i * 20);
 	}
 }
+
+// for (let i = 0; i < 10; i++) {
+// 	sprayMessage(`W${i} 255 0 0`);
+// }
 
 getPort();

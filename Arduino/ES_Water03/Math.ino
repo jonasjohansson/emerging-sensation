@@ -26,10 +26,6 @@ double mapf(double val, double in_min, double in_max, double out_min, double out
   return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-float lerp(float a, float b, float x){ 
-  return a + x * (b - a);
-}
-
 const uint8_t PROGMEM gamma8[] = {
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,
