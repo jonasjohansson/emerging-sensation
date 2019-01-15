@@ -1,8 +1,13 @@
-  DEFINE_GRADIENT_PALETTE( sky_14_gp ) {
-    0, 40, 50, 192,
-   68, 80, 0,  255,
-  165,  44,  1,  144,
-  255,   1,  1,  64};
+  // DEFINE_GRADIENT_PALETTE( sky_14_gp ) {
+  //   0, 40, 50, 192,
+  //  68, 80, 0,  255,
+  // 165,  44,  1,  144,
+  // 255,   1,  1,  64};
+
+DEFINE_GRADIENT_PALETTE( sky_14_gp ) {
+    0, 94, 9, 192,
+   128, 50, 0,  255,
+  255,  84,  1,  144};
 
 DEFINE_GRADIENT_PALETTE( sky_12_gp ) {
     0, 206, 78, 44,
@@ -50,4 +55,4 @@ const TProgmemRGBGradientPalettePtr buds_p[3] = {
   peach_purple_gp
 };
 
-CRGB budCols[3] = {CRGB::Purple, CRGB::Blue, CRGB::Red};
+CRGB budCols[3] = {CRGB(0,255,255), CRGB(0,250,255), CRGB::Red};
