@@ -11,6 +11,11 @@ namespace Fasett {
         [SerializeField] private AudioSource _maxedLoopAudioSource;
         private float _maxedSourceStartVolume;
 
+        private bool _isVisible;
+        private float _rawValue;
+        private float _smoothedValue;
+        [SerializeField] private float _smoothPower;
+
         private Vector3 _startScale;
         private Material _holeMaterial;
         private Material _edgeMaterial;
@@ -31,19 +36,27 @@ namespace Fasett {
 
         public override void UpdateEffect(float value) {
             base.UpdateEffect(value);
-            value /= 255;
-
-            _maxedLoopAudioSource.volume = _maxedSourceStartVolume * value;
-            _target.localScale = Vector3.Lerp(_startScale, _mostAffectedScale, value);
-
-            _edgeMaterial.SetFloat("_EndOfTunnelGlow", value);
-            _holeMaterial.SetFloat("_EndOfTunnelGlow", value);
-
+            _rawValue = value / 255;
         }
+
+        protected override void Update() {
+            base.Update();
+            if (_isVisible) {
+                _smoothedValue = Mathf.Lerp(_smoothedValue, _rawValue, Time.deltaTime * _smoothPower);
+
+                _maxedLoopAudioSource.volume = _maxedSourceStartVolume * _smoothedValue;
+                _target.localScale = Vector3.Lerp(_startScale, _mostAffectedScale, _smoothedValue);
+
+                _edgeMaterial.SetFloat("_EndOfTunnelGlow", _smoothedValue);
+                _holeMaterial.SetFloat("_EndOfTunnelGlow", _smoothedValue);
+            }
+        }
+
 
         public override void SetVisibility(float visibility) {
             base.SetVisibility(visibility);
-            _content.SetActive(visibility > 0);
+            _isVisible = visibility > 0;
+            _content.SetActive(_isVisible);
         
         }
     }

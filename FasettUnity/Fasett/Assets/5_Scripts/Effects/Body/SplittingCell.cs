@@ -32,6 +32,9 @@ namespace Fasett {
         public override void SetVisibility(float visibility) {
             base.SetVisibility(visibility);
             _animator.gameObject.SetActive(visibility > 0);
+            if (visibility <= 0) {
+                _splitCount = 0;
+            }
         }
 
         protected override void Update() {
