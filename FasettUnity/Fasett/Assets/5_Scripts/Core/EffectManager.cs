@@ -23,6 +23,7 @@ namespace Fasett {
         private bool _calibrating;
         private bool _calibrateNextEffect;
         private bool _loadingCalibration;
+        private bool _exportingCalibration;
 
         private Action<bool> _setupCompleteCallback;
         private Action<string> _updateLoadingMessageCallback;
@@ -35,7 +36,7 @@ namespace Fasett {
 
         public bool IsCalibrating {
             get {
-                return _calibrating || _loadingCalibration;
+                return _calibrating || _loadingCalibration || _exportingCalibration;
             }
         }
 
@@ -64,6 +65,19 @@ namespace Fasett {
 #else
             Invoke("LoadedFromEditor", 5.0f);
 #endif
+        }
+
+        public void ExportCalibration() {
+            if (!_exportingCalibration) {
+                StartCoroutine(ExportCalibrationCoroutine());
+            }
+        }
+
+        private IEnumerator ExportCalibrationCoroutine() {
+            _exportingCalibration = true;
+            AnchorAllEffects();
+            yield return new WaitForSeconds(2);
+            ConcludeCalibration();
         }
 
         private void LoadedFromEditor() {
@@ -173,11 +187,7 @@ namespace Fasett {
             foreach (Effect e in _effects) {
                 yield return CalibrateEffectCoroutine(e);
             }
-            // All effects positioned, wait a little to allow all anchors to register, then serialize the world anchor transfer batch
-            yield return new WaitForSeconds(1);
-            AnchorAllEffects();
-            yield return new WaitForSeconds(2);
-            ConcludeCalibration();
+            _calibrating = false;
         }
 
         private IEnumerator CalibrateClosestEffectCoroutine() {
@@ -194,10 +204,7 @@ namespace Fasett {
             }
             PrepareEffectForCalibration(closest, false);
             yield return CalibrateEffectCoroutine(closest);
-            yield return new WaitForSeconds(1);
-            AnchorAllEffects();
-            yield return new WaitForSeconds(2);
-            ConcludeCalibration();
+            _calibrating = false;
         }
 
         private void PrepareEffectForCalibration(Effect effect, bool move = true) {
@@ -321,6 +328,7 @@ namespace Fasett {
         private void UploadCompleted() {
             Debug.Log("[Effect Manager] Azure upload completed.");
             _calibrationFinishedMessage.gameObject.SetActive(false);
+            _exportingCalibration = false;
         }
 #endif
 

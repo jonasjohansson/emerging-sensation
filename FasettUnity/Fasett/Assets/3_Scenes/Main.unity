@@ -2130,7 +2130,8 @@ TextMesh:
     effects by making and holding a tap gesture, then moving \nyour hand. Tap and
     hold with both hands to rotate.\n\nSay \"Next effect\" or \"OK\" when you are
     done calibrating an effect.\n\nSay \"Calibrate closest\" to adjust the closest
-    effect.\n\nSay \"Start demo\" when the exhibit is ready for visitors.\n\nSay \"Information\"
+    effect.\n\nSay \"Export Calibration\" to save and upload the calibration.\n\nSay
+    \"Start demo\" when the exhibit is ready for visitors.\n\nSay \"Information\"
     to toggle this screen."
   m_OffsetZ: 0
   m_CharacterSize: 1
