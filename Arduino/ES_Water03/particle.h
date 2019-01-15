@@ -1,5 +1,5 @@
 #define SMOOTHSTEP(x) ((x) * (x) * (3 - 2 * (x)))
-#define N 12.0
+#define N 8.0
 
 int plasma[9] = {0,64,128,192,255,192,128,64,0};
 
@@ -35,7 +35,7 @@ void Particle::create(int p, int index, int len){
 	this->attracts = false;
 	this->currentMillis = 0;
 	this->previousMillis = 0;
-	this->color = CRGB::Blue;
+	this->color = CRGB::White;
 	this->palette = buds_p[index];
 	this->flutterInterval = random(4000,8000);
 	this->length = len;
@@ -62,7 +62,7 @@ void Particle::draw(){
 		int index = sin8( (millis() / 1000 )) * 0.25
 	        + cos8( millis() / 5 + cos8(millis() / 5000)) * 0.125;
 		int fade = cos8(millis() / 200);
-        leds[this->index][this->p] += ColorFromPalette(this->palette, index, fade, LINEARBLEND); 
+        // leds[this->index][this->p] += ColorFromPalette(this->palette, index, fade, LINEARBLEND); 
     }
 }
 
