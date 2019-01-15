@@ -36,7 +36,7 @@ namespace Fasett {
                 if (dir.magnitude < _outerRadius) {
                     float distance = Mathf.Clamp01(Mathf.InverseLerp(_innerRadius, _outerRadius, dir.magnitude));
                     Vector3 targetPos = particles[i].position - dir.normalized * distance;
-                    float pull = power * distance * Time.deltaTime;
+                    float pull = power * distance * Time.deltaTime * _power;
                     
                     particles[i].position = Vector3.Lerp(particles[i].position, targetPos, pull);
                     particles[i].color = Color.Lerp(particles[i].color, color, pull);

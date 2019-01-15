@@ -15049,7 +15049,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.07
+  _innerRadius: 0.02
   _outerRadius: 1.32
   _movement:
     serializedVersion: 2
@@ -15070,7 +15070,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _fullGlow: 2
-  _power: 3
+  _power: 4
   _trigger: {fileID: 114397793568890168}
 --- !u!114 &114042300821841520
 MonoBehaviour:
@@ -15881,7 +15881,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.07
+  _innerRadius: 0.02
   _outerRadius: 1.32
   _movement:
     serializedVersion: 2
@@ -15902,7 +15902,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _fullGlow: 2
-  _power: 3
+  _power: 4
   _trigger: {fileID: 114426339485098548}
 --- !u!114 &114388856431078978
 MonoBehaviour:
@@ -16109,7 +16109,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.07
+  _innerRadius: 0.02
   _outerRadius: 1.32
   _movement:
     serializedVersion: 2
@@ -16130,7 +16130,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _fullGlow: 2
-  _power: 3
+  _power: 4
   _trigger: {fileID: 114368704920816026}
 --- !u!114 &114448598233122584
 MonoBehaviour:
@@ -16435,7 +16435,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.07
+  _innerRadius: 0.02
   _outerRadius: 1.32
   _movement:
     serializedVersion: 2
@@ -16456,7 +16456,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _fullGlow: 2
-  _power: 3
+  _power: 4
   _trigger: {fileID: 114281368576472698}
 --- !u!114 &114577649091626700
 MonoBehaviour:
@@ -16555,7 +16555,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.07
+  _innerRadius: 0.02
   _outerRadius: 1.32
   _movement:
     serializedVersion: 2
@@ -16576,7 +16576,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _fullGlow: 2
-  _power: 3
+  _power: 4
   _trigger: {fileID: 114091272948472630}
 --- !u!114 &114626723695624316
 MonoBehaviour:
@@ -16636,7 +16636,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.07
+  _innerRadius: 0.02
   _outerRadius: 1.32
   _movement:
     serializedVersion: 2
@@ -16657,7 +16657,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _fullGlow: 2
-  _power: 3
+  _power: 4
   _trigger: {fileID: 114872152596142002}
 --- !u!114 &114642209229674394
 MonoBehaviour:
@@ -16769,7 +16769,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.07
+  _innerRadius: 0.02
   _outerRadius: 1.32
   _movement:
     serializedVersion: 2
@@ -16790,7 +16790,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _fullGlow: 2
-  _power: 3
+  _power: 4
   _trigger: {fileID: 114489254729542370}
 --- !u!114 &114733230367875750
 MonoBehaviour:
@@ -16873,7 +16873,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 4
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.07
+  _innerRadius: 0.02
   _outerRadius: 1.32
   _movement:
     serializedVersion: 2
@@ -16894,7 +16894,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _fullGlow: 2
-  _power: 3
+  _power: 4
   _trigger: {fileID: 114996646794739404}
 --- !u!114 &114758704738511748
 MonoBehaviour:
@@ -17066,7 +17066,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.07
+  _innerRadius: 0.02
   _outerRadius: 1.32
   _movement:
     serializedVersion: 2
@@ -17087,7 +17087,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _fullGlow: 2
-  _power: 3
+  _power: 4
   _trigger: {fileID: 114378838627242658}
 --- !u!114 &114863220346686496
 MonoBehaviour:
@@ -17277,7 +17277,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _particleSystem: {fileID: 198087644410510268}
-  _innerRadius: 0.07
+  _innerRadius: 0.02
   _outerRadius: 1.32
   _movement:
     serializedVersion: 2
@@ -17298,7 +17298,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _fullGlow: 2
-  _power: 3
+  _power: 4
   _trigger: {fileID: 114192703447092772}
 --- !u!114 &114932111031018000
 MonoBehaviour:
@@ -18032,7 +18032,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.03
-      minScalar: 0.05
+      minScalar: 0.02
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -18439,7 +18439,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 15
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -18659,11 +18659,11 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   RotationModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 2
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -18703,8 +18703,8 @@ ParticleSystem:
         m_RotationOrder: 4
     y:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 2
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -18744,7 +18744,7 @@ ParticleSystem:
         m_RotationOrder: 4
     curve:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 2
       scalar: 0.7853982
       minScalar: 0.7853982
       maxCurve:
@@ -18752,19 +18752,19 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 1
+          value: -1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
         - serializedVersion: 2
           time: 1
-          value: 1
+          value: 0.011673093
           inSlope: 0
           outSlope: 0
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
       minCurve:
         serializedVersion: 2
         m_Curve:
@@ -18776,13 +18776,13 @@ ParticleSystem:
           tangentMode: 0
         - serializedVersion: 2
           time: 1
-          value: 1
+          value: 0.01945525
           inSlope: 0
           outSlope: 0
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 4
+        m_RotationOrder: 0
     separateAxes: 0
   ColorModule:
     enabled: 0
