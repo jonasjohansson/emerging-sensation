@@ -5,17 +5,20 @@ void readSimple(byte pin, int &val){
 
   if (newVal != val){
     s(pin,newVal);
-    if (newVal == 1) newTarget(pin);
+    if (newVal == 1) {
+      c(pin,random(255),random(255),random(255));
+      newTarget(pin);
+    }
+    val = newVal;
   }
   
-  val = newVal;
 }
 
-// void c(byte pin, byte val, byte r, byte g, byte b){
-//   Serial.print("W"+String(pin));
-//   Serial.print(' ');
-//   Serial.println(String(r)+' '+String(g)+' '+String(b));
-// }
+void c(byte pin, byte r, byte g, byte b){
+  Serial.print("W"+String(pin));
+  Serial.print(' ');
+  Serial.println(String(r)+' '+String(g)+' '+String(b));
+}
 
 void s(byte pin, int val){
   Serial.print("W"+String(pin));
