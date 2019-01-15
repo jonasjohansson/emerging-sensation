@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace Fasett {
     public class SkyEffect : Effect {
+        public bool IsVisible { private set; get; }
+
         [SerializeField] private Transform _target;
         [SerializeField] private GameObject _content;
         [SerializeField] private Vector3 _mostAffectedScale;
@@ -11,9 +13,9 @@ namespace Fasett {
         [SerializeField] private AudioSource _maxedLoopAudioSource;
         private float _maxedSourceStartVolume;
 
-        private bool _isVisible;
         private float _rawValue;
         private float _smoothedValue;
+        private float _sideView = 1;
         [SerializeField] private float _smoothPower;
 
         private Vector3 _startScale;
@@ -41,8 +43,8 @@ namespace Fasett {
 
         protected override void Update() {
             base.Update();
-            if (_isVisible) {
-                _smoothedValue = Mathf.Lerp(_smoothedValue, _rawValue, Time.deltaTime * _smoothPower);
+            if (IsVisible) {
+                _smoothedValue = Mathf.Lerp(_smoothedValue, _rawValue, Time.deltaTime * _smoothPower    );
 
                 _maxedLoopAudioSource.volume = _maxedSourceStartVolume * _smoothedValue;
                 _target.localScale = Vector3.Lerp(_startScale, _mostAffectedScale, _smoothedValue);
@@ -55,9 +57,21 @@ namespace Fasett {
 
         public override void SetVisibility(float visibility) {
             base.SetVisibility(visibility);
-            _isVisible = visibility > 0;
-            _content.SetActive(_isVisible);
-        
+            IsVisible = visibility > 0;
+            UpdateVisibility();
+        }
+
+        public void SetSideView(float value) {
+            _sideView = value;
+            UpdateVisibility();
+        }
+
+        private void UpdateVisibility() {
+            _content.SetActive(IsVisible && _sideView > 0);
+            if (_content.activeSelf && _edgeMaterial != null) {
+                _edgeMaterial.SetFloat("_Visibility", _sideView);
+                _holeMaterial.SetFloat("_Visibility", _sideView);
+            }
         }
     }
 }

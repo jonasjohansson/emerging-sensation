@@ -10,7 +10,8 @@ Shader "Shader Forge/SkyTunnel" {
         _XPan ("XPan", Float ) = 0.1
         _YPan ("YPan", Float ) = 0.1
         _EndOfTunnelGlow ("EndOfTunnelGlow", Float ) = 0
-        [HDR]_EndOfTunnel ("EndOfTunnel", Color) = (0.5,0.5,0.5,1)
+        _Visibility ("Visibility", Float ) = 1
+       [HDR]_EndOfTunnel ("EndOfTunnel", Color) = (0.5,0.5,0.5,1)
         [HideInInspector]_Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
     }
     SubShader {
@@ -40,6 +41,7 @@ Shader "Shader Forge/SkyTunnel" {
             uniform float _XPan;
             uniform float _YPan;
             uniform float _EndOfTunnelGlow;
+            uniform float _Visibility;
             uniform float4 _EndOfTunnel;
             struct VertexInput {
                 float4 vertex : POSITION;
@@ -52,7 +54,6 @@ Shader "Shader Forge/SkyTunnel" {
                 float2 uv0 : TEXCOORD0;
                 float2 uv1 : TEXCOORD1;
                 float4 vertexColor : COLOR;
-                UNITY_FOG_COORDS(2)
             };
             VertexOutput vert (VertexInput v) {
                 VertexOutput o = (VertexOutput)0;
@@ -60,24 +61,21 @@ Shader "Shader Forge/SkyTunnel" {
                 o.uv1 = v.texcoord1;
                 o.vertexColor = v.vertexColor;
                 o.pos = UnityObjectToClipPos( v.vertex );
-                UNITY_TRANSFER_FOG(o,o.pos);
                 return o;
             }
             float4 frag(VertexOutput i) : COLOR {
 ////// Lighting:
 ////// Emissive:
-                float4 node_9105 = _Time;
+                fixed4 node_9105 = _Time;
                 float2 node_2107 = (i.uv1+(float2(_XPan,_YPan)*node_9105.r));
                 float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(node_2107, _MainTex));
                 float node_798 = (_MainTex_var.a*i.vertexColor.a*_TintColor.a);
-                float3 emissive = ((((_MainTex_var.r+_MainTex_var.g)*i.vertexColor.rgb*_TintColor.rgb*2.0)+(i.uv0.g*_EndOfTunnelGlow*_EndOfTunnel.rgb))*node_798);
-                float3 finalColor = emissive;
-                fixed4 finalRGBA = fixed4(finalColor,node_798);
-                UNITY_APPLY_FOG(i.fogCoord, finalRGBA);
+                fixed3 emissive = ((((_MainTex_var.r+_MainTex_var.g)*i.vertexColor.rgb*_TintColor.rgb*2.0)+(i.uv0.g*_EndOfTunnelGlow*_EndOfTunnel.rgb))*node_798);
+                fixed3 finalColor = emissive;
+                fixed4 finalRGBA = fixed4(finalColor * _Visibility,node_798);
                 return finalRGBA;
             }
             ENDCG
         }
     }
-    CustomEditor "ShaderForgeMaterialInspector"
 }

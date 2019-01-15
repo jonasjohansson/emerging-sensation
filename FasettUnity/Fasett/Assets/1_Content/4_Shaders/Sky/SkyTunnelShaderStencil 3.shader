@@ -5,6 +5,7 @@ Shader "Fasett/Sky/SkyTunnelStencil4" {
         _XPan ("XPan", Float ) = 0.1
         _YPan ("YPan", Float ) = 0.1
         _EndOfTunnelGlow ("EndOfTunnelGlow", Float ) = 0
+        _Visibility ("Visibility", Float ) = 1
         [HDR]_EndOfTunnel ("EndOfTunnel", Color) = (0.5,0.5,0.5,1)
         [HideInInspector]_Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
     }
@@ -42,6 +43,7 @@ Shader "Fasett/Sky/SkyTunnelStencil4" {
             uniform float _XPan;
             uniform float _YPan;
             uniform float _EndOfTunnelGlow;
+            uniform float _Visibility;
             uniform float4 _EndOfTunnel;
             
             struct VertexInput {
@@ -72,7 +74,7 @@ Shader "Fasett/Sky/SkyTunnelStencil4" {
                 fixed storm = (_MainTex_var.r+_MainTex_var.g)*0.5;
                 fixed3 emissive = ((storm*_TintColor.rgb*2.0)+(i.uv0.g*_EndOfTunnelGlow*_EndOfTunnel.rgb));
                 fixed3 finalColor = emissive;
-                fixed4 finalRGBA = fixed4(finalColor,(_MainTex_var.a*i.vertexColor.a*_TintColor.a));
+                fixed4 finalRGBA = fixed4(finalColor * _Visibility,(_MainTex_var.a*i.vertexColor.a*_TintColor.a));
                 return finalRGBA;
             }
             ENDCG
