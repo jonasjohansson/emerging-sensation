@@ -10,6 +10,7 @@ Particle particles[NUM_STRIPS][NUM_PARTICLES];
 
 int sensorValues[NUM_STRIPS][NUM_SENSORS];
 int targetValues[NUM_STRIPS];
+int disco[NUM_STRIPS];
 
 void setup() {
 	FastLED.setBrightness(192);
@@ -39,7 +40,7 @@ void loop() {
 
 		// background
 		for (int j = 0; j < LEDS_PER_STRIP[i]; j++){
-			int index = cos8( j + millis() / 60 );
+			int index = cos8( j + millis() / (60/disco[i]) );
 			// (i * j) * 72 / 144
 				// + sin8( (i + j) + millis() / 100 ) * 0.25
                     // + cos8( (i * 36 + j) * 12 + (millis() / 5 + cos8(millis() / 5000)) ) * 0.125;
@@ -65,6 +66,11 @@ void loop() {
 			if (sensorTotal != 0){
 				particles[i][j].target = targetValues[i];
 				particles[i][j].attracts = true;
+				if (sensorTotal >= 2){
+					disco[i] = 20;
+				} else {
+					disco[i] = 0;
+				}
 			} else {
 				// particles[i][j].target = particles[i][j].origin;
 				particles[i][j].flutter();

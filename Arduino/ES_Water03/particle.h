@@ -1,5 +1,5 @@
 #define SMOOTHSTEP(x) ((x) * (x) * (3 - 2 * (x)))
-#define N 8.0
+#define N 14.0
 
 int plasma[9] = {0,64,128,192,255,192,128,64,0};
 
@@ -18,6 +18,7 @@ class Particle {
 		int fade;
 		CRGBPalette16 palette;
 		bool attracts;
+		bool disco;
 		CRGB color;
 		void create(int p, int index, int len);
 		void integrate();
@@ -33,6 +34,7 @@ void Particle::create(int p, int index, int len){
 	this->index = index;
 	this->target = p;
 	this->attracts = false;
+	this->disco = false;
 	this->currentMillis = 0;
 	this->previousMillis = 0;
 	this->color = CRGB::White;
@@ -53,7 +55,7 @@ void Particle::attract(){
 
 void Particle::draw(){
 	leds[this->index][this->last] += blend(leds[this->index][this->last],CRGB::Black,127);
-	leds[this->index][this->p] += blend(leds[this->index][this->p],this->color,255); 
+	leds[this->index][this->p] += blend(leds[this->index][this->p],this->color,127); 
 	// for (int i = 0; i < 11; i++){
 	// 	int fade = plasma[i];
 	// 	leds[this->index][this->p+i] += blend(leds[this->index][this->p+i],CRGB(127,255,255),fade); 
@@ -62,7 +64,13 @@ void Particle::draw(){
 		int index = sin8( (millis() / 1000 )) * 0.25
 	        + cos8( millis() / 5 + cos8(millis() / 5000)) * 0.125;
 		int fade = cos8(millis() / 200);
-        // leds[this->index][this->p] += ColorFromPalette(this->palette, index, fade, LINEARBLEND); 
+        leds[this->index][this->p] += ColorFromPalette(this->palette, index, fade, LINEARBLEND); 
+    }
+	if (this->disco){
+		int index = sin8( (millis() / 1000 )) * 0.25
+	        + cos8( millis() / 5 + cos8(millis() / 5000)) * 0.125;
+		int fade = cos8(millis() / 20);
+        leds[this->index][this->p] = ColorFromPalette(this->palette, index, fade, LINEARBLEND); 
     }
 }
 
@@ -70,6 +78,7 @@ void Particle::flutter(){
 	this->currentMillis = millis();
 	if (this->currentMillis - this->previousMillis > this->flutterInterval){
 		this->previousMillis = this->currentMillis;
-		this->target = random(LEDS_PER_STRIP[this->index]);
+		int len = LEDS_PER_STRIP[this->index];
+		this->target = constrain(random(len)+random(-32,32),0,len);
 	}
 }
