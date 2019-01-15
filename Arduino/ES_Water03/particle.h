@@ -1,5 +1,5 @@
 #define SMOOTHSTEP(x) ((x) * (x) * (3 - 2 * (x)))
-#define N 32.0
+#define N 34.0
 
 float lerp(float a, float b, float x){ 
   return a + x * (b - a);
@@ -61,7 +61,7 @@ void Particle::attract(){
 
 void Particle::draw(){
 	leds[this->index][this->last] += blend(leds[this->index][this->last],CRGB::Black,127);
-	leds[this->index][this->p] += blend(leds[this->index][this->p],this->color,255); 
+	leds[this->index][this->p] += blend(leds[this->index][this->p],this->color,224); 
 	// if (this->attracts){
 	// 	this->fade = cos8(millis() / 20);
 	// 	leds[this->index][this->p] += nblend(leds[this->index][this->p],CRGB::Black,fade); 
