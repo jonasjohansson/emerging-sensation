@@ -13,12 +13,16 @@ namespace Fasett {
                 _effect.SetColorAsync(_color);
 
                 bool isSKyEffect = (_effect.GetType() == typeof(SkyEffect));
-                _effect.SetValueAsync(isSKyEffect ? _value * 255 : _value);
-
                 bool isBodyEffect = (_effect.GetType() == typeof(SplittingCell));
-                _effect.SetValueAsync(isBodyEffect ? _value * 4 : _value);
+
+                if (isSKyEffect) { 
+                    _effect.SetValueAsync(isSKyEffect ? _value * 255 : _value);
+                } else if (isBodyEffect) { 
+                    _effect.SetValueAsync(isBodyEffect ? _value * 4 : _value);
+                }
 
             }
         }
+
     }
 }

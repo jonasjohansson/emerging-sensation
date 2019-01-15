@@ -15,6 +15,7 @@ namespace Fasett {
         private bool _isVisible;
         private float _rawValue;
         private float _smoothedValue;
+        [SerializeField] private float _smoothPower;
 
         private Vector3 _startScale;
         private Material _holeMaterial;
@@ -43,7 +44,7 @@ namespace Fasett {
         protected override void Update() {
             base.Update();
             if (_isVisible) {
-                _smoothedValue = Mathf.Lerp(_smoothedValue, _rawValue, Time.deltaTime);
+                _smoothedValue = Mathf.Lerp(_smoothedValue, _rawValue, Time.deltaTime * _smoothPower);
 
                 _maxedLoopAudioSource.volume = _maxedSourceStartVolume * _smoothedValue;
                 _target.localScale = Vector3.Lerp(_startScale, _mostAffectedScale, _smoothedValue);
