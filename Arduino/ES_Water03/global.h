@@ -8,7 +8,7 @@
 #define NUM_SENSORS 10
 #define NUM_LEDS 300
 #define NUM_STRIPS 3
-#define NUM_PARTICLES 60
+#define NUM_PARTICLES 50
 
 #define WA_NUM_PARTS 10
 #define WB_NUM_PARTS 10

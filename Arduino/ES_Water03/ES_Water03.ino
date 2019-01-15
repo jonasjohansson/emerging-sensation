@@ -63,7 +63,7 @@ void loop() {
 			
 			// if any sensor is touched
 			if (sensorTotal != 0){
-				particles[i][j].target = targetValues[i]+random(7);
+				particles[i][j].target = targetValues[i];
 				particles[i][j].attracts = true;
 			} else {
 				// particles[i][j].target = particles[i][j].origin;
@@ -85,7 +85,7 @@ void loop() {
 			        + cos8( millis() / 50 + cos8(millis() / 5000)) ) * 0.125;
 				int fade = 128 + cos8(millis() / 2000)*0.5;
 				CRGB color = ColorFromPalette(bud_p, index, fade, LINEARBLEND);
-				leds[i][p+k] += blend(leds[i][p+k],ColorFromPalette(bud_p,index,255,LINEARBLEND),255);
+				leds[i][p+k] = blend(leds[i][p+k],ColorFromPalette(bud_p,index,255,LINEARBLEND),255);
 				// if (sensorTotal > 0){
 				// 	fade = sin8(millis() / 15);
 				// 	leds[i][p+k] += nblend(leds[i][p+k],ColorFromPalette(bud_p,0,fade,LINEARBLEND),fade);
