@@ -1,7 +1,7 @@
   DEFINE_GRADIENT_PALETTE( sky_14_gp ) {
-    0, 164, 78, 192,
-   68, 128, 57,  92,
-  165,  44,  1,  96,
+    0, 40, 50, 192,
+   68, 80, 0,  255,
+  165,  44,  1,  144,
   255,   1,  1,  64};
 
 DEFINE_GRADIENT_PALETTE( sky_12_gp ) {
@@ -32,16 +32,20 @@ DEFINE_GRADIENT_PALETTE( sky_15_gp ) {
 // Size: 264 bytes of program space.
 
 DEFINE_GRADIENT_PALETTE( peach_purple_gp ) {
-    0,   1,  0,  1,
-  192, 123, 24, 64,
-  230, 194, 87, 87,
-  255, 255,184,160};
+    0, 0, 0,255,
+  192, 0, 0, 64,
+  230, 0, 0, 87,
+  255, 0,184,160};
 
 
-const TProgmemRGBGradientPalettePtr gGradientPalettes[3] = {
-	sky_12_gp,
-	sky_12_gp,
-	test
+const TProgmemRGBGradientPalettePtr backgrounds_p[3] = {
+  sky_14_gp,
+  sky_12_gp,
+  test
 };
 
-CRGBPalette16 buds_p = peach_purple_gp;
+const TProgmemRGBGradientPalettePtr buds_p[3] = {
+  peach_purple_gp,
+  peach_purple_gp,
+  peach_purple_gp
+};
