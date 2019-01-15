@@ -22,6 +22,7 @@ unsigned long timer = 0;
 unsigned long lastFrame = 0;
 unsigned long thisFrame = 0;
 
+boolean firstTime = true;
 
 int skyMap[4][4][2][2] = {
   { // top
@@ -63,9 +64,8 @@ float sensorRaw[NUM_SENSORS];
 float raveFade;
 int raveTrigger=100;
 
-
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   FastLED.addLeds<NEOPIXEL, 6>(leds[0], NUM_LEDS);
   FastLED.addLeds<NEOPIXEL, 20>(leds[1], NUM_LEDS);
   FastLED.addLeds<NEOPIXEL, 21>(leds[2], NUM_LEDS);
@@ -255,6 +255,13 @@ void loop() {
     readAdvanced(i, sensor[i], sensorLast[i], 200, 500);
     timer += frameLength/8 + frameLength/NUM_SENSORS * (255-sensor[i]) / 127;
     sensorTot+=sensor[1];
+  }
+
+  if (firstTime){
+    delay(2000);
+    Serial.println("Sensors settling…");
+    delay(2000);
+    firstTime = false;
   }
   
   raveFade=constrain(raveFade-frameLength/2,0,1023);

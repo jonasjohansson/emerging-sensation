@@ -34,12 +34,13 @@ void Particle::create(int p, int index, int len){
 	this->origin = p;
 	this->index = index;
 	this->target = p;
+	this->fade = 0;
 	this->attracts = false;
 	this->currentMillis = 0;
 	this->previousMillis = 0;
 	this->color = CRGB::White;
 	this->palette = buds_p[index];
-	this->flutterInterval = random(6000,9000);
+	this->flutterInterval = random(4000,8000);
 	this->length = len;
 }
 
@@ -55,23 +56,22 @@ void Particle::attract(){
 
    this->p = lerp(this->p, this->target, 0.1);
 
-
    this->last = this->p;
 }
 
 void Particle::draw(){
 	leds[this->index][this->last] += blend(leds[this->index][this->last],CRGB::Black,127);
-	leds[this->index][this->p] += blend(leds[this->index][this->p],this->color,192); 
+	leds[this->index][this->p] += blend(leds[this->index][this->p],this->color,255); 
+	// if (this->attracts){
+	// 	this->fade = cos8(millis() / 20);
+	// 	leds[this->index][this->p] += nblend(leds[this->index][this->p],CRGB::Black,fade); 
+ //    } else {
+ //    	this->fade = 255;
+ //    }
 	// for (int i = 0; i < 11; i++){
 	// 	int fade = plasma[i];
 	// 	leds[this->index][this->p+i] += blend(leds[this->index][this->p+i],CRGB(127,255,255),fade); 
 	// } 
-	// if (this->attracts){
-	// 	int index = sin8( (millis() / 1000 )) * 0.25
-	//         + cos8( millis() / 5 + cos8(millis() / 5000)) * 0.125;
-	// 	int fade = cos8(millis() / 200);
- //        leds[this->index][this->p] += ColorFromPalette(this->palette, index, fade, LINEARBLEND); 
- //    }
 }
 
 void Particle::flutter(){
