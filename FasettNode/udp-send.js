@@ -110,10 +110,10 @@ function sendMessage(message) {
 }
 
 function sprayMessage(message) {
-	for (let i = 0; i < 4; i++) {
+	for (let i = 0; i < 3; i++) {
 		setTimeout(() => {
 			sendMessage(message);
-		}, i * 20);
+		}, i * 40);
 	}
 }
 
