@@ -12,6 +12,7 @@ Particle particles[NUM_STRIPS][NUM_PARTICLES];
 
 int sensorValues[NUM_STRIPS][NUM_SENSORS];
 int targetValues[NUM_STRIPS];
+long sensorTimers[NUM_SENSORS];
 
 boolean isCalibrating = true;
 
