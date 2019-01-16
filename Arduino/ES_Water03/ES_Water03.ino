@@ -12,12 +12,12 @@ Particle particles[NUM_STRIPS][NUM_PARTICLES];
 
 int sensorValues[NUM_STRIPS][NUM_SENSORS];
 int targetValues[NUM_STRIPS];
-int disco[NUM_STRIPS];
 
-boolean firstTime = true;
+boolean isCalibrating = true;
 
 void setup() {
-	FastLED.setBrightness(144);
+  Serial.begin(9600);
+	FastLED.setBrightness(96);
 	FastLED.addLeds<NEOPIXEL, 3>(leds[0], LEDS_PER_STRIP[0]);
 	FastLED.addLeds<NEOPIXEL, 4>(leds[1], LEDS_PER_STRIP[1]);
 	FastLED.addLeds<NEOPIXEL, 2>(leds[2], LEDS_PER_STRIP[2]);
@@ -26,14 +26,6 @@ void setup() {
 }
 
 void loop() {
-
-  
-  if (firstTime){
-    delay(2000);
-    Serial.println("Sensors settling…");
-    delay(2000);
-    firstTime = false;
-  }
   
 	// for each sensor
 	int pin = 0;
@@ -43,6 +35,12 @@ void loop() {
 			pin++;
 		}
 	}
+ 
+  // calibration code
+  if (isCalibrating && millis() > 5000) {
+    isCalibrating = false;
+    Serial.println("Water calibration complete!");
+  }
 
 	// for each strip
 	for (int i = 0; i < NUM_STRIPS; i++){
@@ -94,13 +92,10 @@ void loop() {
 		for (int j = 0; j < BUDS_PER_STRIP[i]; j++){
 			int p = BUDS[i][j];
 			for (int k = 0; k < 15; k++){
-				leds[i][p+k] += nblend(leds[i][p+k],budCols[i],255);
-				if (sensorTotal > 0){
-					int fade = cos8(millis() / (250 / sensorTotal)) * 0.5
-						+ sin8( (p * (i + j)) + millis() / 10 ) * 0.5;
-					leds[i][p+k] += nblend(leds[i][p+k],CRGB::Black,224);
-					leds[i][p+k] = blend(leds[i][p+k],CRGB::White,fade);
-				}
+				leds[i][p+k] = budCols[i];
+        int fade = cos8(millis() / (250 / sensorTotal)) * 0.5
+            + sin8( (p * (i + j)) + millis() / 10 ) * 0.5;
+				leds[i][p+k] = blend(leds[i][p+k],CRGB::White,fade);
 			}
 		}
 	}

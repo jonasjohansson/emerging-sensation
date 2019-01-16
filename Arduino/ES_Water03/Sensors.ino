@@ -15,12 +15,14 @@ void readSimple(byte pin, int &val){
 }
 
 void c(byte pin, byte r, byte g, byte b){
+  if (isCalibrating) return;
   Serial.print("W"+String(pin));
   Serial.print(' ');
   Serial.println(String(r)+' '+String(g)+' '+String(b));
 }
 
 void s(byte pin, int val){
+  if (isCalibrating) return;
   Serial.print("W"+String(pin));
   Serial.print(' ');
   Serial.println(val);

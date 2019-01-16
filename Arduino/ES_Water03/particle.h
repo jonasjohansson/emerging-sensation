@@ -1,5 +1,5 @@
 #define SMOOTHSTEP(x) ((x) * (x) * (3 - 2 * (x)))
-#define N 34.0
+#define N 40.0
 
 float lerp(float a, float b, float x){ 
   return a + x * (b - a);

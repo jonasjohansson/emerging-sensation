@@ -55,4 +55,4 @@ const TProgmemRGBGradientPalettePtr buds_p[3] = {
   peach_purple_gp
 };
 
-CRGB budCols[3] = {CRGB(64,255,0), CRGB(0,255,0), CRGB(255,0,0)};
+CRGB budCols[3] = {CRGB(128,196,0), CRGB(0,255,0), CRGB(255,0,0)};
