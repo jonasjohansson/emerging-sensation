@@ -14,6 +14,8 @@ int sensorValues[NUM_STRIPS][NUM_SENSORS];
 int targetValues[NUM_STRIPS];
 int disco[NUM_STRIPS];
 
+boolean firstTime = true;
+
 void setup() {
 	FastLED.setBrightness(144);
 	FastLED.addLeds<NEOPIXEL, 3>(leds[0], LEDS_PER_STRIP[0]);
@@ -25,6 +27,14 @@ void setup() {
 
 void loop() {
 
+  
+  if (firstTime){
+    delay(2000);
+    Serial.println("Sensors settling…");
+    delay(2000);
+    firstTime = false;
+  }
+  
 	// for each sensor
 	int pin = 0;
 	for (int i = 0; i < NUM_STRIPS; i++) {
