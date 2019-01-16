@@ -14578,7 +14578,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1681067657218138}
-  m_Text: S0
+  m_Text: S1
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -14725,7 +14725,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1670231213210320}
-  m_Text: S0
+  m_Text: S3
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -14979,7 +14979,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1889404695886574}
-  m_Text: S0
+  m_Text: S2
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -15152,6 +15152,7 @@ MonoBehaviour:
   _mostAffectedScale: {x: 0.3, y: 0.3, z: 0.5}
   _maxedLoopAudioSource: {fileID: 82895076886514870}
   _smoothPower: 1
+  _blockerRenderer: {fileID: 23897412321712588}
 --- !u!114 &114069561689391404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15372,6 +15373,7 @@ MonoBehaviour:
   _mostAffectedScale: {x: 0.3, y: 0.3, z: 0.5}
   _maxedLoopAudioSource: {fileID: 82970476151088150}
   _smoothPower: 1
+  _blockerRenderer: {fileID: 23651550427404646}
 --- !u!114 &114178507341692010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16549,6 +16551,7 @@ MonoBehaviour:
   _mostAffectedScale: {x: 0.3, y: 0.3, z: 0.5}
   _maxedLoopAudioSource: {fileID: 82387856489408988}
   _smoothPower: 1
+  _blockerRenderer: {fileID: 23999103435590876}
 --- !u!114 &114599103445066298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -17170,6 +17173,7 @@ MonoBehaviour:
   _mostAffectedScale: {x: 0.3, y: 0.3, z: 0.5}
   _maxedLoopAudioSource: {fileID: 82969203257015132}
   _smoothPower: 1
+  _blockerRenderer: {fileID: 23473396906511638}
 --- !u!114 &114840580009768704
 MonoBehaviour:
   m_ObjectHideFlags: 1
