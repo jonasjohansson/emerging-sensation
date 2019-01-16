@@ -21,6 +21,8 @@ namespace Fasett {
         private Vector3 _startScale;
         private Material _holeMaterial;
         private Material _edgeMaterial;
+        [SerializeField] private Renderer _blockerRenderer;
+        private Material _blockerMaterial;
         
         protected override void Awake() {
             int effectNumber = int.Parse(Name[1].ToString());
@@ -32,6 +34,7 @@ namespace Fasett {
             Renderer renderer = _target.GetComponent<Renderer>();
             _edgeMaterial = renderer.materials[0];
             _holeMaterial = renderer.materials[1];
+            _blockerMaterial = _blockerRenderer.material;
 
             base.Awake();
         }
@@ -71,6 +74,7 @@ namespace Fasett {
             if (_content.activeSelf && _edgeMaterial != null) {
                 _edgeMaterial.SetFloat("_Visibility", _sideView);
                 _holeMaterial.SetFloat("_Visibility", _sideView);
+                _blockerMaterial.SetFloat("_Fade", _sideView);
             }
         }
     }
