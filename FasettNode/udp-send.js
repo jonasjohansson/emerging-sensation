@@ -103,14 +103,15 @@ function connectPort(com) {
 }
 
 function sendMessage(message) {
-	console.log(message);
+	// console.log(message);
 	server.send(message, 0, message.length, PORT, BROADCAST_ADDR, function() {
 		// console.log(message);
 	});
 }
 
 function sprayMessage(message) {
-	for (let i = 0; i < 3; i++) {
+	console.log(message);
+	for (let i = 0; i < 5; i++) {
 		setTimeout(() => {
 			sendMessage(message);
 		}, i * 40);
