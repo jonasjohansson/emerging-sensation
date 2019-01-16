@@ -3,6 +3,8 @@
 
 void readAdvanced(byte index, float &val, float &oldVal, byte &lastSend, float min, float max){
   float newVal = analogRead(pins[index]);
+  
+  if (isCalibrating) return;
 /*
   Serial.print("raw reading: ");
   Serial.println(newVal);
@@ -44,7 +46,6 @@ Serial.println(mapped);
 }
 
 void s(byte pin, int val){
-  if (isCalibrating) return;
   Serial.print("S"+String(pin));
   Serial.print(' ');
   Serial.println(val);

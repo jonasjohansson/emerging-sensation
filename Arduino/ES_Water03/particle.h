@@ -20,15 +20,14 @@ class Particle {
 		int fade;
 		bool attracts;
 		CRGBPalette16 palette;
-		CRGB color;
-		void create(int p, int index, int len);
+		void create(int p, int index, CRGBPalette16 palette, int len);
 		void integrate();
 		void attract();
 		void draw();
 		void flutter();
 };
 
-void Particle::create(int p, int index, int len){
+void Particle::create(int p, int index, CRGBPalette16 palette, int len){
 	this->p = p;
 	this->last = p;
 	this->origin = p;
@@ -38,9 +37,8 @@ void Particle::create(int p, int index, int len){
 	this->attracts = false;
 	this->currentMillis = 0;
 	this->previousMillis = 0;
-	this->color = CRGB::White;
-	this->palette = buds_p[index];
-	this->flutterInterval = random(4000,8000);
+	this->palette = palette;
+	this->flutterInterval = random(6000,12000);
 	this->length = len;
 }
 
@@ -61,7 +59,7 @@ void Particle::attract(){
 
 void Particle::draw(){
 	leds[this->index][this->last] += blend(leds[this->index][this->last],CRGB::Black,127);
-	leds[this->index][this->p] += blend(leds[this->index][this->p],this->color,224); 
+	leds[this->index][this->p] += blend(leds[this->index][this->p],this->palette[0],224); 
 	// if (this->attracts){
 	// 	this->fade = cos8(millis() / 20);
 	// 	leds[this->index][this->p] += nblend(leds[this->index][this->p],CRGB::Black,fade); 
@@ -79,6 +77,6 @@ void Particle::flutter(){
 	if (this->currentMillis - this->previousMillis > this->flutterInterval){
 		this->previousMillis = this->currentMillis;
 		int len = LEDS_PER_STRIP[this->index];
-		this->target = constrain(random(len)+random(-32,32),0,len);
+		this->target = constrain(random(len)+random(-64,64),0,len);
 	}
 }
