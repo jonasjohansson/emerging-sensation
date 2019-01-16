@@ -2,10 +2,10 @@ extern const uint8_t gamma8[];
 
 const int numReadings = 10;
 
-int readings[numReadings];
+float readings[numReadings];
 int readIndex = 0;
-int total = 0;
-int average = 0;
+float total = 0;
+float average = 0;
 bool first = true;
 
 float smooth(float &val) {
@@ -23,7 +23,7 @@ float smooth(float &val) {
   if (readIndex >= numReadings)
     readIndex = 0;
 
-  average = total / numReadings;
+  average = (float)total / numReadings;
 
   return average;
 

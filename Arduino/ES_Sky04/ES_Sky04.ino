@@ -14,8 +14,8 @@
 #define NUM_LEDS 144
 #define NUM_LEDS_PER_SIDE 36
 #define NUM_WINGS 4
-#define SENSOR_MIN 200
-#define SENSOR_MAX 500
+#define SENSOR_MIN 150
+#define SENSOR_MAX 460
 
 CRGB leds[NUM_STRIPS][NUM_LEDS];
 CRGB col;
@@ -23,6 +23,9 @@ CRGB col;
 unsigned long timer = 0;
 unsigned long lastFrame = 0;
 unsigned long thisFrame = 0;
+unsigned long frameLength;
+
+unsigned long holeTimer[4];
 
 boolean isCalibrating = true;
 
@@ -56,11 +59,13 @@ int skyMap[4][4][2][2] = {
 int skyMap2[4][8][36][2];
 int skyMap3[8][4][36][2];
 
-float pins[NUM_SENSORS] = {18, 22, 17, 19};
-float sensor[NUM_SENSORS];
+int pins[NUM_SENSORS] = {18, 22, 17, 19};
+float fSensor[NUM_SENSORS];
+byte sensor[NUM_SENSORS];
+byte sensorLastSend[NUM_SENSORS];
 float sensorTot;
 
-float sensorLast[NUM_SENSORS];
+float fSensorLast[NUM_SENSORS] = {255,255,255,255};
 float sensorRaw[NUM_SENSORS];
 
 float raveFade;
@@ -146,12 +151,12 @@ void skyFull() {
   for (byte y = 0; y < 4; y++) {
     for (byte x = 0; x < 8; x++) {
       for (byte p = 0; p < 36; p++) {
-        int index = constrain( (y * 36 + p - (255 - sensor[x / 2]) / 4) * 255 / 144
-                               //+ cos8( (y * 36 + p) + timer / 50 )/8
-                               /*+ cos8( (y * 36 + p) * 12 - (timer / 5 + cos8(timer / 5000)) )/4*/, 0, 240);
-        int fade =  180;
+        int index = constrain( (y * 36 + p + (255 - sensor[x / 2]) / 8-16) * 192 / 144
+                               + cos8( (y * 36 + p) + timer / 50 )/8
+                                + cos8( (y * 36 + p) * 12 - (timer / 5 + cos8(timer / 5000)) )/8, 0, 240);
+        int fade =  255 - sensor[x/2]*3/4;
         CRGB color = ColorFromPalette(fullPal, index, fade, LINEARBLEND);
-        int iwhite = gamma8[cos8( (y * 36 + p) * 21 - timer / 5)];
+        int iwhite = gamma8[cos8( (y * 36 + p) * 21 - timer / 7)/2+cos8( (y * 36 + p) * 33 - timer / 5)/2];
         CRGB white = CRGB(iwhite, iwhite, iwhite);
         setPixel(y, x, p,  color + white);
       }
@@ -175,13 +180,13 @@ void skyRave() {
 }
 
 void skyHoles() {
-  int tracelen = 3;
-  int ntraces = 7;
-  int dist = 144 / ntraces;
+  int tracelen = 4;
+  int ntraces = 11;
+  int dist = 144 / ntraces;;
   for (int h = 0; h < 4; h++) {
     if (sensor[h] < 230) {
       for (int n = 0; n < ntraces; n++) {
-        int step = ((timer / 30)) % 144;
+        int step = (holeTimer[h] / 32) % 144;
         for (int t = 0; t < tracelen; t++) {
           int s = (step + t + dist * n) % 144;
           int p, y, x;
@@ -209,11 +214,13 @@ void skyHoles() {
             Serial.print(p);
             Serial.println("\t");*/
           int index = 255 - t * 30;
-          CRGB *pixel = getPixel(y, h * 2 + 1, p);
+          CRGB *pixel = getPixel(y, x, p);
+          *pixel = blend(*pixel, ColorFromPalette(spinPal, index, 255), constrain(map(sensor[h],255,180,0,255 ),0,255));
+/*          CRGB *pixel = getPixel(y, h * 2 + 1, p);
           *pixel = nblend(*pixel, ColorFromPalette(spinPal, index, 255), 127 - sensor[h] / 2);
           CRGB *pixel2 = getPixel(y, h * 2, p);
           *pixel2 = nblend(*pixel, ColorFromPalette(spinPal, index, 255), 127 - sensor[h] / 2);
-        }
+*/        }
       }
     }
   }
@@ -247,11 +254,14 @@ void skyHoles() {
 void loop() {
   lastFrame = thisFrame;
   thisFrame = millis();
-  unsigned long frameLength = thisFrame - lastFrame;
+  frameLength = thisFrame - lastFrame;
   sensorTot = 0;
   for (byte i = 0; i < NUM_SENSORS; i++) {
-    readAdvanced(i, sensor[i], sensorLast[i], SENSOR_MIN, SENSOR_MAX);
-    timer += frameLength / 8 + frameLength / NUM_SENSORS * (255 - sensor[i]) / 127;
+    readAdvanced(i, fSensor[i], fSensorLast[i], sensorLastSend[i], SENSOR_MIN, SENSOR_MAX);
+    sensor[i]=round(fSensor[i]);
+
+    timer += frameLength / 8 + frameLength / NUM_SENSORS * (255 - sensor[i]) / 128;
+    holeTimer[i] += frameLength / 8 + frameLength * (255 - sensor[i]) / 256;
     sensorTot += sensor[1];
   }
 
@@ -270,6 +280,7 @@ void loop() {
   if (raveFade) {
     skyRave();
   }
+//  FastLED.clear ();
   skyHoles();
   FastLED.show();
 }
