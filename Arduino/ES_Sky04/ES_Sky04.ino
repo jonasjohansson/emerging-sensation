@@ -16,6 +16,8 @@
 #define NUM_WINGS 4
 #define SENSOR_MIN 150
 #define SENSOR_MAX 460
+#define CALIBRATION_DELAY 5000
+#define BRIGHTNESS 255
 
 CRGB leds[NUM_STRIPS][NUM_LEDS];
 CRGB col;
@@ -72,7 +74,9 @@ float raveFade;
 int raveTrigger = 100;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.println("Emerging Sensation: Sky.");
+  Serial.println("Initiating calibration…");
+  FastLED.setBrightness(BRIGHTNESS);
   FastLED.addLeds<NEOPIXEL, 6>(leds[0], NUM_LEDS);
   FastLED.addLeds<NEOPIXEL, 20>(leds[1], NUM_LEDS);
   FastLED.addLeds<NEOPIXEL, 21>(leds[2], NUM_LEDS);
@@ -81,9 +85,7 @@ void setup() {
   FastLED.addLeds<NEOPIXEL, 14>(leds[5], NUM_LEDS);
   FastLED.addLeds<NEOPIXEL, 7>(leds[6], NUM_LEDS);
   FastLED.addLeds<NEOPIXEL, 8>(leds[7], NUM_LEDS);
-  FastLED.clear();
-  FastLED.show();
-
+  
   for (byte i = 0; i < 4; i++) {
     for (byte k = 0; k < 4; k++) {
       for (byte l = 0; l < 2; l++) {
@@ -265,11 +267,7 @@ void loop() {
     sensorTot += sensor[1];
   }
 
-  // calibration code
-  if (isCalibrating && millis() > 5000) {
-    isCalibrating = false;
-    Serial.println("Sky calibration complete!");
-  }
+  calibrate();
   
   raveFade = constrain(raveFade - frameLength / 2, 0, 1023);
   if (sensor[0] < 120 && sensor[1] < 120 && sensor[2] < 120 && sensor[3] < 120) {
@@ -283,4 +281,12 @@ void loop() {
 //  FastLED.clear ();
   skyHoles();
   FastLED.show();
+}
+
+void calibrate(){
+  if (isCalibrating && millis() > CALIBRATION_DELAY) {
+    isCalibrating = false;
+    Serial.println("Complete!");
+  }
+  return;
 }
