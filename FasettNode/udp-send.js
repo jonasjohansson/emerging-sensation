@@ -5,19 +5,6 @@ const server = dgram.createSocket("udp4");
 const PORT = 7003;
 const BROADCAST_ADDR = "255.255.255.255";
 const BAUDRATE = 152000;
-// const DEBUG = false;
-// const START = Date.now();
-
-const devices = [
-	{
-		serialNumber: "2211820",
-		id: "Sky"
-	},
-	{
-		serialNumber: "4613010",
-		id: "Body"
-	}
-];
 
 server.bind(function() {
 	server.setBroadcast(true);
@@ -30,8 +17,7 @@ async function getPort() {
 	if (ports.length > 0) {
 		for (let port of ports) {
 			setId(port);
-			connectPort(port.comName, port.id);
-			// connectPort(port.comName);
+			connectPort(port.comName);
 		}
 	} else {
 		setTimeout(getPort, 3000);
@@ -52,9 +38,8 @@ function setId(port) {
 	}
 }
 
-// function connectPort(com, id) {
-function connectPort(com, id) {
-	console.log("Connecting to", id, "on port", com);
+function connectPort(com) {
+	console.log("Connecting port", com);
 
 	let port = new SerialPort(com, {
 		baudRate: BAUDRATE,
@@ -80,7 +65,7 @@ function connectPort(com, id) {
 	});
 
 	port.on("open", () => {
-		console.log(id, "open! Let there be light!");
+		console.log(com, "open! Let there be light!");
 	});
 
 	port.on("error", function(err) {
@@ -89,23 +74,16 @@ function connectPort(com, id) {
 }
 
 function sendMessage(message) {
-	// console.log(message);
-	server.send(message, 0, message.length, PORT, BROADCAST_ADDR, function() {
-		// console.log(message);
-	});
+	server.send(message, 0, message.length, PORT, BROADCAST_ADDR, function() {});
 }
 
 function sprayMessage(message) {
 	console.log(message);
-	for (let i = 0; i < 5; i++) {
+	for (let i = 0; i < 3; i++) {
 		setTimeout(() => {
 			sendMessage(message);
-		}, i * 40);
+		}, i * 20);
 	}
 }
-
-// for (let i = 0; i < 10; i++) {
-// 	sprayMessage(`W${i} 255 0 0`);
-// }
 
 getPort();
