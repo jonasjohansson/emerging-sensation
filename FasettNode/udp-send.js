@@ -16,7 +16,7 @@ async function getPort() {
 	ports = ports.filter(data => data.manufacturer === "Teensyduino");
 	if (ports.length > 0) {
 		for (let port of ports) {
-			setId(port);
+			// setId(port);
 			connectPort(port.comName);
 		}
 	} else {
@@ -29,14 +29,14 @@ async function getPorts() {
 	return SerialPort.list();
 }
 
-function setId(port) {
-	for (var key in devices) {
-		let device = devices[key];
-		if (device.serialNumber === port.serialNumber) {
-			port.id = device.id;
-		}
-	}
-}
+// function setId(port) {
+// 	for (var key in devices) {
+// 		let device = devices[key];
+// 		if (device.serialNumber === port.serialNumber) {
+// 			port.id = device.id;
+// 		}
+// 	}
+// }
 
 function connectPort(com) {
 	console.log("Connecting port", com);
