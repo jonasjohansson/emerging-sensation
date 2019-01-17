@@ -8,16 +8,16 @@ const BAUDRATE = 152000;
 // const DEBUG = false;
 // const START = Date.now();
 
-// const devices = [
-// 	{
-// 		serialNumber: '2211820',
-// 		id: 'a'
-// 	},
-// 	{
-// 		serialNumber: '4655120',
-// 		id: 'b'
-// 	}
-// ];
+const devices = [
+	{
+		serialNumber: "2211820",
+		id: "Sky"
+	},
+	{
+		serialNumber: "4613010",
+		id: "Body"
+	}
+];
 
 server.bind(function() {
 	server.setBroadcast(true);
@@ -29,9 +29,9 @@ async function getPort() {
 	ports = ports.filter(data => data.manufacturer === "Teensyduino");
 	if (ports.length > 0) {
 		for (let port of ports) {
-			// setId(port);
-			// connectPort(port.comName, port.id);
-			connectPort(port.comName);
+			setId(port);
+			connectPort(port.comName, port.id);
+			// connectPort(port.comName);
 		}
 	} else {
 		setTimeout(getPort, 3000);
@@ -39,22 +39,22 @@ async function getPort() {
 }
 
 async function getPorts() {
-	console.log("Scanning all ports…");
+	console.log("Scanning all USB ports…");
 	return SerialPort.list();
 }
 
-// function setId(port) {
-// 	for (var key in devices) {
-// 		let device = devices[key];
-// 		if (device.serialNumber === port.serialNumber) {
-// 			port.id = device.id;
-// 		}
-// 	}
-// }
+function setId(port) {
+	for (var key in devices) {
+		let device = devices[key];
+		if (device.serialNumber === port.serialNumber) {
+			port.id = device.id;
+		}
+	}
+}
 
 // function connectPort(com, id) {
-function connectPort(com) {
-	console.log("Connecting to port:", com);
+function connectPort(com, id) {
+	console.log("Connecting to", id, "on port", com);
 
 	let port = new SerialPort(com, {
 		baudRate: BAUDRATE,
@@ -66,35 +66,21 @@ function connectPort(com) {
 	port.pipe(parser);
 
 	parser.on("data", function(data) {
-		// console.log('data received: ' + data);
-		// console.log(`${id} ${data}`);
-		// console.log(`${data}`);
-		// console.log(data);
-		// sendMessage(data);
 		sprayMessage(data);
 	});
 
-	port.on("open", () => {
-		console.log("Port open… the world is yours!");
-	});
-
-	// port.on('readable', () => {
-	// console.log('reading…');
-	// console.log('Data:', port.read());
-	// var buffer = port.read();
-	// if (buffer !== null) {
-	// 	msg = buffer.toString('utf8');
-	// 	msg = msg.trim();
-	// 	// console.log(msg);
-	// 	// sendMessage(`${id} ${msg}`);
-	// 	sprayMessage(`${msg}`);
-	// }
+	// port.on("readable", () => {
+	// 	sprayMessage(port.read());
 	// });
 
 	port.on("close", function(err) {
 		console.log("Port closed!");
 		console.log("Reconnecting…");
 		getPort();
+	});
+
+	port.on("open", () => {
+		console.log(id, "open! Let there be light!");
 	});
 
 	port.on("error", function(err) {
