@@ -55,7 +55,7 @@ function connectPort(com) {
 	});
 
 	port.on("open", () => {
-		console.log(id, "open! Let there be light!");
+		console.log(com, "open! Let there be light!");
 	});
 
 	port.on("error", function(err) {
