@@ -63,7 +63,7 @@ function connectPort(com) {
 	});
 
 	setTimeout(function() {
-		port.open();
+		// port.open();
 	}, 500);
 }
 
