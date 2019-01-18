@@ -8,7 +8,7 @@ CRGB leds[3][NUM_LEDS];
 
 #include "particle.h"
 
-#define BRIGHTNESS 150
+#define BRIGHTNESS 140
 #define CALIBRATION_DELAY 5000
 #define TOUCH_DELAY 300
 
