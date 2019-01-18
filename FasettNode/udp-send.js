@@ -40,13 +40,13 @@ function connectPort(com) {
 	let parser = new Readline();
 	port.pipe(parser);
 
-	parser.on("data", function(data) {
-		sprayMessage(data);
-	});
-
-	// port.on("readable", () => {
-	// 	sprayMessage(port.read());
+	// parser.on("data", function(data) {
+	// 	sprayMessage(data);
 	// });
+
+	port.on("readable", () => {
+		sprayMessage(port.read());
+	});
 
 	port.on("close", function(err) {
 		console.log("Port closed!");
