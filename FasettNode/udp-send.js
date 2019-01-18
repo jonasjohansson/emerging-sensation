@@ -60,6 +60,10 @@ function connectPort(com) {
 
 	port.on("error", function(err) {
 		console.log("Error: ", err.message);
+		console.log("Reconnecting in 2 seconds…");
+		setTimeout(function() {
+			getPort();
+		}, 2000);
 	});
 }
 
