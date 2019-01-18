@@ -41,7 +41,7 @@ function connectPort(com) {
 	port.pipe(parser);
 
 	parser.on("data", function(data) {
-		sprayMessage(data);
+		sprayMessage(String(data));
 	});
 
 	// port.on("readable", () => {
