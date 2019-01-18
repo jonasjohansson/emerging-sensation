@@ -5,6 +5,7 @@ const server = dgram.createSocket("udp4");
 const PORT = 7003;
 const BROADCAST_ADDR = "255.255.255.255";
 const BAUDRATE = 152000;
+const RECONNECT_DELAY = 200;
 
 server.bind(function() {
 	server.setBroadcast(true);
@@ -33,7 +34,9 @@ function connectPort(com) {
 
 	let port = new SerialPort(com, {
 		baudRate: BAUDRATE,
-		parser: SerialPort.parsers.raw
+		parser: SerialPort.parsers.raw,
+		autoStart: false,
+		lock: true
 	});
 
 	let Readline = SerialPort.parsers.Readline;
@@ -44,23 +47,24 @@ function connectPort(com) {
 		sprayMessage(data);
 	});
 
-	// port.on("readable", () => {
-	// 	sprayMessage(port.read());
-	// });
-
-	port.on("close", function(err) {
-		console.log("Port closed!");
-		console.log("Reconnecting…");
-		getPort();
-	});
-
 	port.on("open", () => {
 		console.log(com, "open! Let there be light!");
+	});
+
+	port.on("close", function(err) {
+		console.log("Port", com, "closed! Reconnecting…");
+		setTimeout(function() {
+			connectPort(com);
+		}, RECONNECT_DELAY);
 	});
 
 	port.on("error", function(err) {
 		console.log("Error: ", err.message);
 	});
+
+	setTimeout(function() {
+		port.open();
+	}, 500);
 }
 
 function sendMessage(message) {
