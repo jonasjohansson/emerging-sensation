@@ -5,7 +5,7 @@ const server = dgram.createSocket("udp4");
 const PORT = 7003;
 const BROADCAST_ADDR = "255.255.255.255";
 const BAUDRATE = 152000;
-const RECONNECT_DELAY = 200;
+const RECONNECT_DELAY = 1000;
 
 server.bind(function() {
 	server.setBroadcast(true);
@@ -53,18 +53,19 @@ function connectPort(com) {
 
 	port.on("close", function(err) {
 		console.log("Port", com, "closed! Reconnecting…");
-		setTimeout(function() {
-			connectPort(com);
-		}, RECONNECT_DELAY);
+		reconnect();
 	});
 
 	port.on("error", function(err) {
 		console.log("Error: ", err.message);
+		reconnect();
 	});
 
-	setTimeout(function() {
-		// port.open();
-	}, 500);
+	function reconnect() {
+		setTimeout(function() {
+			connectPort(com);
+		}, RECONNECT_DELAY);
+	}
 }
 
 function sendMessage(message) {
