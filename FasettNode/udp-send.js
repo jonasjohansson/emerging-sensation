@@ -41,7 +41,7 @@ function connectPort(com) {
 	port.pipe(parser);
 
 	parser.on("data", function(data) {
-		sprayMessage(String(data));
+		sprayMessage(data);
 	});
 
 	// port.on("readable", () => {
@@ -60,10 +60,6 @@ function connectPort(com) {
 
 	port.on("error", function(err) {
 		console.log("Error: ", err.message);
-		console.log("Reconnecting in 2 seconds…");
-		setTimeout(function() {
-			getPort();
-		}, 2000);
 	});
 }
 
