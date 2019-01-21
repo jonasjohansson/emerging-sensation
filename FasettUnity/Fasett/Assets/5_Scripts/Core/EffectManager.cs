@@ -163,6 +163,11 @@ namespace Fasett {
                 Debug.Log("[Effect Manager] Effect was anchored: " + e.Name);
                 _updateLoadingMessageCallback("Calibration completed successfully!");
             }
+            string effectPositionsAndRotations = "[EffectManager] Positions and rotations: ";
+            foreach (Effect effect in _effects) {
+                effectPositionsAndRotations += $"{effect.Name} pos[{effect.transform.position.x},{effect.transform.position.y},{effect.transform.position.z}] | {effect.Name} rot[{effect.transform.rotation.eulerAngles.x},{effect.transform.rotation.eulerAngles.y},{effect.transform.rotation.eulerAngles.z}] | ";
+            }
+            Debug.Log(effectPositionsAndRotations);
             _setupCompleteCallback(true);
         }
 
